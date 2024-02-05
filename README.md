@@ -5,3 +5,5 @@ Next.js (TypeScript) project that shows the possibilities of using LangChain tec
 ## Quick start
 
 - `yarn dev` run application for development
+- `yarn build` building project to production
+- `yarn lint` linting and formatting project by eslint rules
