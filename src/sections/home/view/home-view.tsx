@@ -64,7 +64,7 @@ export const HomeView = () => {
   );
 
   const renderButton = (
-    <div className="mx-auto mb-2 w-fit rounded-full border-2 border-light-purple bg-black px-4 py-1 text-text-light">
+    <div className="mx-auto mb-2 w-fit rounded-full border-2 border-light-purple bg-black px-3 py-0.5 text-text-light">
       {/* <span className="icon-[gravity-ui--hand-point-down] " /> */}
       Context-Aware
     </div>
