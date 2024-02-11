@@ -1,5 +1,13 @@
 'use client';
 
-import { ThemeProvider, Button, Tab, Tabs, TabsBody, TabsHeader } from '@material-tailwind/react';
+import {
+  ThemeProvider,
+  Button,
+  Tab,
+  Tabs,
+  TabsBody,
+  TabsHeader,
+  Input,
+} from '@material-tailwind/react';
 
-export { ThemeProvider, Button, Tab, Tabs, TabsBody, TabsHeader };
+export { ThemeProvider, Button, Tab, Tabs, TabsBody, TabsHeader, Input };

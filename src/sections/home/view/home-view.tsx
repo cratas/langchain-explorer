@@ -104,7 +104,7 @@ export const HomeView = () => {
             </Tab>
           ))}
         </TabsHeader>
-        <TabsBody placeholder="">
+        <TabsBody placeholder="" className="mt-5">
           {TABS.map(({ value, content }) => (
             <TabPanel key={value} value={value}>
               {content}
