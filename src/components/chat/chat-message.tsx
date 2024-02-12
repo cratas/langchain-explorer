@@ -12,7 +12,7 @@ export const ChatMessage = ({ message }: Props) => {
     <div className="w-full text-left text-sm">
       <div className="flex flex-row gap-3">
         <div
-          className={`${!isUser ? 'bg-text-light' : 'bg-light-purple'} flex h-8 w-8 items-center justify-center rounded-full`}
+          className={`${!isUser ? 'bg-text-light' : 'bg-lighter-purple'} flex h-9 w-9 items-center justify-center rounded-full`}
         >
           {isUser ? (
             <span className="icon-[solar--user-bold] bg-black text-xl" />

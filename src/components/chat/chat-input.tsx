@@ -5,9 +5,10 @@ import React, { useCallback, useState } from 'react';
 
 type Props = {
   handleSendMessage: (message: string) => void;
+  buttonLoading?: boolean;
 };
 
-export const ChatInput = ({ handleSendMessage }: Props) => {
+export const ChatInput = ({ handleSendMessage, buttonLoading = false }: Props) => {
   const [input, setInput] = useState('');
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -48,13 +49,14 @@ export const ChatInput = ({ handleSendMessage }: Props) => {
         }}
       />
       <Button
+        loading={buttonLoading}
         onClick={handleSubmit}
         placeholder=""
         size="sm"
         disabled={!input}
-        className="!absolute right-1 top-1 flex items-center gap-3 rounded bg-light-purple"
+        className="!absolute right-1 top-1 flex items-center gap-3 rounded bg-lighter-purple"
       >
-        <span className="icon-[fluent--send-20-filled] h-4 w-4" />
+        {!buttonLoading && <span className="icon-[fluent--send-20-filled] h-4 w-4" />}
       </Button>
     </div>
   );

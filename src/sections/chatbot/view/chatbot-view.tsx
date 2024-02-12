@@ -1,6 +1,6 @@
 'use client';
 
-import { ChatInput } from '@/components/chat';
+import { ChatInput, NoMessages } from '@/components/chat';
 import { ChatMessage } from '@/components/chat/chat-message';
 import { useMessagesScroll } from '@/hooks/use-message-scroll';
 import { Message } from '@/types/chat';
@@ -12,6 +12,8 @@ export const ChatBotView = () => {
 
   const { messagesEndRef } = useMessagesScroll(messages);
 
+  const [isFetching, setIsFetching] = useState(false);
+
   const handleSendMessage = (message: string) => {
     setMessages((prev) => [
       ...prev,
@@ -22,41 +24,46 @@ export const ChatBotView = () => {
       },
     ]);
 
-    setMessages((prev) => [
-      ...prev,
-      {
-        id: uuidv4(),
-        content: message,
-        isUser: false,
+    setIsFetching(true);
+    fetch('/api/custom-chatbot', {
+      method: 'POST',
+      body: JSON.stringify({ message, history: messages }),
+      headers: {
+        'Content-Type': 'application/json',
       },
-    ]);
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setMessages((prev) => [
+          ...prev,
+          {
+            id: data.id,
+            content: data.content,
+            isUser: false,
+          },
+        ]);
+        setIsFetching(false);
+      });
   };
 
+  console.log('messages', isFetching);
+
   return (
-    <div className="h-[45rem] bg-background-dark p-3">
+    <div className="h-[35rem] bg-background-dark p-3">
       <div className="h-full rounded-xl border border-browser-background bg-background-light">
         <div className="relative flex h-full w-full flex-col gap-3 p-3">
           <div
             className="flex h-full w-full flex-col gap-12 overflow-y-auto p-3"
             ref={messagesEndRef}
           >
-            {!messages.length && (
-              <div className="flex h-full w-full flex-col items-center justify-center gap-2">
-                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white">
-                  <span className="icon-[lucide--bot] bg-black text-xl font-bold" />
-                </div>
-                <p className=" text-center text-xl font-bold text-text-primary">
-                  How can I help you today?
-                </p>
-              </div>
-            )}
+            {!messages.length && <NoMessages />}
 
             {messages.map((message) => (
               <ChatMessage key={message.id} message={message} />
             ))}
           </div>
 
-          <ChatInput handleSendMessage={handleSendMessage} />
+          <ChatInput handleSendMessage={handleSendMessage} buttonLoading={isFetching} />
         </div>
       </div>
     </div>
