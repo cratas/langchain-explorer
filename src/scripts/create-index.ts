@@ -30,7 +30,11 @@ dotenv.config();
   const splitDocs = await splitter.splitDocuments(docs);
 
   // uploading chunks to pinecone
-  await PineconeStore.fromDocuments(splitDocs, new OpenAIEmbeddings(), {
-    pineconeIndex,
-  });
+  await PineconeStore.fromDocuments(
+    splitDocs,
+    new OpenAIEmbeddings({ modelName: 'text-embedding-3-large' }),
+    {
+      pineconeIndex,
+    }
+  );
 })();

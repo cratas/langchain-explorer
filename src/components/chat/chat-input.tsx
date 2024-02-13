@@ -43,7 +43,7 @@ export const ChatInput = ({ handleSendMessage, buttonLoading = false }: Props) =
         placeholder="Message ..."
         value={input}
         onChange={handleInputChange}
-        className="!border-2 !border-browser-light pr-20 text-text-primary placeholder-text-dark"
+        className="!border-2 !border-browser-light pr-20 text-white placeholder-text-dark"
         containerProps={{
           className: 'min-w-0',
         }}

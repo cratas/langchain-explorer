@@ -1,4 +1,5 @@
 import { Message } from '@/types/chat';
+import { Spinner } from '@material-tailwind/react';
 import React from 'react';
 
 type Props = {
@@ -6,7 +7,7 @@ type Props = {
 };
 
 export const ChatMessage = ({ message }: Props) => {
-  const { content, isUser } = message;
+  const { content, isUser, isError } = message;
 
   return (
     <div className="w-full text-left text-sm">
@@ -26,7 +27,11 @@ export const ChatMessage = ({ message }: Props) => {
             {isUser ? 'You' : 'AI Assistant'}
           </p>
 
-          {content}
+          <p
+            className={`${isError ? 'inline-block rounded-md border border-red-700 p-2 text-red-700' : 'text-white'}`}
+          >
+            {!content?.length ? <Spinner /> : content}
+          </p>
         </div>
       </div>
     </div>

@@ -1,5 +1,5 @@
 import { Message } from '@/types/chat';
-import { initChain } from '@/utils/chain';
+import { getChain } from '@/utils/chain';
 import { NextResponse } from 'next/server';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -8,7 +8,7 @@ export const POST = async (request: Request, response: Response) => {
   const { message } = body;
   const history: Message[] = body.history || [];
 
-  const chain = await initChain();
+  const chain = await getChain();
 
   const res = await chain.invoke({
     question: message,
@@ -16,14 +16,6 @@ export const POST = async (request: Request, response: Response) => {
   });
 
   console.log('res', res);
-
-  const links: string[] = Array.from(
-    new Set(
-      res.sourceDocuments.map(
-        (document: { metadata: { source: string } }) => document.metadata.source
-      )
-    )
-  );
 
   return NextResponse.json({ isUser: false, content: res.text, id: uuidv4() });
 };
