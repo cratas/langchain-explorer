@@ -27,11 +27,19 @@ export const ChatMessage = ({ message }: Props) => {
             {isUser ? 'You' : 'AI Assistant'}
           </p>
 
-          <p
+          <div
             className={`${isError ? 'inline-block rounded-md border border-red-700 p-2 text-red-700' : 'text-white'}`}
           >
-            {!content?.length ? <Spinner /> : content}
-          </p>
+            {!content?.length ? (
+              <Spinner />
+            ) : (
+              content.split('\n').map((text, index) => (
+                <p key={index} className="my-4">
+                  {text}
+                </p>
+              ))
+            )}
+          </div>
         </div>
       </div>
     </div>

@@ -15,7 +15,7 @@ enum TabsEnum {
 
 const TABS = [
   {
-    label: 'Custom ChatBot',
+    label: 'Q&A ChatBot (RAG)',
     value: TabsEnum.CUSTOM_CHATBOT,
     content: (
       <BrowserLayout>

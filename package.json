@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@iconify/tailwind": "^0.1.4",
+    "@langchain/openai": "^0.0.14",
     "@langchain/pinecone": "^0.0.3",
     "@material-tailwind/react": "^2.1.9",
     "@pinecone-database/pinecone": "^2.0.1",
@@ -20,6 +21,7 @@
     "dotenv": "^16.4.2",
     "langchain": "^0.1.17",
     "next": "14.1.0",
+    "numeral": "^2.0.6",
     "openai": "^4.27.0",
     "pdf-parse": "^1.1.1",
     "react": "^18",
@@ -52,5 +54,10 @@
     "prettier-plugin-tailwindcss": "^0.5.11",
     "tailwindcss": "^3.3.0",
     "typescript": "^5"
+  },
+  "browser": {
+    "fs": false,
+    "os": false,
+    "path": false
   }
 }
