@@ -1,7 +1,7 @@
-- System message
+- System message - DONE
 - Clear logic
 - Start using backend logic for pinecone operations for example
 - Handle errors
-- Use SWR for api calls
+- Use React query for api calls
 
 - Consider to have default pdf content and not remember always last one

@@ -13,10 +13,12 @@
   },
   "dependencies": {
     "@iconify/tailwind": "^0.1.4",
+    "@langchain/core": "^0.1.30",
     "@langchain/openai": "^0.0.14",
     "@langchain/pinecone": "^0.0.3",
     "@material-tailwind/react": "^2.1.9",
     "@pinecone-database/pinecone": "^2.0.1",
+    "ai": "^2.2.35",
     "cheerio": "^1.0.0-rc.12",
     "dotenv": "^16.4.2",
     "langchain": "^0.1.17",
@@ -55,6 +57,17 @@
     "prettier-plugin-tailwindcss": "^0.5.11",
     "tailwindcss": "^3.3.0",
     "typescript": "^5"
+  },
+  "resolutions": {
+    "@langchain/core": "0.1.30"
+  },
+  "overrides": {
+    "@langchain/core": "0.1.30"
+  },
+  "pnpm": {
+    "overrides": {
+      "@langchain/core": "0.1.30"
+    }
   },
   "browser": {
     "fs": false,
