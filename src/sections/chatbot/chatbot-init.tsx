@@ -6,22 +6,21 @@ const DEFAULT_MESSAGE = `Imagine you are Naval Ravikant and you want to give adv
 I will provide you context snippets from "The Almanack of Naval Ravikant" from a vector database to help you answer the user's questions.
 Don't mention context snippets when replying to user and only mention yourself by your first name.`;
 
-const creaetDefaultFakeFile = (name: string) => ({
-  name,
+const DEFAULT_FILE_NAME = 'The-Almanack-Of-Naval-Ravikant.pdf';
+
+const defaultFakeFile = {
+  name: DEFAULT_FILE_NAME,
   size: 1200000,
   type: 'application/pdf',
   lastModified: Date.now(),
-});
+};
 
 type Props = {
   onSubmit: (systemMessage: string, file: File, pdfChanged: boolean) => void;
-  currentFileName: string;
 };
 
-export const ChatBotInit = ({ onSubmit, currentFileName }: Props) => {
-  const [file, setFile] = useState<File | null>(
-    () => creaetDefaultFakeFile(currentFileName) as unknown as File
-  );
+export const ChatBotInit = ({ onSubmit }: Props) => {
+  const [file, setFile] = useState<File | null>(defaultFakeFile as unknown as File);
 
   const [systemMessage, setSystemMessage] = useState(DEFAULT_MESSAGE);
 
@@ -30,15 +29,15 @@ export const ChatBotInit = ({ onSubmit, currentFileName }: Props) => {
   };
 
   const handleSubmit = () => {
-    onSubmit(systemMessage, file as File, file?.name !== currentFileName);
+    onSubmit(systemMessage, file!, file?.name === DEFAULT_FILE_NAME);
   };
 
   return (
     <div className="flex flex-col items-center">
       <div className="mb-5 text-center">
-        <h1 className="text-2xl font-bold text-white">{`Let's create custom Q&A Chat`}</h1>
+        <h1 className="text-2xl font-bold text-white">{`Let's set our Q&A ChatBot`}</h1>
         <h6 className="text-md font-normal text-text-primary">
-          Please upload file with context and provide system message
+          You can provide (or use default) a system message and a PDF file to start the conversation
         </h6>
       </div>
 

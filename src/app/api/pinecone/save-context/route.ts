@@ -4,18 +4,12 @@ import { PineconeStore } from '@langchain/pinecone';
 import { PDFLoader } from 'langchain/document_loaders/fs/pdf';
 import { CharacterTextSplitter } from 'langchain/text_splitter';
 import { NextResponse } from 'next/server';
-import { promises as fs } from 'fs';
 
 export const POST = async (request: Request) => {
   const formData = await request.formData();
 
-  const file = formData.get('file') as string;
-  const fileName = formData.get('fileName') as string;
-
-  await fs.writeFile(
-    `${process.cwd()}/src/app/data.json`,
-    JSON.stringify({ currentFile: fileName })
-  );
+  const isDefault = formData.get('isDefault') as string;
+  const file = formData.get('file') as Blob;
 
   const pinecone = new Pinecone({
     apiKey: process.env.PINECONE_API_KEY as string,
@@ -23,12 +17,16 @@ export const POST = async (request: Request) => {
 
   const pineconeIndex = pinecone.index(process.env.PINECONE_INDEX as string);
 
-  // Deleting old index values
-  // -----------------------------------------------------------------------------
-  await pineconeIndex.deleteAll();
-  // -----------------------------------------------------------------------------
+  try {
+    await pineconeIndex.deleteAll();
+  } catch {
+    console.log('There are no documents to delete.');
+  }
 
-  const loader = new PDFLoader(file, {
+  const fileToLoad =
+    isDefault === 'true' ? `${process.cwd()}/public/pdf/The-Almanack-Of-Naval-Ravikant.pdf` : file;
+
+  const loader = new PDFLoader(fileToLoad, {
     splitPages: false,
   });
   const docs = await loader.load();
@@ -40,7 +38,6 @@ export const POST = async (request: Request) => {
   });
   const splitDocs = await splitter.splitDocuments(docs);
 
-  // uploading chunks to pinecone
   await PineconeStore.fromDocuments(
     splitDocs,
     new OpenAIEmbeddings({ modelName: 'text-embedding-3-small' }),
