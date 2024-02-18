@@ -15,7 +15,7 @@ enum TabsEnum {
 
 const TABS = [
   {
-    label: 'Custom ChatBot',
+    label: 'Q&A ChatBot (RAG)',
     value: TabsEnum.CUSTOM_CHATBOT,
     content: (
       <BrowserLayout>
@@ -104,7 +104,7 @@ export const HomeView = () => {
             </Tab>
           ))}
         </TabsHeader>
-        <TabsBody placeholder="">
+        <TabsBody placeholder="" className="mt-5">
           {TABS.map(({ value, content }) => (
             <TabPanel key={value} value={value}>
               {content}

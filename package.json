@@ -13,15 +13,26 @@
   },
   "dependencies": {
     "@iconify/tailwind": "^0.1.4",
+    "@langchain/openai": "^0.0.14",
+    "@langchain/pinecone": "^0.0.3",
     "@material-tailwind/react": "^2.1.9",
-    "langchain": "^0.1.13",
+    "@pinecone-database/pinecone": "^2.0.1",
+    "cheerio": "^1.0.0-rc.12",
+    "dotenv": "^16.4.2",
+    "langchain": "^0.1.17",
     "next": "14.1.0",
+    "numeral": "^2.0.6",
+    "openai": "^4.27.0",
+    "pdf-parse": "^1.1.1",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "ts-node": "^10.9.2",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
     "@iconify/json": "^2.2.181",
     "@types/node": "^20",
+    "@types/numeral": "^2.0.5",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
@@ -44,5 +55,10 @@
     "prettier-plugin-tailwindcss": "^0.5.11",
     "tailwindcss": "^3.3.0",
     "typescript": "^5"
+  },
+  "browser": {
+    "fs": false,
+    "os": false,
+    "path": false
   }
 }
