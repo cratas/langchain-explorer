@@ -1,7 +1,10 @@
 - System message - DONE
+<<<<<<< Updated upstream
 - Clear logic
+=======
+- Clear logic - DONE
+>>>>>>> Stashed changes
 - Start using backend logic for pinecone operations for example
 - Handle errors
 - Use React query for api calls
 
-- Consider to have default pdf content and not remember always last one

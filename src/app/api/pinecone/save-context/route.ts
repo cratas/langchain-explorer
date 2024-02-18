@@ -5,7 +5,6 @@ import { PDFLoader } from 'langchain/document_loaders/fs/pdf';
 import { CharacterTextSplitter } from 'langchain/text_splitter';
 import { NextResponse } from 'next/server';
 import { DEFAULT_FILE_NAME } from '@/constants/chat';
-import { EMBEDDING_MODEL_NAME } from '@/config-global';
 
 export const POST = async (request: Request) => {
   const formData = await request.formData();
@@ -46,14 +45,10 @@ export const POST = async (request: Request) => {
 
   const splitDocs = await splitter.splitDocuments(docs);
 
-  await PineconeStore.fromDocuments(
-    splitDocs,
-    new OpenAIEmbeddings({ modelName: EMBEDDING_MODEL_NAME }),
-    {
-      pineconeIndex,
-      namespace: fileName as string,
-    }
-  );
+  await PineconeStore.fromDocuments(splitDocs, new OpenAIEmbeddings(), {
+    pineconeIndex,
+    namespace: fileName as string,
+  });
 
   return NextResponse.json({ message: 'Pinecone index created' }, { status: 201 });
 };
