@@ -63,7 +63,7 @@ export const ChatBotInit = ({ onSubmit }: Props) => {
         size="sm"
         className="mt-5 flex items-center rounded bg-lighter-purple"
       >
-        Start chatting
+        Create ChatBot
       </Button>
     </div>
   );

@@ -32,6 +32,7 @@
   "devDependencies": {
     "@iconify/json": "^2.2.181",
     "@types/node": "^20",
+    "@types/numeral": "^2.0.5",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
