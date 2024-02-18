@@ -15,33 +15,27 @@ type Props = {
   systemMessage: string;
 };
 
+const initMessagesWithSystemMesasge = (systemMessage: string) => [
+  { id: uuidv4(), content: systemMessage, role: 'system' as const },
+];
+
 export const ChatBotRoom = ({ onBack, fileName, systemMessage }: Props) => {
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [messages, setMessages] = useState<Message[]>(() =>
+    initMessagesWithSystemMesasge(systemMessage)
+  );
 
   const { messagesEndRef } = useMessagesScroll(messages);
 
-  const { isLoading, askChatBot, isError } = useChatBot();
-
-  // useEffect(() => {
-  //   const sendInitMessage = async () => {
-  //     const response = await askChatBot(systemMessage);
-
-  //     console.log('system message response', response);
-  //   };
-
-  //   sendInitMessage();
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
+  const { isLoading, askChatBot, isError } = useChatBot(fileName);
 
   const handleSendMessage = async (message: string) => {
-    setMessages((prev) => [
-      ...prev,
-      {
-        id: uuidv4(),
-        content: message,
-        isUser: true,
-      },
-    ]);
+    const newMessage = {
+      id: uuidv4(),
+      content: message,
+      role: 'user' as const,
+    };
+
+    setMessages((prev) => [...prev, newMessage]);
 
     const response = await askChatBot(message, messages);
 
@@ -55,7 +49,7 @@ export const ChatBotRoom = ({ onBack, fileName, systemMessage }: Props) => {
         {
           id: uuidv4(),
           content: 'Something went wrong, please try again.',
-          isUser: false,
+          role: 'bot',
           isError: true,
         },
       ]);
@@ -63,7 +57,7 @@ export const ChatBotRoom = ({ onBack, fileName, systemMessage }: Props) => {
   };
 
   const renderHeader = (
-    <div className="mb-2 flex w-full items-center">
+    <div className="flex w-full items-center border-b-2 border-browser-light pb-2">
       <Button
         onClick={onBack}
         placeholder=""
@@ -72,7 +66,7 @@ export const ChatBotRoom = ({ onBack, fileName, systemMessage }: Props) => {
         className="flex items-center gap-1 pl-0 text-sm normal-case text-text-primary hover:bg-transparent"
       >
         <span className="icon-[iconamoon--arrow-left-2-duotone] text-2xl" />
-        Back to settings
+        Create new ChatBot
       </Button>
 
       <p className="ml-auto text-sm font-bold text-text-light">{fileName || 'sdf'}</p>
@@ -80,27 +74,20 @@ export const ChatBotRoom = ({ onBack, fileName, systemMessage }: Props) => {
   );
 
   return (
-    <>
+    <div className="relative flex h-full w-full flex-col  rounded-xl border border-browser-background bg-background-light p-3">
       {renderHeader}
 
-      <div className="h-full w-full rounded-xl border border-browser-background bg-background-light">
-        <div className="relative flex h-full w-full flex-col gap-3 p-3">
-          <div
-            className="flex h-full w-full flex-col gap-12 overflow-y-auto p-3"
-            ref={messagesEndRef}
-          >
-            {!messages.length && <NoMessages />}
+      <div className="flex h-full w-full flex-col gap-12 overflow-y-auto p-3" ref={messagesEndRef}>
+        {!messages.filter((m) => m.role !== 'system').length && <NoMessages />}
 
-            {messages.map((message) => (
-              <ChatMessage key={message.id} message={message} />
-            ))}
+        {messages.map((message) => (
+          <ChatMessage key={message.id} message={message} />
+        ))}
 
-            {isLoading && <ChatMessage message={{ id: uuidv4(), isUser: false }} />}
-          </div>
-
-          <ChatInput handleSendMessage={handleSendMessage} buttonLoading={isLoading} />
-        </div>
+        {isLoading && <ChatMessage message={{ id: uuidv4(), role: 'bot' }} />}
       </div>
-    </>
+
+      <ChatInput handleSendMessage={handleSendMessage} buttonLoading={isLoading} />
+    </div>
   );
 };

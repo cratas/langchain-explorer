@@ -1,35 +1,23 @@
 import { FileUpload } from '@/components/upload';
+import { DEFAULT_FILE_NAME, DEFAULT_SYSTEM_MESSAGE } from '@/constants/chat';
 import { Button, Textarea } from '@material-tailwind/react';
 import React, { useState } from 'react';
 
-const DEFAULT_MESSAGE = `Imagine you are Naval Ravikant and you want to give advice to the user you're interacting with that may ask you questions or advice.
-I will provide you context snippets from "The Almanack of Naval Ravikant" from a vector database to help you answer the user's questions.
-Don't mention context snippets when replying to user and only mention yourself by your first name.`;
-
-const DEFAULT_FILE_NAME = 'The-Almanack-Of-Naval-Ravikant.pdf';
-
-const defaultFakeFile = {
-  name: DEFAULT_FILE_NAME,
-  size: 1200000,
-  type: 'application/pdf',
-  lastModified: Date.now(),
-};
-
 type Props = {
   onSubmit: (systemMessage: string, file: File, pdfChanged: boolean) => void;
+  setContextFile: (contextFile: File) => void;
+  contextFile: File | null;
 };
 
-export const ChatBotInit = ({ onSubmit }: Props) => {
-  const [file, setFile] = useState<File | null>(defaultFakeFile as unknown as File);
-
-  const [systemMessage, setSystemMessage] = useState(DEFAULT_MESSAGE);
+export const ChatBotInit = ({ onSubmit, setContextFile, contextFile }: Props) => {
+  const [systemMessage, setSystemMessage] = useState(DEFAULT_SYSTEM_MESSAGE);
 
   const handleChangeSystemMessage = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setSystemMessage(e.target.value);
   };
 
   const handleSubmit = () => {
-    onSubmit(systemMessage, file!, file?.name === DEFAULT_FILE_NAME);
+    onSubmit(systemMessage, contextFile!, contextFile?.name === DEFAULT_FILE_NAME);
   };
 
   return (
@@ -41,7 +29,7 @@ export const ChatBotInit = ({ onSubmit }: Props) => {
         </h6>
       </div>
 
-      <FileUpload accept=".pdf" setFile={setFile} file={file} />
+      <FileUpload accept=".pdf" setFile={setContextFile} file={contextFile} />
 
       <Textarea
         labelProps={{

@@ -4,45 +4,54 @@ import { PineconeStore } from '@langchain/pinecone';
 import { PDFLoader } from 'langchain/document_loaders/fs/pdf';
 import { CharacterTextSplitter } from 'langchain/text_splitter';
 import { NextResponse } from 'next/server';
+import { DEFAULT_FILE_NAME } from '@/constants/chat';
+import { EMBEDDING_MODEL_NAME } from '@/config-global';
 
 export const POST = async (request: Request) => {
   const formData = await request.formData();
 
-  const isDefault = formData.get('isDefault') as string;
+  const fileName = formData.get('fileName');
   const file = formData.get('file') as Blob;
 
-  const pinecone = new Pinecone({
+  const pc = new Pinecone({
     apiKey: process.env.PINECONE_API_KEY as string,
   });
 
-  const pineconeIndex = pinecone.index(process.env.PINECONE_INDEX as string);
+  const pineconeIndex = pc.Index(process.env.PINECONE_INDEX as string);
 
   try {
-    await pineconeIndex.deleteAll();
+    const { namespaces } = await pineconeIndex.describeIndexStats();
+
+    if (namespaces) {
+      Object.keys(namespaces)
+        .filter((ns) => ns !== DEFAULT_FILE_NAME)
+        .forEach(async (namespace) => {
+          await pineconeIndex.namespace(namespace).deleteAll();
+        });
+    }
   } catch {
     console.log('There are no documents to delete.');
   }
 
-  const fileToLoad =
-    isDefault === 'true' ? `${process.cwd()}/public/pdf/The-Almanack-Of-Naval-Ravikant.pdf` : file;
-
-  const loader = new PDFLoader(fileToLoad, {
+  const loader = new PDFLoader(file, {
     splitPages: false,
   });
   const docs = await loader.load();
 
   const splitter = new CharacterTextSplitter({
     separator: '\n',
-    chunkSize: 2000,
+    chunkSize: 1024,
     chunkOverlap: 200,
   });
+
   const splitDocs = await splitter.splitDocuments(docs);
 
   await PineconeStore.fromDocuments(
     splitDocs,
-    new OpenAIEmbeddings({ modelName: 'text-embedding-3-small' }),
+    new OpenAIEmbeddings({ modelName: EMBEDDING_MODEL_NAME }),
     {
       pineconeIndex,
+      namespace: fileName as string,
     }
   );
 

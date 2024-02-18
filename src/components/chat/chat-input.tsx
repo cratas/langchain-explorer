@@ -16,11 +16,11 @@ export const ChatInput = ({ handleSendMessage, buttonLoading = false }: Props) =
   };
 
   const handleSubmit = useCallback(async () => {
-    if (input) {
+    if (input && !buttonLoading) {
       handleSendMessage(input);
       setInput('');
     }
-  }, [input, handleSendMessage]);
+  }, [input, handleSendMessage, buttonLoading]);
 
   const handleSubmitOnEnter = useCallback(
     (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -53,7 +53,7 @@ export const ChatInput = ({ handleSendMessage, buttonLoading = false }: Props) =
         onClick={handleSubmit}
         placeholder=""
         size="sm"
-        disabled={!input}
+        disabled={!input || buttonLoading}
         className="!absolute right-1 top-1 flex items-center gap-3 rounded bg-lighter-purple"
       >
         {!buttonLoading && <span className="icon-[fluent--send-20-filled] h-4 w-4" />}

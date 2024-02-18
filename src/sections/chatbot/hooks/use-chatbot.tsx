@@ -1,7 +1,8 @@
+import { paths } from '@/app/api/endpoints';
 import { Message } from '@/types/chat';
 import { useState } from 'react';
 
-export const useChatBot = () => {
+export const useChatBot = (context: string) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
 
@@ -10,9 +11,9 @@ export const useChatBot = () => {
       setIsLoading(true);
       setIsError(false);
 
-      const response = await fetch('/api/custom-chatbot', {
+      const response = await fetch(paths.customChatbot, {
         method: 'POST',
-        body: JSON.stringify({ message, history }),
+        body: JSON.stringify({ message, history, context }),
         headers: {
           'Content-Type': 'application/json',
         },

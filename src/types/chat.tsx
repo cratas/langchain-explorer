@@ -1,6 +1,6 @@
 export type Message = {
   id: string;
   content?: string;
-  isUser: boolean;
+  role: 'user' | 'bot' | 'system';
   isError?: boolean;
 };
