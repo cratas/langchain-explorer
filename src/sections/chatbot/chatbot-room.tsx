@@ -6,7 +6,8 @@ import { useMessagesScroll } from '@/hooks/use-message-scroll';
 import { Message } from '@/types/chat';
 import React, { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { Button } from '@material-tailwind/react';
+import { Button, Checkbox, Typography } from '@material-tailwind/react';
+import { ChatMessageWithComparison } from '@/components/chat/chat-message-with-comparison';
 import { useChatBot } from './hooks';
 
 type Props = {
@@ -20,13 +21,15 @@ const initMessagesWithSystemMesasge = (systemMessage: string) => [
 ];
 
 export const ChatBotRoom = ({ onBack, fileName, systemMessage }: Props) => {
+  const [showGPTComparison, setShowGPTComparison] = useState(false);
+
   const [messages, setMessages] = useState<Message[]>(() =>
     initMessagesWithSystemMesasge(systemMessage)
   );
 
   const { messagesEndRef } = useMessagesScroll(messages);
 
-  const { isLoading, askChatBot, isError } = useChatBot(fileName);
+  const { isLoading, askChatBot, isError, askOpenAI } = useChatBot(fileName);
 
   const handleSendMessage = async (message: string) => {
     const newMessage = {
@@ -38,9 +41,10 @@ export const ChatBotRoom = ({ onBack, fileName, systemMessage }: Props) => {
     setMessages((prev) => [...prev, newMessage]);
 
     const response = await askChatBot(message, messages);
+    const gptResponseContent = await askOpenAI(message);
 
     if (response && !isError) {
-      setMessages((prev) => [...prev, response as unknown as Message]);
+      setMessages((prev) => [...prev, { ...response, gptResponseContent } as unknown as Message]);
     }
 
     if (isError) {
@@ -57,7 +61,7 @@ export const ChatBotRoom = ({ onBack, fileName, systemMessage }: Props) => {
   };
 
   const renderHeader = (
-    <div className="flex w-full items-center border-b-2 border-browser-light pb-2">
+    <div className="flex w-full items-center justify-between border-b-2 border-browser-light pb-2">
       <Button
         onClick={onBack}
         placeholder=""
@@ -69,20 +73,36 @@ export const ChatBotRoom = ({ onBack, fileName, systemMessage }: Props) => {
         Create new ChatBot
       </Button>
 
-      <p className="ml-auto text-sm font-bold text-text-light">{fileName || 'sdf'}</p>
+      <p className="text-sm font-bold text-text-primary">{fileName}</p>
+
+      <Checkbox
+        checked={showGPTComparison}
+        onChange={() => setShowGPTComparison((prev) => !prev)}
+        label={
+          <Typography placeholder="" className="text-sm font-bold text-text-primary">
+            ChatGPT comparison
+          </Typography>
+        }
+        className="checked:border-bg-light-purple checked:border-none checked:bg-lighter-purple checked:before:bg-lighter-purple"
+        crossOrigin=""
+      />
     </div>
   );
 
   return (
-    <div className="relative flex h-full w-full flex-col  rounded-xl border border-browser-background bg-background-light p-3">
+    <div className="relative flex h-full w-full flex-col rounded-xl border border-browser-background bg-background-light p-3">
       {renderHeader}
 
       <div className="flex h-full w-full flex-col gap-12 overflow-y-auto p-3" ref={messagesEndRef}>
         {!messages.filter((m) => m.role !== 'system').length && <NoMessages />}
 
-        {messages.map((message) => (
-          <ChatMessage key={message.id} message={message} />
-        ))}
+        {messages.map((message) =>
+          message.role === 'bot' && showGPTComparison ? (
+            <ChatMessageWithComparison key={message.id} message={message} />
+          ) : (
+            <ChatMessage key={message.id} message={message} />
+          )
+        )}
 
         {isLoading && <ChatMessage message={{ id: uuidv4(), role: 'bot' }} />}
       </div>

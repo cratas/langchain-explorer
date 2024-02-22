@@ -6,4 +6,5 @@ export const paths = {
     search: `${ROOT}/pinecone/search`,
   },
   customChatbot: `${ROOT}/custom-chatbot`,
+  openAI: `${ROOT}/openai`,
 };
