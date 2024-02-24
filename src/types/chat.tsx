@@ -3,4 +3,5 @@ export type Message = {
   content?: string;
   role: 'user' | 'bot' | 'system';
   isError?: boolean;
+  gptResponseContent?: string;
 };
