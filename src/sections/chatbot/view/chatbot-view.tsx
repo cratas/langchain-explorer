@@ -3,8 +3,8 @@ import React, { useEffect, useState } from 'react';
 import { Button, Spinner, Textarea } from '@material-tailwind/react';
 import { DEFAULT_FILE_NAME, DEFAULT_SYSTEM_MESSAGE } from '@/constants/chat';
 import { FileUpload } from '@/components/upload';
-import { ChatBotRoom } from '../chatbot-room';
 import { useInitChatbot } from '../hooks/use-init-chatbot';
+import { ChatBotRoom } from '../chatbot-room';
 
 const defaultFakeFile = {
   name: DEFAULT_FILE_NAME,

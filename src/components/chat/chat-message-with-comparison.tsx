@@ -1,5 +1,5 @@
-import { Message } from '@/types/chat';
 import React, { PropsWithChildren } from 'react';
+import { Message } from 'ai/react';
 import { ChatMessage } from './chat-message';
 
 type Props = {

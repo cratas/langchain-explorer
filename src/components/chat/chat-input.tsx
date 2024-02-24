@@ -1,44 +1,34 @@
 'use client';
 
 import { Button, Input } from '@material-tailwind/react';
-import React, { useCallback, useState } from 'react';
+import { ChatRequestOptions } from 'ai';
+import React, { FormEvent } from 'react';
 
 type Props = {
-  handleSendMessage: (message: string) => void;
+  handleSubmit: (
+    e: FormEvent<HTMLFormElement>,
+    chatRequestOptions?: ChatRequestOptions | undefined
+  ) => void;
   buttonLoading?: boolean;
+  input: string;
+  handleInputChange: (
+    e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>
+  ) => void;
 };
 
-export const ChatInput = ({ handleSendMessage, buttonLoading = false }: Props) => {
-  const [input, setInput] = useState('');
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInput(e.target.value);
-  };
-
-  const handleSubmit = useCallback(async () => {
-    if (input && !buttonLoading) {
-      handleSendMessage(input);
-      setInput('');
-    }
-  }, [input, handleSendMessage, buttonLoading]);
-
-  const handleSubmitOnEnter = useCallback(
-    (event: React.KeyboardEvent<HTMLInputElement>) => {
-      if (event.key === 'Enter') {
-        handleSubmit();
-      }
-    },
-    [handleSubmit]
-  );
-
-  return (
+export const ChatInput = ({
+  handleSubmit,
+  buttonLoading = false,
+  input,
+  handleInputChange,
+}: Props) => (
+  <form onSubmit={handleSubmit}>
     <div className="relative">
       <Input
         labelProps={{
           className: 'hidden',
         }}
         multiple
-        onKeyUp={handleSubmitOnEnter}
         crossOrigin=""
         placeholder="Message ..."
         value={input}
@@ -49,8 +39,8 @@ export const ChatInput = ({ handleSendMessage, buttonLoading = false }: Props) =
         }}
       />
       <Button
+        type="submit"
         loading={buttonLoading}
-        onClick={handleSubmit}
         placeholder=""
         size="sm"
         disabled={!input || buttonLoading}
@@ -59,5 +49,5 @@ export const ChatInput = ({ handleSendMessage, buttonLoading = false }: Props) =
         {!buttonLoading && <span className="icon-[fluent--send-20-filled] h-4 w-4" />}
       </Button>
     </div>
-  );
-};
+  </form>
+);
