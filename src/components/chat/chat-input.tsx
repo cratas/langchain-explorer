@@ -1,44 +1,30 @@
 'use client';
 
 import { Button, Input } from '@material-tailwind/react';
-import React, { useCallback, useState } from 'react';
+import { ChatRequestOptions } from 'ai';
+import React, { FormEvent } from 'react';
 
 type Props = {
-  handleSendMessage: (message: string) => void;
-  buttonLoading?: boolean;
+  isLoading: boolean;
+  handleSubmit: (
+    e: FormEvent<HTMLFormElement>,
+    chatRequestOptions?: ChatRequestOptions | undefined
+  ) => void;
+  stop: VoidFunction;
+  input: string;
+  handleInputChange: (
+    e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>
+  ) => void;
 };
 
-export const ChatInput = ({ handleSendMessage, buttonLoading = false }: Props) => {
-  const [input, setInput] = useState('');
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInput(e.target.value);
-  };
-
-  const handleSubmit = useCallback(async () => {
-    if (input && !buttonLoading) {
-      handleSendMessage(input);
-      setInput('');
-    }
-  }, [input, handleSendMessage, buttonLoading]);
-
-  const handleSubmitOnEnter = useCallback(
-    (event: React.KeyboardEvent<HTMLInputElement>) => {
-      if (event.key === 'Enter') {
-        handleSubmit();
-      }
-    },
-    [handleSubmit]
-  );
-
-  return (
+export const ChatInput = ({ handleSubmit, stop, isLoading, input, handleInputChange }: Props) => (
+  <form onSubmit={handleSubmit}>
     <div className="relative">
       <Input
         labelProps={{
           className: 'hidden',
         }}
         multiple
-        onKeyUp={handleSubmitOnEnter}
         crossOrigin=""
         placeholder="Message ..."
         value={input}
@@ -49,15 +35,19 @@ export const ChatInput = ({ handleSendMessage, buttonLoading = false }: Props) =
         }}
       />
       <Button
-        loading={buttonLoading}
-        onClick={handleSubmit}
+        type="submit"
+        onClick={isLoading ? stop : undefined}
         placeholder=""
+        disabled={!isLoading && !input}
         size="sm"
-        disabled={!input || buttonLoading}
         className="!absolute right-1 top-1 flex items-center gap-3 rounded bg-lighter-purple"
       >
-        {!buttonLoading && <span className="icon-[fluent--send-20-filled] h-4 w-4" />}
+        {isLoading ? (
+          <span className="icon-[solar--stop-bold] h-4 w-4" />
+        ) : (
+          <span className="icon-[fluent--send-20-filled] h-4 w-4" />
+        )}
       </Button>
     </div>
-  );
-};
+  </form>
+);

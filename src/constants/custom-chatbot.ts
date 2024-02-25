@@ -11,5 +11,6 @@ export const STANDALONE_QUESTION_TEMPLATE = `Given the following conversation an
 
 Chat History:
 {chat_history}
+
 Follow Up Input: {question}
 Standalone question:`;

@@ -1,14 +1,19 @@
+/* eslint-disable no-plusplus */
+
 'use client';
 
 import { ChatInput, NoMessages } from '@/components/chat';
 import { ChatMessage } from '@/components/chat/chat-message';
-import { useMessagesScroll } from '@/hooks/use-message-scroll';
-import { Message } from '@/types/chat';
 import React, { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { Button, Checkbox, Typography } from '@material-tailwind/react';
+import { useChat } from 'ai/react';
+import { paths } from '@/app/api/endpoints';
+import { useMessagesScroll } from '@/hooks/use-message-scroll';
+import { Message } from 'ai';
 import { ChatMessageWithComparison } from '@/components/chat/chat-message-with-comparison';
-import { useChatBot } from './hooks';
+import { gptMessageScrollHelper } from '@/global-states/atoms';
+import { useAtom } from 'jotai';
+import { ChatbotRoomHeader } from './chatbot-room-header';
 
 type Props = {
   onBack: () => void;
@@ -16,98 +21,64 @@ type Props = {
   systemMessage: string;
 };
 
-const initMessagesWithSystemMesasge = (systemMessage: string) => [
-  { id: uuidv4(), content: systemMessage, role: 'system' as const },
-];
-
 export const ChatBotRoom = ({ onBack, fileName, systemMessage }: Props) => {
-  const [showGPTComparison, setShowGPTComparison] = useState(false);
+  const [isStreaming, setIsStreaming] = useState(false);
 
-  const [messages, setMessages] = useState<Message[]>(() =>
-    initMessagesWithSystemMesasge(systemMessage)
-  );
+  const { messages, input, handleInputChange, isLoading, handleSubmit, error, stop } = useChat({
+    initialMessages: [
+      {
+        id: uuidv4(),
+        content: systemMessage,
+        role: 'system' as const,
+      },
+    ],
+    onResponse: () => setIsStreaming(true),
+    onFinish: () => setIsStreaming(false),
+    onError: () => setIsStreaming(false),
+    body: { context: fileName },
+    api: paths.customChatbot,
+  });
 
-  const { messagesEndRef } = useMessagesScroll(messages);
+  const [newGptMessageSignal] = useAtom(gptMessageScrollHelper);
 
-  const { isLoading, askChatBot, isError, askOpenAI } = useChatBot(fileName);
-
-  const handleSendMessage = async (message: string) => {
-    const newMessage = {
-      id: uuidv4(),
-      content: message,
-      role: 'user' as const,
-    };
-
-    setMessages((prev) => [...prev, newMessage]);
-
-    const response = await askChatBot(message, messages);
-    const gptResponseContent = await askOpenAI(message);
-
-    if (response && !isError) {
-      setMessages((prev) => [...prev, { ...response, gptResponseContent } as unknown as Message]);
-    }
-
-    if (isError) {
-      setMessages((prev) => [
-        ...prev,
-        {
-          id: uuidv4(),
-          content: 'Something went wrong, please try again.',
-          role: 'bot',
-          isError: true,
-        },
-      ]);
-    }
-  };
-
-  const renderHeader = (
-    <div className="flex w-full items-center justify-between border-b-2 border-browser-light pb-2">
-      <Button
-        onClick={onBack}
-        placeholder=""
-        variant="text"
-        size="sm"
-        className="flex items-center gap-1 pl-0 text-sm normal-case text-text-primary hover:bg-transparent"
-      >
-        <span className="icon-[iconamoon--arrow-left-2-duotone] text-2xl" />
-        Create new ChatBot
-      </Button>
-
-      <p className="text-sm font-bold text-text-primary">{fileName}</p>
-
-      <Checkbox
-        checked={showGPTComparison}
-        onChange={() => setShowGPTComparison((prev) => !prev)}
-        label={
-          <Typography placeholder="" className="text-sm font-bold text-text-primary">
-            ChatGPT comparison
-          </Typography>
-        }
-        className="checked:border-bg-light-purple checked:border-none checked:bg-lighter-purple checked:before:bg-lighter-purple"
-        crossOrigin=""
-      />
-    </div>
-  );
+  const { messagesEndRef } = useMessagesScroll([messages, newGptMessageSignal]);
 
   return (
     <div className="relative flex h-full w-full flex-col rounded-xl border border-browser-background bg-background-light p-3">
-      {renderHeader}
+      <ChatbotRoomHeader onBack={onBack} fileName={fileName} />
 
-      <div className="flex h-full w-full flex-col gap-12 overflow-y-auto p-3" ref={messagesEndRef}>
-        {!messages.filter((m) => m.role !== 'system').length && <NoMessages />}
+      <div className="flex h-full w-full flex-col gap-8 overflow-y-auto p-3" ref={messagesEndRef}>
+        {!messages.filter((m: Message) => m.role !== 'system').length && <NoMessages />}
 
-        {messages.map((message) =>
-          message.role === 'bot' && showGPTComparison ? (
-            <ChatMessageWithComparison key={message.id} message={message} />
+        {messages.map((message, idx) =>
+          message.role === 'assistant' ? (
+            <ChatMessageWithComparison
+              isLoading={false}
+              key={message.id}
+              isError={!!error}
+              message={message}
+              question={messages?.[idx - 1]}
+            />
           ) : (
             <ChatMessage key={message.id} message={message} />
           )
         )}
 
-        {isLoading && <ChatMessage message={{ id: uuidv4(), role: 'bot' }} />}
+        {isLoading && !isStreaming && (
+          <ChatMessageWithComparison
+            isLoading={isLoading}
+            message={{ content: '', id: '', role: 'assistant' }}
+          />
+        )}
       </div>
 
-      <ChatInput handleSendMessage={handleSendMessage} buttonLoading={isLoading} />
+      <ChatInput
+        stop={stop}
+        input={input}
+        handleInputChange={handleInputChange}
+        handleSubmit={handleSubmit}
+        isLoading={isLoading}
+      />
     </div>
   );
 };
