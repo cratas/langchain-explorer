@@ -29,7 +29,7 @@ export const POST = async (request: Request) => {
         });
     }
   } catch {
-    console.log('There are no documents to delete.');
+    throw new Error('Failed to delete documents from Pinecone index');
   }
 
   const loader = new PDFLoader(file, {

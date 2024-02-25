@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Spinner, Textarea } from '@material-tailwind/react';
 import { DEFAULT_FILE_NAME, DEFAULT_SYSTEM_MESSAGE } from '@/constants/chat';
 import { FileUpload } from '@/components/upload';
-import { useInitChatbot } from '../hooks/use-init-chatbot';
+import { useInitChatbot } from '../hooks';
 import { ChatBotRoom } from '../chatbot-room';
 
 const defaultFakeFile = {
@@ -81,7 +81,7 @@ export const ChatBotView = () => {
   );
 
   return (
-    <div className="flex h-[35rem] flex-col items-center justify-center bg-background-dark p-3">
+    <div className="flex h-[40rem] flex-col items-center justify-center bg-background-dark p-3">
       {isLoading ? (
         <Spinner />
       ) : initialized ? (

@@ -5,23 +5,19 @@ import { ChatRequestOptions } from 'ai';
 import React, { FormEvent } from 'react';
 
 type Props = {
+  isLoading: boolean;
   handleSubmit: (
     e: FormEvent<HTMLFormElement>,
     chatRequestOptions?: ChatRequestOptions | undefined
   ) => void;
-  buttonLoading?: boolean;
+  stop: VoidFunction;
   input: string;
   handleInputChange: (
     e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>
   ) => void;
 };
 
-export const ChatInput = ({
-  handleSubmit,
-  buttonLoading = false,
-  input,
-  handleInputChange,
-}: Props) => (
+export const ChatInput = ({ handleSubmit, stop, isLoading, input, handleInputChange }: Props) => (
   <form onSubmit={handleSubmit}>
     <div className="relative">
       <Input
@@ -40,13 +36,17 @@ export const ChatInput = ({
       />
       <Button
         type="submit"
-        loading={buttonLoading}
+        onClick={isLoading ? stop : undefined}
         placeholder=""
+        disabled={!isLoading && !input}
         size="sm"
-        disabled={!input || buttonLoading}
         className="!absolute right-1 top-1 flex items-center gap-3 rounded bg-lighter-purple"
       >
-        {!buttonLoading && <span className="icon-[fluent--send-20-filled] h-4 w-4" />}
+        {isLoading ? (
+          <span className="icon-[solar--stop-bold] h-4 w-4" />
+        ) : (
+          <span className="icon-[fluent--send-20-filled] h-4 w-4" />
+        )}
       </Button>
     </div>
   </form>

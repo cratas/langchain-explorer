@@ -1,1 +1,1 @@
-export { useChatBot } from './use-chatbot';
+export { useInitChatbot } from './use-init-chatbot';
