@@ -2,7 +2,7 @@
 
 import { BrowserLayout } from '@/layouts';
 import { ChatBotView } from '@/sections/chatbot/view';
-import { ModerationLayerView } from '@/sections/moderation-layer/view';
+import { ModerationView } from '@/sections/moderation/view';
 import { Tabs, TabsHeader, Tab, TabsBody, TabPanel } from '@material-tailwind/react';
 import { useState } from 'react';
 
@@ -28,7 +28,7 @@ const TABS = [
     value: TabsEnum.MODERATION_LAYER,
     content: (
       <BrowserLayout>
-        <ModerationLayerView />
+        <ModerationView />
       </BrowserLayout>
     ),
   },

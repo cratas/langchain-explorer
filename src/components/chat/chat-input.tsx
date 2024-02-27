@@ -29,7 +29,7 @@ export const ChatInput = ({ handleSubmit, stop, isLoading, input, handleInputCha
         placeholder="Message ..."
         value={input}
         onChange={handleInputChange}
-        className="!border-2 !border-browser-light pr-20 text-white placeholder-text-dark"
+        className="!border-2 !border-browser-light pr-20 text-text-light placeholder-text-dark"
         containerProps={{
           className: 'min-w-0',
         }}

@@ -34,7 +34,7 @@ export const ChatMessage = ({
             ))}
         </div>
 
-        <div className="inline-block w-full text-left font-normal text-white">
+        <div className="inline-block w-full text-left font-normal text-text-light">
           <div className="flex w-full items-center justify-between">
             <p className="text-sm font-bold text-text-primary">
               {(type === 'chatgpt' && 'ChatGPT') ||
@@ -46,7 +46,7 @@ export const ChatMessage = ({
           </div>
 
           <div
-            className={`${isError ? 'inline-block rounded-md border border-red-700 p-2 text-red-700' : 'text-white'}`}
+            className={`${isError ? 'inline-block rounded-md border border-red-700 p-2 text-red-700' : 'text-text-light'}`}
           >
             {isLoading ? (
               <Spinner className="mt-2" />

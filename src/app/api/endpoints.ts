@@ -7,4 +7,5 @@ export const paths = {
   },
   customChatbot: `${ROOT}/custom-chatbot`,
   openAI: `${ROOT}/openai`,
+  moderation: `${ROOT}/moderation`,
 };
