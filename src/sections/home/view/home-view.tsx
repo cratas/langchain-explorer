@@ -33,15 +33,6 @@ const TABS = [
     ),
   },
   {
-    label: 'E-mail Autoresponder',
-    value: TabsEnum.EMAIL_AUTORESPONDER,
-    content: (
-      <BrowserLayout>
-        <div>todo</div>
-      </BrowserLayout>
-    ),
-  },
-  {
     label: 'Customer support',
     value: TabsEnum.CUSTOMER_SUPPORT,
     content: <BrowserLayout>sdf</BrowserLayout>,

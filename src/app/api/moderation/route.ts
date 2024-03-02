@@ -5,6 +5,7 @@ import { NextResponse } from 'next/server';
 
 const MIN_SCORE = 0.1;
 
+// TODO: add template prompt for moderation
 export const POST = async (request: Request) => {
   try {
     const body = await request.json();

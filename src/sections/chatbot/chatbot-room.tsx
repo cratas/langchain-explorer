@@ -24,20 +24,21 @@ type Props = {
 export const ChatBotRoom = ({ onBack, fileName, systemMessage }: Props) => {
   const [isStreaming, setIsStreaming] = useState(false);
 
-  const { messages, input, handleInputChange, isLoading, handleSubmit, error, stop } = useChat({
-    initialMessages: [
-      {
-        id: uuidv4(),
-        content: systemMessage,
-        role: 'system' as const,
-      },
-    ],
-    onResponse: () => setIsStreaming(true),
-    onFinish: () => setIsStreaming(false),
-    onError: () => setIsStreaming(false),
-    body: { context: fileName },
-    api: paths.customChatbot,
-  });
+  const { messages, input, handleInputChange, isLoading, handleSubmit, error, stop, setMessages } =
+    useChat({
+      initialMessages: [
+        {
+          id: uuidv4(),
+          content: systemMessage,
+          role: 'system' as const,
+        },
+      ],
+      onResponse: () => setIsStreaming(true),
+      onFinish: () => setIsStreaming(false),
+      onError: () => setIsStreaming(false),
+      body: { context: fileName },
+      api: paths.customChatbot,
+    });
 
   const [newGptMessageSignal] = useAtom(gptMessageScrollHelper);
 
@@ -45,7 +46,7 @@ export const ChatBotRoom = ({ onBack, fileName, systemMessage }: Props) => {
 
   return (
     <div className="relative flex h-full w-full flex-col rounded-xl border border-browser-background bg-background-light p-3">
-      <ChatbotRoomHeader onBack={onBack} fileName={fileName} />
+      <ChatbotRoomHeader onClear={() => setMessages([])} onBack={onBack} fileName={fileName} />
 
       <div className="flex h-full w-full flex-col gap-8 overflow-y-auto p-3" ref={messagesEndRef}>
         {!messages.filter((m: Message) => m.role !== 'system').length && <NoMessages />}

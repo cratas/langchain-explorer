@@ -4,9 +4,10 @@ import React from 'react';
 type Props = {
   onBack: VoidFunction;
   fileName: string;
+  onClear: VoidFunction;
 };
 
-export const ChatbotRoomHeader = ({ onBack, fileName }: Props) => (
+export const ChatbotRoomHeader = ({ onBack, onClear, fileName }: Props) => (
   <div className="flex w-full items-center justify-between border-b-2 border-browser-light pb-2">
     <Button
       onClick={onBack}
@@ -20,5 +21,15 @@ export const ChatbotRoomHeader = ({ onBack, fileName }: Props) => (
     </Button>
 
     <p className="text-sm font-bold text-text-primary">{fileName}</p>
+
+    <Button
+      onClick={onClear}
+      placeholder=""
+      size="sm"
+      variant="outlined"
+      className="flex items-center gap-1 border-2 border-browser-light text-sm normal-case text-text-primary focus:ring-0 active:ring-0"
+    >
+      Clear chat history
+    </Button>
   </div>
 );
