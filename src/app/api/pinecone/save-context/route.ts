@@ -4,7 +4,7 @@ import { PineconeStore } from '@langchain/pinecone';
 import { PDFLoader } from 'langchain/document_loaders/fs/pdf';
 import { CharacterTextSplitter } from 'langchain/text_splitter';
 import { NextResponse } from 'next/server';
-import { DEFAULT_FILE_NAME } from '@/constants/chat';
+import { DEFAULT_FILE_NAME } from '@/constants/custom-chatbot';
 
 export const POST = async (request: Request) => {
   const formData = await request.formData();
