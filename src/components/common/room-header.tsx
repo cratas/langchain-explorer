@@ -3,11 +3,12 @@ import React from 'react';
 
 type Props = {
   onBack: VoidFunction;
-  fileName: string;
   onClear: VoidFunction;
+  onBackText: string;
+  title: string;
 };
 
-export const ChatbotRoomHeader = ({ onBack, onClear, fileName }: Props) => (
+export const RoomHeader = ({ onBack, onClear, title, onBackText }: Props) => (
   <div className="flex w-full items-center justify-between border-b-2 border-browser-light pb-2">
     <Button
       onClick={onBack}
@@ -17,10 +18,10 @@ export const ChatbotRoomHeader = ({ onBack, onClear, fileName }: Props) => (
       className="flex items-center gap-1 pl-0 text-sm normal-case text-text-primary hover:bg-transparent"
     >
       <span className="icon-[iconamoon--arrow-left-2-duotone] text-2xl" />
-      Create new ChatBot
+      {onBackText}
     </Button>
 
-    <p className="text-sm font-bold text-text-primary">{fileName}</p>
+    <p className="text-md font-bold text-white">{title}</p>
 
     <Button
       onClick={onClear}

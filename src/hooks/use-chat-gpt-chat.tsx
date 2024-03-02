@@ -2,9 +2,9 @@
 /* eslint-disable no-constant-condition */
 import { paths } from '@/app/api/endpoints';
 import { gptMessageScrollHelper, gptMessagesAtom } from '@/global-states/atoms';
+import { generateRandomId } from '@/utils/generate-random-id';
 import { Message } from 'ai';
 import { useAtom } from 'jotai';
-import { v4 as uuidv4 } from 'uuid';
 import { useCallback, useState } from 'react';
 
 export const useChatGptChat = () => {
@@ -18,7 +18,7 @@ export const useChatGptChat = () => {
 
   const sendMessage = useCallback(
     async (question: string) => {
-      notifyScrolling(uuidv4());
+      notifyScrolling(generateRandomId());
 
       try {
         setIsLoading(true);
@@ -50,7 +50,7 @@ export const useChatGptChat = () => {
             answer += decodedString;
 
             setMessage({ content: answer, role: 'assistant' } as Message);
-            notifyScrolling(uuidv4());
+            notifyScrolling(generateRandomId());
           }
 
           setMessagesHistory([

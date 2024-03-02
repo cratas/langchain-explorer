@@ -1,3 +1,4 @@
+import { COMMON_TEMPLATE_WITH_CHAT_HISTORY } from '@/constants/common';
 import { getOpenAIChatChainStream } from '@/utils/get-openai-chat-chain-stream';
 import { StreamingTextResponse } from 'ai';
 import { OpenAIModerationChain } from 'langchain/chains';
@@ -5,7 +6,6 @@ import { NextResponse } from 'next/server';
 
 const MIN_SCORE = 0.1;
 
-// TODO: add template prompt for moderation
 export const POST = async (request: Request) => {
   try {
     const body = await request.json();
@@ -26,7 +26,7 @@ export const POST = async (request: Request) => {
       return NextResponse.json({ flagged: true, category, score: (score * 100).toFixed(2) });
     }
 
-    const stream = await getOpenAIChatChainStream(messages, 0.9);
+    const stream = await getOpenAIChatChainStream(messages, COMMON_TEMPLATE_WITH_CHAT_HISTORY, 0.9);
 
     return new StreamingTextResponse(stream);
   } catch (error) {

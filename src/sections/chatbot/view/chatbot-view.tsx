@@ -1,7 +1,7 @@
 /* eslint-disable no-nested-ternary */
 import React, { useEffect, useState } from 'react';
 import { Button, Spinner, Textarea } from '@material-tailwind/react';
-import { DEFAULT_FILE_NAME, DEFAULT_SYSTEM_MESSAGE } from '@/constants/chat';
+import { DEFAULT_FILE_NAME, DEFAULT_SYSTEM_MESSAGE } from '@/constants/custom-chatbot';
 import { FileUpload } from '@/components/upload';
 import { useInitChatbot } from '../hooks';
 import { ChatBotRoom } from '../chatbot-room';
