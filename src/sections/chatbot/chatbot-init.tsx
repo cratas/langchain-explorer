@@ -1,5 +1,5 @@
 import { FileUpload } from '@/components/upload';
-import { DEFAULT_FILE_NAME, DEFAULT_SYSTEM_MESSAGE } from '@/constants/chat';
+import { DEFAULT_FILE_NAME, DEFAULT_SYSTEM_MESSAGE } from '@/constants/custom-chatbot';
 import { Button, Textarea } from '@material-tailwind/react';
 import React, { useState } from 'react';
 

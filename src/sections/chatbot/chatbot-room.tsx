@@ -5,7 +5,6 @@
 import { ChatInput, NoMessages } from '@/components/chat';
 import { ChatMessage } from '@/components/chat/chat-message';
 import React, { useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
 import { useChat } from 'ai/react';
 import { paths } from '@/app/api/endpoints';
 import { useMessagesScroll } from '@/hooks/use-message-scroll';
@@ -13,7 +12,8 @@ import { Message } from 'ai';
 import { ChatMessageWithComparison } from '@/components/chat/chat-message-with-comparison';
 import { gptMessageScrollHelper } from '@/global-states/atoms';
 import { useAtom } from 'jotai';
-import { ChatbotRoomHeader } from './chatbot-room-header';
+import { generateRandomId } from '@/utils/generate-random-id';
+import { RoomHeader } from '../../components/common/room-header';
 
 type Props = {
   onBack: () => void;
@@ -28,9 +28,9 @@ export const ChatBotRoom = ({ onBack, fileName, systemMessage }: Props) => {
     useChat({
       initialMessages: [
         {
-          id: uuidv4(),
+          id: generateRandomId(),
           content: systemMessage,
-          role: 'system' as const,
+          role: 'system',
         },
       ],
       onResponse: () => setIsStreaming(true),
@@ -46,7 +46,12 @@ export const ChatBotRoom = ({ onBack, fileName, systemMessage }: Props) => {
 
   return (
     <div className="relative flex h-full w-full flex-col rounded-xl border border-browser-background bg-background-light p-3">
-      <ChatbotRoomHeader onClear={() => setMessages([])} onBack={onBack} fileName={fileName} />
+      <RoomHeader
+        onClear={() => setMessages([])}
+        onBack={onBack}
+        title={fileName}
+        onBackText="Create new chat"
+      />
 
       <div className="flex h-full w-full flex-col gap-8 overflow-y-auto p-3" ref={messagesEndRef}>
         {!messages.filter((m: Message) => m.role !== 'system').length && <NoMessages />}

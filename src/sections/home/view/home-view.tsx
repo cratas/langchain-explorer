@@ -7,10 +7,10 @@ import { Tabs, TabsHeader, Tab, TabsBody, TabPanel } from '@material-tailwind/re
 import { useState } from 'react';
 
 enum TabsEnum {
-  CUSTOM_CHATBOT,
-  CUSTOMER_SUPPORT,
-  MODERATION_LAYER,
-  EMAIL_AUTORESPONDER,
+  CUSTOM_CHATBOT = 'custom_chatbot',
+  CUSTOMER_SUPPORT = 'customer_support',
+  MODERATION_LAYER = 'moderation_layer',
+  EMAIL_AUTORESPONDER = 'email_autoresponder',
 }
 
 const TABS = [
@@ -62,7 +62,7 @@ export const HomeView = () => {
   );
 
   return (
-    <div className="mt-10 flex flex-col gap-3">
+    <div className="mt-2 flex flex-col gap-3">
       {renderButton}
 
       {renderTitle}
