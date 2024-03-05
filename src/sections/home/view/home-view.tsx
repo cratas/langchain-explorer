@@ -2,6 +2,7 @@
 
 import { BrowserLayout } from '@/layouts';
 import { ChatBotView } from '@/sections/chatbot/view';
+import { CustomerSupportView } from '@/sections/customer-support/view';
 import { ModerationView } from '@/sections/moderation/view';
 import { Tabs, TabsHeader, Tab, TabsBody, TabPanel } from '@material-tailwind/react';
 import { useState } from 'react';
@@ -10,7 +11,6 @@ enum TabsEnum {
   CUSTOM_CHATBOT = 'custom_chatbot',
   CUSTOMER_SUPPORT = 'customer_support',
   MODERATION_LAYER = 'moderation_layer',
-  EMAIL_AUTORESPONDER = 'email_autoresponder',
 }
 
 const TABS = [
@@ -35,7 +35,11 @@ const TABS = [
   {
     label: 'Customer support',
     value: TabsEnum.CUSTOMER_SUPPORT,
-    content: <BrowserLayout>sdf</BrowserLayout>,
+    content: (
+      <BrowserLayout>
+        <CustomerSupportView />
+      </BrowserLayout>
+    ),
   },
 ];
 

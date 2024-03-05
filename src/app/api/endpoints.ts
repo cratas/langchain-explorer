@@ -1,6 +1,6 @@
 const ROOT = '/api';
 
-export const paths = {
+export const endpoints = {
   pinecone: {
     saveContext: `${ROOT}/pinecone/save-context`,
     search: `${ROOT}/pinecone/search`,
@@ -8,4 +8,5 @@ export const paths = {
   customChatbot: `${ROOT}/custom-chatbot`,
   openAI: `${ROOT}/openai`,
   moderation: `${ROOT}/moderation`,
+  customerSupport: `${ROOT}/customer-support`,
 };

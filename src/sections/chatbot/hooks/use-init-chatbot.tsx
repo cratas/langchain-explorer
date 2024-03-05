@@ -1,4 +1,4 @@
-import { paths } from '@/app/api/endpoints';
+import { endpoints } from '@/app/api/endpoints';
 import { useState } from 'react';
 
 export const useInitChatbot = () => {
@@ -13,7 +13,7 @@ export const useInitChatbot = () => {
     formData.append('file', contextFile);
     formData.append('fileName', contextFile.name);
 
-    const response = await fetch(paths.pinecone.saveContext, {
+    const response = await fetch(endpoints.pinecone.saveContext, {
       method: 'POST',
       body: formData,
     });

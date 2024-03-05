@@ -1,6 +1,6 @@
 /* eslint-disable no-await-in-loop */
 /* eslint-disable no-constant-condition */
-import { paths } from '@/app/api/endpoints';
+import { endpoints } from '@/app/api/endpoints';
 import { gptMessageScrollHelper, gptMessagesAtom } from '@/global-states/atoms';
 import { generateRandomId } from '@/utils/generate-random-id';
 import { Message } from 'ai';
@@ -25,7 +25,7 @@ export const useChatGptChat = () => {
 
         const userMessage = { content: question, role: 'user' } as Message;
 
-        const response = await fetch(paths.openAI, {
+        const response = await fetch(endpoints.openAI, {
           method: 'POST',
           body: JSON.stringify({
             messages: [...messagesHistory, userMessage],

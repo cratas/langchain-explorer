@@ -1,12 +1,10 @@
-/* eslint-disable no-plusplus */
-
 'use client';
 
 import { ChatInput, NoMessages } from '@/components/chat';
 import { ChatMessage } from '@/components/chat/chat-message';
 import React, { useState } from 'react';
 import { useChat } from 'ai/react';
-import { paths } from '@/app/api/endpoints';
+import { endpoints } from '@/app/api/endpoints';
 import { useMessagesScroll } from '@/hooks/use-message-scroll';
 import { Message } from 'ai';
 import { ChatMessageWithComparison } from '@/components/chat/chat-message-with-comparison';
@@ -37,7 +35,7 @@ export const ChatBotRoom = ({ onBack, fileName, systemMessage }: Props) => {
       onFinish: () => setIsStreaming(false),
       onError: () => setIsStreaming(false),
       body: { context: fileName },
-      api: paths.customChatbot,
+      api: endpoints.customChatbot,
     });
 
   const [newGptMessageSignal] = useAtom(gptMessageScrollHelper);
