@@ -40,7 +40,7 @@ export const ModerationRoom = ({ onBack, selectedUseCase }: Props) => {
     <div className="relative flex h-full w-full flex-col rounded-xl border border-browser-background bg-background-light p-3">
       <RoomHeader
         onBack={onBack}
-        onBackText="Change chat type"
+        onBackText="Change Chat type"
         onClear={() => setMessages([])}
         title={selectedUseCase.label}
       />

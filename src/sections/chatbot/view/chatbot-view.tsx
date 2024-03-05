@@ -46,9 +46,9 @@ export const ChatBotView = () => {
 
   const renderInitChatbot = (
     <div className="flex flex-col items-center">
-      <div className="mb-5 text-center">
+      <div className="mb-8 text-center">
         <h1 className="text-2xl font-bold text-white">{`Let's set our Q&A ChatBot`}</h1>
-        <h6 className="text-md font-normal text-text-primary">
+        <h6 className="text-md mt-2 font-normal text-text-primary">
           You can provide (or use default) a system message and a PDF file to start the conversation
         </h6>
       </div>
@@ -60,10 +60,10 @@ export const ChatBotView = () => {
           className: 'hidden',
         }}
         placeholder="System message ..."
-        rows={8}
+        rows={5}
         value={systemMessage}
         onChange={handleChangeSystemMessage}
-        className="!border-2 !border-gray-900 text-white placeholder-text-dark"
+        className="mt-2 !border-2 !border-gray-900 text-white placeholder-text-dark"
         containerProps={{
           className: 'w-full md:w-[40rem] min-w-0',
         }}
@@ -73,7 +73,7 @@ export const ChatBotView = () => {
         onClick={initializeChatBotRoom}
         placeholder=""
         size="sm"
-        className="mt-5 flex items-center rounded bg-lighter-purple hover:bg-light-purple"
+        className="mt-12 flex items-center rounded bg-lighter-purple hover:bg-light-purple"
       >
         Create ChatBot
       </Button>

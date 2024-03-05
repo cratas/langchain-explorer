@@ -33,7 +33,7 @@ const TABS = [
     ),
   },
   {
-    label: 'Customer support',
+    label: 'Customer Support',
     value: TabsEnum.CUSTOMER_SUPPORT,
     content: (
       <BrowserLayout>
