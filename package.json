@@ -4,20 +4,26 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "build:prod": "prisma generate && prisma migrate deploy && next build",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "lint:fix": "next lint --fix",
     "format": "yarn prettier --write .",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "prisma:studio": "npx prisma studio",
+    "fill-db": "ts-node prisma/seed.ts"
   },
   "dependencies": {
+    "@faker-js/faker": "^8.4.1",
     "@iconify/tailwind": "^0.1.4",
     "@langchain/core": "^0.1.30",
     "@langchain/openai": "^0.0.14",
     "@langchain/pinecone": "^0.0.3",
     "@material-tailwind/react": "^2.1.9",
     "@pinecone-database/pinecone": "^2.0.1",
+    "@prisma/client": "^5.10.2",
+    "@vercel/postgres": "^0.7.2",
     "ai": "^2.2.35",
     "cheerio": "^1.0.0-rc.12",
     "dotenv": "^16.4.2",
@@ -56,8 +62,12 @@
     "postcss": "^8",
     "prettier": "^3.2.5",
     "prettier-plugin-tailwindcss": "^0.5.11",
+    "prisma": "^5.10.2",
     "tailwindcss": "^3.3.0",
     "typescript": "^5"
+  },
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
   },
   "resolutions": {
     "@langchain/core": "0.1.30"

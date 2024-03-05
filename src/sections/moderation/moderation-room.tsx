@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { paths } from '@/app/api/endpoints';
+import { endpoints } from '@/app/api/endpoints';
 import { NoMessages, ChatInput } from '@/components/chat';
 import { useMessagesScroll } from '@/hooks/use-message-scroll';
 import { isFlagged } from '@/utils/is-flagged';
@@ -27,7 +27,7 @@ export const ModerationRoom = ({ onBack, selectedUseCase }: Props) => {
 
   const { setMessages, messages, input, handleInputChange, isLoading, handleSubmit, stop } =
     useChat({
-      api: paths.moderation,
+      api: endpoints.moderation,
       onResponse: () => setIsStreaming(true),
       initialMessages: [createModerationSystemMessageOject(selectedUseCase.systemMessage)],
       onFinish: () => setIsStreaming(false),
