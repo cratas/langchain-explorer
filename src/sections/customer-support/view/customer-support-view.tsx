@@ -8,6 +8,8 @@ type Initializition = {
 };
 
 // TODO: add into view (about use case)
+// TODO: rozlisit jestli se pta uzivatel nebo administrator
+// podle toho handlit prava ve funkci
 export const CustomerSupportView = () => {
   const [initialization, setInitialization] = useState<Initializition>({
     initialized: false,

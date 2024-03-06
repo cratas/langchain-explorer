@@ -2,6 +2,7 @@ import { endpoints } from '@/app/api/endpoints';
 import { ChatInput, NoMessages } from '@/components/chat';
 import { RoomHeader } from '@/components/common';
 import { useMessagesScroll } from '@/hooks/use-message-scroll';
+import { Typography } from '@material-tailwind/react';
 import { Message } from 'ai';
 import { useChat } from 'ai/react';
 import React from 'react';
@@ -17,8 +18,6 @@ export const CustomerSupportRoom = ({ onBack, anonymization }: Props) => {
       api: endpoints.customerSupport,
     });
 
-  console.log('anonymization', anonymization);
-
   const { messagesEndRef } = useMessagesScroll(messages);
 
   return (
@@ -27,7 +26,14 @@ export const CustomerSupportRoom = ({ onBack, anonymization }: Props) => {
         onBack={onBack}
         onBackText="Change settings"
         onClear={() => setMessages([])}
-        title={`Customer Support ${anonymization ? '(Anonymized)' : ''}`}
+        title={
+          <Typography placeholder="" color="white" className="flex font-bold">
+            Customer Support
+            <Typography placeholder="" as="span" className="ml-1 font-normal text-text-primary">
+              {anonymization ? `(Anonymized)` : ''}
+            </Typography>
+          </Typography>
+        }
       />
 
       <div className="flex h-full w-full flex-col gap-8 overflow-y-auto p-3" ref={messagesEndRef}>
