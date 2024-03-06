@@ -1,9 +1,10 @@
 {
-  "ts-node": {
-    "compilerOptions": {
-      "module": "CommonJS"
-    }
-  },
+  // !!! Uncomment before running yarn fill-db script
+  // "ts-node": {
+  //   "compilerOptions": {
+  //     "module": "CommonJS"
+  //   }
+  // },
   "compilerOptions": {
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,

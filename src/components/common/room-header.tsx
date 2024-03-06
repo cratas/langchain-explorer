@@ -1,11 +1,11 @@
 import { Button } from '@material-tailwind/react';
-import React from 'react';
+import React, { ReactNode } from 'react';
 
 type Props = {
   onBack: VoidFunction;
   onClear: VoidFunction;
   onBackText: string;
-  title: string;
+  title: string | ReactNode;
 };
 
 export const RoomHeader = ({ onBack, onClear, title, onBackText }: Props) => (
