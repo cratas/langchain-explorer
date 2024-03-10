@@ -1,6 +1,7 @@
 import { endpoints } from '@/app/api/endpoints';
 import { ChatInput, NoMessages } from '@/components/chat';
 import { RoomHeader } from '@/components/common';
+import { InputWhisperer } from '@/components/common/input-whisperer';
 import { useMessagesScroll } from '@/hooks/use-message-scroll';
 import { Typography } from '@material-tailwind/react';
 import { Message } from 'ai';
@@ -39,6 +40,8 @@ export const CustomerSupportRoom = ({ onBack, anonymization }: Props) => {
       <div className="flex h-full w-full flex-col gap-8 overflow-y-auto p-3" ref={messagesEndRef}>
         {!messages.filter((m: Message) => m.role !== 'system').length && <NoMessages />}
       </div>
+
+      <InputWhisperer proposals={[]} />
 
       <ChatInput
         stop={stop}

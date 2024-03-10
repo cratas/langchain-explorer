@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { CustomerSupportRoom } from '../customer-support-room';
 import { CustomerSupportInit } from '../customer-support-init';
+import { CustomerSupportRoom } from '../customer-support-room';
 
 type Initializition = {
   initialized: boolean;
