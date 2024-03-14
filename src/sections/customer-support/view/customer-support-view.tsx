@@ -1,36 +1,26 @@
 import { useState } from 'react';
 import { CustomerSupportInit } from '../customer-support-init';
 import { CustomerSupportRoom } from '../customer-support-room';
-
-type Initializition = {
-  initialized: boolean;
-  anonymization: boolean;
-};
+import { CustomerSupportUseCase, OPTIONS } from '../types';
 
 // TODO: add into view (about use case)
-// TODO: rozlisit jestli se pta uzivatel nebo administrator
-// podle toho handlit prava ve funkci
 export const CustomerSupportView = () => {
-  const [initialization, setInitialization] = useState<Initializition>({
-    initialized: false,
-    anonymization: false,
-  });
+  const [selectedUseCase, setSelectedUseCase] = useState<CustomerSupportUseCase | null>(null);
+
+  const handleSubmit = (value: string) => {
+    const selected = OPTIONS.find((option) => option.value === value);
+    setSelectedUseCase(selected!);
+  };
 
   return (
     <div className="flex h-[40rem] flex-col items-center justify-center bg-background-dark p-3">
-      {initialization.initialized ? (
+      {selectedUseCase ? (
         <CustomerSupportRoom
-          anonymization={initialization.anonymization}
-          onBack={() => setInitialization((prev) => ({ ...prev, initialized: false }))}
+          onBack={() => setSelectedUseCase(null)}
+          selectedUseCase={selectedUseCase}
         />
       ) : (
-        <CustomerSupportInit
-          anonymization={initialization.anonymization}
-          setAnonymization={(anonymization) =>
-            setInitialization((prev) => ({ ...prev, anonymization }))
-          }
-          onSubmit={(anonymization) => setInitialization({ initialized: true, anonymization })}
-        />
+        <CustomerSupportInit onSubmit={handleSubmit} />
       )}
     </div>
   );

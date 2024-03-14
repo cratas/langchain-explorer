@@ -1,22 +1,36 @@
-import { Typography } from '@material-tailwind/react';
-import React from 'react';
+import { IconButton, Typography } from '@material-tailwind/react';
+import React, { useState } from 'react';
+import Typewriter from 'typewriter-effect';
 
 type Props = {
   proposals: string[];
 };
 
 export const InputWhisperer = ({ proposals }: Props) => {
-  console.log('InputWhisperer');
+  const [visible, setVisible] = useState(true);
 
-  return (
-    <div className="absolute bottom-[3.8rem] inline-flex">
-      <div className="inline-flex items-center justify-between gap-3 rounded-md bg-browser-finder/30 px-4 py-2 backdrop-blur-sm">
-        <Typography placeholder="" className="font-normal text-text-primary">
-          What is the most ordered product?
-        </Typography>
+  return visible ? (
+    <div className="my-3 flex items-center justify-between gap-3 rounded-md bg-browser-finder/30 py-1.5 pl-4 pr-1.5 backdrop-blur-sm">
+      <Typography placeholder="" className="text-nowrap font-normal text-text-light">
+        <Typewriter
+          options={{
+            strings: proposals,
+            autoStart: true,
+            loop: true,
+            delay: 5,
+            deleteSpeed: 1,
+            cursor: '',
+          }}
+        />
+      </Typography>
 
-        <span className="icon-[material-symbols--cancel] text-xl" />
+      <div>
+        <IconButton placeholder="" size="sm" onClick={() => setVisible(false)}>
+          <div className="flex items-center justify-center">
+            <span className="icon-[material-symbols--cancel] bg-text-primary text-xl" />
+          </div>
+        </IconButton>
       </div>
     </div>
-  );
+  ) : null;
 };

@@ -1,53 +1,45 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import { Button, Checkbox, Typography } from '@material-tailwind/react';
-import React from 'react';
+import { Button } from '@material-tailwind/react';
+import React, { useState } from 'react';
+import { OPTIONS } from './types';
 
 type Props = {
-  onSubmit: (anonymization: boolean) => void;
-  anonymization: boolean;
-  setAnonymization: (anonymization: boolean) => void;
+  onSubmit: (selectedUseCaseKey: string) => void;
 };
 
-export const CustomerSupportInit = ({ onSubmit, setAnonymization, anonymization }: Props) => {
-  const handleAnonymizationChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setAnonymization(e.target.checked);
-  };
+export const CustomerSupportInit = ({ onSubmit }: Props) => {
+  const [selectedUseCase, setSelectedUseCase] = useState(OPTIONS[0].value);
 
   return (
     <div className="flex w-full flex-col items-center">
       <div className="mb-5 text-center">
         <h1 className="text-2xl font-bold text-white">Customer Support</h1>
         <h6 className="text-md mt-2 max-w-[45rem] font-normal text-text-primary">
-          {`Customer support just got smarter! Need details about your orders? Just ask,
-           and our support chat, powered by LangChain with Function calls, will fetch the info for you. 
-           You can also use anonymization if you want to keep your data private.`}
+          {`Need details about your orders? Just ask,
+           and our support chat, powered by LangChain with Function calls. 
+           You can choose the role between user and administrator (the user should not be able to find out sensitive information about other users).`}
         </h6>
       </div>
 
-      <div className="mt-5 rounded-xl border-2 border-browser-light pl-1 pr-4">
-        <Checkbox
-          crossOrigin=""
-          className="rounded-md border-2 border-lighter-purple checked:border-lighter-purple checked:bg-lighter-purple"
-          checked={anonymization}
-          onChange={handleAnonymizationChange}
-          label={
-            <Typography placeholder="" className="flex text-sm font-bold text-white">
-              Use Anonymization
-              <Typography
-                as="span"
-                placeholder=""
-                className="ml-1 text-sm font-normal text-text-primary"
-              >
-                {'- '}ChatBot will not mention any personal data
-              </Typography>
-            </Typography>
-          }
-        />
+      <div className="mt-5 grid w-full grid-cols-2 gap-3 px-10">
+        {OPTIONS.map(({ value, label, description }) => (
+          <div
+            key={value}
+            onClick={() => setSelectedUseCase(value)}
+            className={`${selectedUseCase === value ? 'border-lighter-purple' : 'border-browser-light'} w-full cursor-pointer rounded-md border-2 p-3 text-center`}
+          >
+            <h4 className="text-md font-bold text-white">{label}</h4>
+
+            <p className="text-md mt-2 max-w-[45rem] text-sm font-normal text-text-primary">
+              {description}
+            </p>
+          </div>
+        ))}
       </div>
 
       <Button
-        onClick={() => onSubmit(anonymization)}
+        onClick={() => onSubmit(selectedUseCase)}
         placeholder=""
         size="sm"
         className="mt-10 flex items-center rounded bg-lighter-purple"

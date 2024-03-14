@@ -7,13 +7,15 @@ import { Typography } from '@material-tailwind/react';
 import { Message } from 'ai';
 import { useChat } from 'ai/react';
 import React from 'react';
+import { ADMIN_EXAMPLE_INPUTS, USER_EXAMPLE_INPUTS } from '@/constants/customer-support';
+import { CustomerSupportUseCase } from './types';
 
 type Props = {
   onBack: () => void;
-  anonymization: boolean;
+  selectedUseCase: CustomerSupportUseCase;
 };
 
-export const CustomerSupportRoom = ({ onBack, anonymization }: Props) => {
+export const CustomerSupportRoom = ({ onBack, selectedUseCase }: Props) => {
   const { setMessages, messages, input, stop, handleInputChange, handleSubmit, isLoading } =
     useChat({
       api: endpoints.customerSupport,
@@ -29,10 +31,10 @@ export const CustomerSupportRoom = ({ onBack, anonymization }: Props) => {
         onClear={() => setMessages([])}
         title={
           <Typography placeholder="" color="white" className="flex font-bold">
-            Customer Support
-            <Typography placeholder="" as="span" className="ml-1 font-normal text-text-primary">
-              {anonymization ? `(Anonymized)` : ''}
+            <Typography placeholder="" as="span" className="mx-1 font-normal text-text-primary">
+              Role:
             </Typography>
+            {selectedUseCase.label}
           </Typography>
         }
       />
@@ -41,7 +43,9 @@ export const CustomerSupportRoom = ({ onBack, anonymization }: Props) => {
         {!messages.filter((m: Message) => m.role !== 'system').length && <NoMessages />}
       </div>
 
-      <InputWhisperer proposals={[]} />
+      <InputWhisperer
+        proposals={selectedUseCase.value === 'user' ? USER_EXAMPLE_INPUTS : ADMIN_EXAMPLE_INPUTS}
+      />
 
       <ChatInput
         stop={stop}
