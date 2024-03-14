@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import { OPTIONS } from './types';
 
 type Props = {
-  onSubmit: (mc: string) => void;
+  onSubmit: (selectedUseCaseKey: string) => void;
 };
 
 export const ModerationInit = ({ onSubmit }: Props) => {

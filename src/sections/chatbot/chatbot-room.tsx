@@ -11,7 +11,6 @@ import { ChatMessageWithComparison } from '@/components/chat/chat-message-with-c
 import { gptMessageScrollHelper } from '@/global-states/atoms';
 import { useAtom } from 'jotai';
 import { generateRandomId } from '@/utils/generate-random-id';
-import { InputWhisperer } from '@/components/common/input-whisperer';
 import { RoomHeader } from '../../components/common/room-header';
 
 type Props = {
@@ -76,8 +75,6 @@ export const ChatBotRoom = ({ onBack, fileName, systemMessage }: Props) => {
           />
         )}
       </div>
-
-      <InputWhisperer proposals={[]} />
 
       <ChatInput
         stop={stop}
