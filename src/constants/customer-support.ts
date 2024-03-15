@@ -1,6 +1,9 @@
-export const USER_EXAMPLE_INPUTS = [
-  'What is the most popular product in your catalog right now?',
-  'Can you list the top-rated products in the skincare category?',
+export const EXAMPLE_INPUTS = [
+  'Who is the customer of March 2024?',
+  'What is status of my latest order?',
+  'What are 3 the most popular products in Toys category?',
+  'What is the most popular product all the time?',
+
   'What are the best-selling books this month?',
   'Which electronic products have the best reviews currently?',
   'Can I see a list of the newest additions in the home appliances section?',
@@ -11,15 +14,9 @@ export const USER_EXAMPLE_INPUTS = [
   'Could you recommend the best-sellers in the kitchen gadgets range?',
 ];
 
-export const ADMIN_EXAMPLE_INPUTS = [
-  'What is the best-selling product this month?',
-  'Can you provide a list of products that exceeded sales targets this quarter?',
-  'Which product category has shown the most growth in the last year?',
-  'How many new customers did we acquire last month?',
-  'What is the average order value for this quarter compared to the last?',
-  'Can I get a report on product returns and exchanges for the past six months?',
-  'Which customer has the highest lifetime value in our database?',
-  'What are the top five revenue-generating products of the last year?',
-  'How many repeat customers did we have in the last quarter?',
-  'Can you show the sales trend for our electronics category over the past three months?',
-];
+const createSystemMessage = (role: 'user' | 'guest' | 'administrator', username?: string) =>
+  `You are customer support assistant for an e-shop. Your role is to assist users with product-related queries. User role is ${role} and logged user's name is ${username}, consider it in creating parameters for function calls which will be used in the chat.`;
+
+export const SYSTEM_MESSAGE_GUEST = createSystemMessage('guest');
+export const SYSTEM_MESSAGE_USER = createSystemMessage('user', 'Roland Schimmel');
+export const SYSTEM_MESSAGE_ADMINISTRATOR = createSystemMessage('administrator');

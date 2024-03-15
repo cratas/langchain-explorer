@@ -9,7 +9,7 @@ type Props = {
 };
 
 export const CustomerSupportInit = ({ onSubmit }: Props) => {
-  const [selectedUseCase, setSelectedUseCase] = useState(OPTIONS[0].value);
+  const [selectedUseCase, setSelectedUseCase] = useState(OPTIONS[1].value);
 
   return (
     <div className="flex w-full flex-col items-center">
@@ -22,7 +22,7 @@ export const CustomerSupportInit = ({ onSubmit }: Props) => {
         </h6>
       </div>
 
-      <div className="mt-5 grid w-full grid-cols-2 gap-3 px-10">
+      <div className="mt-5 grid w-full grid-cols-3 gap-3 px-10">
         {OPTIONS.map(({ value, label, description }) => (
           <div
             key={value}

@@ -1,28 +1,36 @@
 import {
-  MODERATION_SYSTEM_MESSAGE_NO_COMPETITION,
-  MODERATION_SYSTEM_MESSAGE_YOUTH_AUDIENCE,
-} from '@/constants/moderation';
+  SYSTEM_MESSAGE_ADMINISTRATOR,
+  SYSTEM_MESSAGE_GUEST,
+  SYSTEM_MESSAGE_USER,
+} from '@/constants/customer-support';
 
 export const OPTIONS: CustomerSupportUseCase[] = [
   {
     label: 'E-shop Administrator',
     value: 'administrator',
-    systemMessage: MODERATION_SYSTEM_MESSAGE_YOUTH_AUDIENCE,
+    systemMessage: SYSTEM_MESSAGE_ADMINISTRATOR,
     description:
       'When this role is selected, the chat will be set to answer all queries related to the eshop domain.',
   },
   {
-    label: 'User (Roland Schimmel)',
+    label: 'Logged User (Roland Schimmel)',
     value: 'user',
-    systemMessage: MODERATION_SYSTEM_MESSAGE_NO_COMPETITION,
+    systemMessage: SYSTEM_MESSAGE_USER,
     description:
       "The chat will be set up to answer the user's (Roland Schimmel) questions regarding only his orders and basic information.",
+  },
+  {
+    label: 'Guest User',
+    value: 'guest',
+    systemMessage: SYSTEM_MESSAGE_GUEST,
+    description:
+      "The chat will be set up to answer the not logged-in user's questions regarding only basic information.",
   },
 ];
 
 export type CustomerSupportUseCase = {
   label: string;
-  value: 'administrator' | 'user';
+  value: 'administrator' | 'guest' | 'user';
   description: string;
   systemMessage: string;
 };

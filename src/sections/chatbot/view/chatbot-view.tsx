@@ -13,6 +13,7 @@ const defaultFakeFile = {
   lastModified: Date.now(),
 };
 
+// TODO: add into view (about use case)
 export const ChatBotView = () => {
   const { initializeChatBot, isLoading, isError, initialized, setInitialized } = useInitChatbot();
 

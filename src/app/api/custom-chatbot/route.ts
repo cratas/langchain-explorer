@@ -26,6 +26,7 @@ export const POST = async (request: Request) => {
       temperature: 0,
       streaming: true,
     });
+
     const nonStreamingModel = new ChatOpenAI({
       modelName: CHAT_MODEL_NAME,
       temperature: 0,
