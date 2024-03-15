@@ -12,7 +12,7 @@ export const CustomerSupportInit = ({ onSubmit }: Props) => {
   const [selectedUseCase, setSelectedUseCase] = useState(OPTIONS[1].value);
 
   return (
-    <div className="flex w-full flex-col items-center">
+    <div className="my-5 flex w-full flex-col items-center overflow-auto">
       <div className="mb-5 text-center">
         <h1 className="text-2xl font-bold text-white">Customer Support</h1>
         <h6 className="text-md mt-2 max-w-[45rem] font-normal text-text-primary">
@@ -22,7 +22,7 @@ export const CustomerSupportInit = ({ onSubmit }: Props) => {
         </h6>
       </div>
 
-      <div className="mt-5 grid w-full grid-cols-3 gap-3 px-10">
+      <div className="mt-5 grid w-full grid-cols-1 gap-3 px-10 md:grid-cols-3">
         {OPTIONS.map(({ value, label, description }) => (
           <div
             key={value}
