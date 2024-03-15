@@ -1,17 +1,11 @@
 export const EXAMPLE_INPUTS = [
   'Who is the customer of March 2024?',
   'What is status of my latest order?',
-  'What are 3 the most popular products in Toys category?',
+  'What are the 3 most popular products in Toys category?',
   'What is the most popular product all the time?',
-
-  'What are the best-selling books this month?',
-  'Which electronic products have the best reviews currently?',
-  'Can I see a list of the newest additions in the home appliances section?',
-  'What are the most purchased products by users in my age group?',
-  'Which clothing brand has been the most popular this season?',
-  'Can you suggest the top five products in the outdoor gear category?',
-  'What are the trending items in the fitness equipment section?',
-  'Could you recommend the best-sellers in the kitchen gadgets range?',
+  'Are there any products that are close to being out of stock?',
+  'Find all shipped orders.',
+  'Are there any orders that are not delivered yet?',
 ];
 
 const createSystemMessage = (role: 'user' | 'guest' | 'administrator', username?: string) =>
