@@ -47,7 +47,7 @@ export const HomeView = () => {
   const [activeTab, setActiveTab] = useState(TabsEnum.CUSTOM_CHATBOT);
 
   const renderTitle = (
-    <h1 className="bg-gradient-to-b from-white via-gray-500 to-gray-800 bg-clip-text p-2 text-center text-6xl font-semibold text-transparent">
+    <h1 className="bg-gradient-to-b from-white via-gray-500 to-gray-800 bg-clip-text p-2 text-center text-4xl font-semibold text-transparent md:text-6xl">
       Explore the power of LangChain
     </h1>
   );

@@ -34,8 +34,10 @@ export const FileUpload = ({ accept, setFile, file }: Props) => {
 
       {file && (
         <div className="mx-2">
-          <p className="text-sm font-bold text-text-dark">{fData(file.size)}</p>
-          <p className="text-sm font-bold text-white">{file.name}</p>
+          {/* <p className="text-sm font-bold text-text-dark">{fData(file.size)}</p> */}
+          <p className="text-sm font-bold text-white">
+            {file.name} <span className="text-nowrap text-text-primary">({fData(file.size)})</span>
+          </p>
         </div>
       )}
     </div>

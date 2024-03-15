@@ -16,7 +16,7 @@ const Wrapper = ({
   showComparison = false,
 }: PropsWithChildren<{ showComparison?: boolean }>) => (
   <div
-    className={`${showComparison ? 'w-[50%]' : 'w-full'} rounded-xl border-2 border-browser-light p-3`}
+    className={`${showComparison ? 'w-full md:w-[50%]' : 'w-full'} rounded-xl border-2 border-browser-light p-3`}
   >
     {children}
   </div>
@@ -34,7 +34,7 @@ export const ChatMessageWithComparison = ({ message, question, isError, isLoadin
   }, [showComparison, answer, sendMessage, question]);
 
   return (
-    <div className="flex gap-3">
+    <div className="flex flex-col gap-3 md:flex-row">
       <Wrapper showComparison={showComparison}>
         <ChatMessage
           message={message}
