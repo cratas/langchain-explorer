@@ -18,7 +18,7 @@ export const latestOrderInfo = async ({ role, username, loggedUserName }: Functi
 
   const customer = await prisma.customer.findFirst({
     where: {
-      name: username,
+      name: { equals: username, mode: 'insensitive' },
     },
   });
 
