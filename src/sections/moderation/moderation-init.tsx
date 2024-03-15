@@ -9,7 +9,7 @@ type Props = {
 };
 
 export const ModerationInit = ({ onSubmit }: Props) => {
-  const [selectedUseCase, setSelectedUseCase] = useState<string>(OPTIONS[0].value);
+  const [selectedUseCase, setSelectedUseCase] = useState<string>(OPTIONS[1].value);
 
   return (
     <div className="flex w-full flex-col items-center">

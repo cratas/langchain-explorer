@@ -1,6 +1,5 @@
 export const COMMON_TEMPLATE_WITH_CHAT_HISTORY = `
-Current conversation:
+Current conversation history:
 {chat_history}
 
-User: {input}
-AI:`;
+User input: {input}`;
