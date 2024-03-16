@@ -10,7 +10,7 @@ export const BrowserLayout = ({
   children,
   url = 'langchain.explorer.com',
 }: PropsWithChildren<Props>) => (
-  <div className="mb-10 overflow-hidden rounded-lg border border-gray-800 bg-browser-background">
+  <div className="overflow-hidden rounded-lg border border-gray-800 bg-browser-background">
     <div className="flex items-center">
       <div className="ml-2 flex items-center gap-2 p-1.5">
         <div className="h-[0.6rem] w-[0.6rem] rounded-full bg-red-500" />

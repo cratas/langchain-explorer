@@ -37,6 +37,6 @@ export const RoomHeader = ({ onBack, onClear, title, onBackText }: Props) => (
       </Tooltip>
     </div>
 
-    <p className="text-md text-center font-bold text-white lg:-mt-8">{title}</p>
+    <p className="text-md text-center font-bold text-text-light lg:-mt-8">{title}</p>
   </div>
 );

@@ -1,7 +1,7 @@
 'use client';
 
-import { BrowserLayout } from '@/layouts';
-import { ChatBotView } from '@/sections/chatbot/view';
+import { BaseUseCaseDescriptionLayout, BrowserLayout } from '@/layouts';
+import { ChatBotView, ChatBotViewHeader } from '@/sections/chatbot/view';
 import { CustomerSupportView } from '@/sections/customer-support/view';
 import { ModerationView } from '@/sections/moderation/view';
 import { Tabs, TabsHeader, Tab, TabsBody, TabPanel } from '@material-tailwind/react';
@@ -18,9 +18,15 @@ const TABS = [
     label: 'Q&A ChatBot (RAG)',
     value: TabsEnum.CUSTOM_CHATBOT,
     content: (
-      <BrowserLayout>
-        <ChatBotView />
-      </BrowserLayout>
+      <>
+        <BaseUseCaseDescriptionLayout>
+          <ChatBotViewHeader />
+        </BaseUseCaseDescriptionLayout>
+
+        <BrowserLayout>
+          <ChatBotView />
+        </BrowserLayout>
+      </>
     ),
   },
   {
@@ -60,7 +66,6 @@ export const HomeView = () => {
 
   const renderButton = (
     <div className="mx-auto mb-2 w-fit rounded-full border-2 border-light-purple bg-black px-3 py-0.5 text-text-light">
-      {/* <span className="icon-[gravity-ui--hand-point-down] " /> */}
       Context-Aware
     </div>
   );
@@ -78,7 +83,7 @@ export const HomeView = () => {
       <Tabs value={activeTab}>
         <TabsHeader
           placeholder=""
-          className="no-scrollbar mx-auto mt-2 max-w-[50rem] overflow-auto text-nowrap rounded-none border-b border-gray-900 bg-transparent p-0"
+          className="no-scrollbar mx-auto mt-2 max-w-[60rem] overflow-auto text-nowrap rounded-none border-b border-gray-900 bg-transparent p-0"
           indicatorProps={{
             className: 'bg-transparent border-b-2 border-lighter-purple rounded-none shadow-inner',
           }}
@@ -99,9 +104,9 @@ export const HomeView = () => {
             </Tab>
           ))}
         </TabsHeader>
-        <TabsBody placeholder="" className="mt-5">
+        <TabsBody placeholder="" className="mb-10">
           {TABS.map(({ value, content }) => (
-            <TabPanel key={value} value={value}>
+            <TabPanel key={value} value={value} className="p-0">
               {content}
             </TabPanel>
           ))}
