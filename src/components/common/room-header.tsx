@@ -22,7 +22,14 @@ export const RoomHeader = ({ onBack, onClear, title, onBackText }: Props) => (
         {onBackText}
       </Button>
 
-      <Tooltip content="Clear chat history">
+      <Tooltip
+        className="bg-white text-background-dark"
+        content="Clear chat history"
+        animate={{
+          mount: { scale: 1, y: 0 },
+          unmount: { scale: 0, y: 25 },
+        }}
+      >
         <IconButton
           onClick={onClear}
           placeholder=""

@@ -1,7 +1,6 @@
 'use client';
 
-import { BaseUseCaseDescriptionLayout, BrowserLayout } from '@/layouts';
-import { ChatBotView, ChatBotViewHeader } from '@/sections/chatbot/view';
+import { ChatBotView } from '@/sections/chatbot/view';
 import { CustomerSupportView } from '@/sections/customer-support/view';
 import { ModerationView } from '@/sections/moderation/view';
 import { Tabs, TabsHeader, Tab, TabsBody, TabPanel } from '@material-tailwind/react';
@@ -17,35 +16,17 @@ const TABS = [
   {
     label: 'Q&A ChatBot (RAG)',
     value: TabsEnum.CUSTOM_CHATBOT,
-    content: (
-      <>
-        <BaseUseCaseDescriptionLayout>
-          <ChatBotViewHeader />
-        </BaseUseCaseDescriptionLayout>
-
-        <BrowserLayout>
-          <ChatBotView />
-        </BrowserLayout>
-      </>
-    ),
+    content: <ChatBotView />,
   },
   {
     label: 'Moderation Layer',
     value: TabsEnum.MODERATION_LAYER,
-    content: (
-      <BrowserLayout>
-        <ModerationView />
-      </BrowserLayout>
-    ),
+    content: <ModerationView />,
   },
   {
     label: 'Customer Support',
     value: TabsEnum.CUSTOMER_SUPPORT,
-    content: (
-      <BrowserLayout>
-        <CustomerSupportView />
-      </BrowserLayout>
-    ),
+    content: <CustomerSupportView />,
   },
 ];
 

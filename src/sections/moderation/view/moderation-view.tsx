@@ -1,9 +1,10 @@
 import { useState } from 'react';
+import { BrowserLayout } from '@/layouts';
 import { ModerationRoom } from '../moderation-room';
 import { ModerationInit } from '../moderation-init';
 import { ModerationUseCase, OPTIONS } from '../types';
+import { ModerationViewHeader } from '../moderation-view-header';
 
-// TODO: add into view (about use case)
 export const ModerationView = () => {
   const [selectedUseCase, setSelectedUseCase] = useState<ModerationUseCase | null>(null);
 
@@ -13,12 +14,21 @@ export const ModerationView = () => {
   };
 
   return (
-    <div className="flex h-[40rem] flex-col items-center justify-center overflow-auto bg-background-dark p-3">
-      {selectedUseCase ? (
-        <ModerationRoom onBack={() => setSelectedUseCase(null)} selectedUseCase={selectedUseCase} />
-      ) : (
-        <ModerationInit onSubmit={handleSubmit} />
-      )}
-    </div>
+    <>
+      <ModerationViewHeader />
+
+      <BrowserLayout>
+        <div className="flex h-[40rem] flex-col items-center justify-center overflow-auto bg-background-dark p-3">
+          {selectedUseCase ? (
+            <ModerationRoom
+              onBack={() => setSelectedUseCase(null)}
+              selectedUseCase={selectedUseCase}
+            />
+          ) : (
+            <ModerationInit onSubmit={handleSubmit} />
+          )}
+        </div>
+      </BrowserLayout>
+    </>
   );
 };
