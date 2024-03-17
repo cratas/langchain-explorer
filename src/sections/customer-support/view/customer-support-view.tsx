@@ -1,9 +1,10 @@
 import { useState } from 'react';
+import { BrowserLayout } from '@/layouts';
 import { CustomerSupportInit } from '../customer-support-init';
 import { CustomerSupportRoom } from '../customer-support-room';
 import { CustomerSupportUseCase, OPTIONS } from '../types';
+import { CustomerSupportViewHeader } from '../customer-support-view-header';
 
-// TODO: add into view (about use case)
 export const CustomerSupportView = () => {
   const [selectedUseCase, setSelectedUseCase] = useState<CustomerSupportUseCase | null>(null);
 
@@ -13,15 +14,21 @@ export const CustomerSupportView = () => {
   };
 
   return (
-    <div className="flex h-[40rem] flex-col items-center justify-center bg-background-dark p-3">
-      {selectedUseCase ? (
-        <CustomerSupportRoom
-          onBack={() => setSelectedUseCase(null)}
-          selectedUseCase={selectedUseCase}
-        />
-      ) : (
-        <CustomerSupportInit onSubmit={handleSubmit} />
-      )}
-    </div>
+    <>
+      <CustomerSupportViewHeader />
+
+      <BrowserLayout>
+        <div className="flex h-[40rem] flex-col items-center justify-center bg-background-dark p-3">
+          {selectedUseCase ? (
+            <CustomerSupportRoom
+              onBack={() => setSelectedUseCase(null)}
+              selectedUseCase={selectedUseCase}
+            />
+          ) : (
+            <CustomerSupportInit onSubmit={handleSubmit} />
+          )}
+        </div>
+      </BrowserLayout>
+    </>
   );
 };

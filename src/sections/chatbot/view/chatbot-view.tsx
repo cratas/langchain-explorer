@@ -3,8 +3,10 @@ import React, { useEffect, useState } from 'react';
 import { Button, Spinner, Textarea } from '@material-tailwind/react';
 import { DEFAULT_FILE_NAME, DEFAULT_SYSTEM_MESSAGE } from '@/constants/custom-chatbot';
 import { FileUpload } from '@/components/upload';
+import { BrowserLayout } from '@/layouts';
 import { useInitChatbot } from '../hooks';
 import { ChatBotRoom } from '../chatbot-room';
+import { ChatBotViewHeader } from '../chatbot-view-header';
 
 const defaultFakeFile = {
   name: DEFAULT_FILE_NAME,
@@ -13,7 +15,6 @@ const defaultFakeFile = {
   lastModified: Date.now(),
 };
 
-// TODO: add into view (about use case)
 export const ChatBotView = () => {
   const { initializeChatBot, isLoading, isError, initialized, setInitialized } = useInitChatbot();
 
@@ -48,7 +49,7 @@ export const ChatBotView = () => {
   const renderInitChatbot = (
     <div className="flex flex-col items-center">
       <div className="mb-8 text-center">
-        <h1 className="text-2xl font-bold text-white">{`Let's set our Q&A ChatBot`}</h1>
+        <h1 className="text-2xl font-bold text-text-light">{`Let's set our Q&A ChatBot`}</h1>
         <h6 className="text-md mt-2 font-normal text-text-primary">
           You can provide (or use default) a system message and a PDF file to start the conversation
         </h6>
@@ -64,7 +65,7 @@ export const ChatBotView = () => {
         rows={5}
         value={systemMessage}
         onChange={handleChangeSystemMessage}
-        className="mt-2 !border-2 !border-gray-900 text-white placeholder-text-dark"
+        className="mt-2 !border-2 !border-gray-900 text-text-light placeholder-text-dark"
         containerProps={{
           className: 'w-full md:w-[40rem] min-w-0',
         }}
@@ -82,18 +83,24 @@ export const ChatBotView = () => {
   );
 
   return (
-    <div className="flex h-[40rem] flex-col items-center justify-center bg-background-dark p-3">
-      {isLoading ? (
-        <Spinner />
-      ) : initialized ? (
-        <ChatBotRoom
-          fileName={contextFile?.name!}
-          onBack={handleReinitializeChatBot}
-          systemMessage={systemMessage}
-        />
-      ) : (
-        renderInitChatbot
-      )}
-    </div>
+    <>
+      <ChatBotViewHeader />
+
+      <BrowserLayout>
+        <div className="flex h-[40rem] flex-col items-center justify-center bg-background-dark p-3">
+          {isLoading ? (
+            <Spinner />
+          ) : initialized ? (
+            <ChatBotRoom
+              fileName={contextFile?.name!}
+              onBack={handleReinitializeChatBot}
+              systemMessage={systemMessage}
+            />
+          ) : (
+            renderInitChatbot
+          )}
+        </div>
+      </BrowserLayout>
+    </>
   );
 };

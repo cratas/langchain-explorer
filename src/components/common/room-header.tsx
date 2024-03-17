@@ -22,7 +22,14 @@ export const RoomHeader = ({ onBack, onClear, title, onBackText }: Props) => (
         {onBackText}
       </Button>
 
-      <Tooltip content="Clear chat history">
+      <Tooltip
+        className="bg-white text-background-dark"
+        content="Clear chat history"
+        animate={{
+          mount: { scale: 1, y: 0 },
+          unmount: { scale: 0, y: 25 },
+        }}
+      >
         <IconButton
           onClick={onClear}
           placeholder=""
@@ -37,6 +44,6 @@ export const RoomHeader = ({ onBack, onClear, title, onBackText }: Props) => (
       </Tooltip>
     </div>
 
-    <p className="text-md text-center font-bold text-white lg:-mt-8">{title}</p>
+    <p className="text-md text-center font-bold text-text-light lg:-mt-8">{title}</p>
   </div>
 );

@@ -14,7 +14,7 @@ export const CustomerSupportInit = ({ onSubmit }: Props) => {
   return (
     <div className="my-5 flex w-full flex-col items-center overflow-auto">
       <div className="mb-5 text-center">
-        <h1 className="text-2xl font-bold text-white">Customer Support</h1>
+        <h1 className="text-2xl font-bold text-text-light">Customer Support</h1>
         <h6 className="text-md mt-2 max-w-[45rem] font-normal text-text-primary">
           {`Need details about your orders? Just ask,
            and our support chat, powered by LangChain with Function calls. 
@@ -29,7 +29,7 @@ export const CustomerSupportInit = ({ onSubmit }: Props) => {
             onClick={() => setSelectedUseCase(value)}
             className={`${selectedUseCase === value ? 'border-lighter-purple' : 'border-browser-light'} w-full cursor-pointer rounded-md border-2 p-3 text-center`}
           >
-            <h4 className="text-md font-bold text-white">{label}</h4>
+            <h4 className="text-md font-bold text-text-light">{label}</h4>
 
             <p className="text-md mt-2 max-w-[45rem] text-sm font-normal text-text-primary">
               {description}

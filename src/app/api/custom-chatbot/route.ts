@@ -23,13 +23,13 @@ export const POST = async (request: Request) => {
 
     const streamingModel = new ChatOpenAI({
       modelName: CHAT_MODEL_NAME,
-      temperature: 0,
+      temperature: 0.2,
       streaming: true,
     });
 
     const nonStreamingModel = new ChatOpenAI({
       modelName: CHAT_MODEL_NAME,
-      temperature: 0,
+      temperature: 0.2,
     });
 
     const vectorStore = await getPineconeStore(context);
