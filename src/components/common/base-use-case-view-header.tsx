@@ -5,6 +5,7 @@ type Props = {
   title: string;
   description: string;
   buttonText: string;
+  buttonLinkURL: string;
   settingsItems: {
     label: string;
     value: string;
@@ -18,6 +19,7 @@ export const BaseUseCaseViewHeader = ({
   description,
   buttonText,
   settingsItems,
+  buttonLinkURL,
 }: Props) => (
   <div
     className="mb-5 mt-7 flex flex-col gap-10 rounded-lg bg-gradient-to-br from-lighter-purple via-transparent
@@ -45,13 +47,15 @@ export const BaseUseCaseViewHeader = ({
           </Typography>
 
           <div>
-            <Button
-              placeholder=""
-              size="sm"
-              className="mt-5 w-auto rounded bg-lighter-purple hover:bg-light-purple"
-            >
-              {buttonText}
-            </Button>
+            <a href={buttonLinkURL}>
+              <Button
+                placeholder=""
+                size="sm"
+                className="mt-5 w-auto rounded bg-lighter-purple hover:bg-light-purple"
+              >
+                {buttonText}
+              </Button>
+            </a>
           </div>
         </div>
 

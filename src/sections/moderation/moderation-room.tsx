@@ -37,7 +37,7 @@ export const ModerationRoom = ({ onBack, selectedUseCase }: Props) => {
   const { messagesEndRef } = useMessagesScroll(messages);
 
   return (
-    <div className="relative flex h-full w-full flex-col rounded-xl border border-browser-background bg-background-light p-3">
+    <div className="relative flex h-full w-full flex-col rounded-xl border border-browser-light bg-background-light p-3">
       <RoomHeader
         onBack={onBack}
         onBackText="Change Chat type"

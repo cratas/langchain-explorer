@@ -1,8 +1,10 @@
+import routes from '@/app/routes';
 import { BaseUseCaseViewHeader } from '@/components/common/base-use-case-view-header';
 
 export const ChatBotViewHeader = () => (
   <BaseUseCaseViewHeader
     buttonText="Create custom RAG"
+    buttonLinkURL={routes.rag}
     chipItems={[
       'Own context',
       'Retrieval Enhanced',

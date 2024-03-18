@@ -11,7 +11,7 @@ import { ChatMessageWithComparison } from '@/components/chat/chat-message-with-c
 import { gptMessageScrollHelper } from '@/global-states/atoms';
 import { useAtom } from 'jotai';
 import { generateRandomId } from '@/utils/generate-random-id';
-import { RoomHeader } from '../../components/common/room-header';
+import { RoomHeader } from '@/components/common';
 
 type Props = {
   onBack: () => void;

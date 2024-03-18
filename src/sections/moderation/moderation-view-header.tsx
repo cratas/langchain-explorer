@@ -1,7 +1,9 @@
+import routes from '@/app/routes';
 import { BaseUseCaseViewHeader } from '@/components/common/base-use-case-view-header';
 
 export const ModerationViewHeader = () => (
   <BaseUseCaseViewHeader
+    buttonLinkURL={routes.moderation}
     title="What is Moderation Layer?"
     description="
       In the context of Large Language Models (LLMs), a moderation layer refers to a system or set 
