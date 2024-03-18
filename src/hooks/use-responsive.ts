@@ -3,7 +3,6 @@
 import { useEffect, useState } from 'react';
 
 type Query = 'up' | 'down' | 'between';
-
 type BreakPoints = 'sm' | 'md' | 'lg' | 'xl' | '2xl';
 
 // Breakpoint should be dynamically imported from tw config
@@ -16,11 +15,13 @@ const BREAKPOINTS = {
 };
 
 export const useResponsive = (query: Query, start: BreakPoints, end?: BreakPoints) => {
-  const [width, setWidth] = useState(window.innerWidth);
+  const [width, setWidth] = useState(0);
 
   const handleWindowSizeChange = () => setWidth(window.innerWidth);
 
   useEffect(() => {
+    handleWindowSizeChange();
+
     window.addEventListener('resize', handleWindowSizeChange);
 
     return () => {
@@ -41,5 +42,5 @@ export const useResponsive = (query: Query, start: BreakPoints, end?: BreakPoint
     }
   };
 
-  return calculateQuery(query, start, end);
+  return width === 0 ? null : calculateQuery(query, start, end);
 };

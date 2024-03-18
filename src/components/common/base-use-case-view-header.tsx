@@ -1,3 +1,4 @@
+import { generateRandomId } from '@/utils/generate-random-id';
 import { Button, Chip, Tooltip, Typography } from '@material-tailwind/react';
 
 type Props = {
@@ -73,7 +74,7 @@ export const BaseUseCaseViewHeader = ({
 
 const renderItem = (label: string, value: string, tooltipContent: string) => (
   <div
-    key={label}
+    key={generateRandomId()}
     className="flex min-w-[10rem] grow gap-2 rounded-lg border border-gray-900 bg-background-dark p-1 pr-2"
   >
     <Tooltip
@@ -102,7 +103,7 @@ const renderItem = (label: string, value: string, tooltipContent: string) => (
 
 const renderChip = (label: string) => (
   <Chip
-    key={label}
+    key={generateRandomId()}
     value={label}
     size="sm"
     className="inline-block border border-lighter-purple normal-case text-text-light"

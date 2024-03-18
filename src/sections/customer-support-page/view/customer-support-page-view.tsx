@@ -6,9 +6,8 @@ import { SettingsDrawerButton } from '@/components/settings-drawer';
 import { useResponsive } from '@/hooks/use-responsive';
 import { Button, Typography } from '@material-tailwind/react';
 import routes from '@/app/routes';
-import { RagPageRoom } from '../rag-page-room';
 
-export const RagPageView = () => {
+export const CustomerSupportPageView = () => {
   const isSmallDevice = useResponsive('down', 'lg');
 
   const [settingsOpen, setSettingsOpen] = useState(false);
@@ -24,7 +23,7 @@ export const RagPageView = () => {
           {isSmallDevice && <SettingsDrawerButton onClick={() => setSettingsOpen(!settingsOpen)} />}
 
           <Typography placeholder="" className="font-bold">
-            RAG ChatBot
+            Customer Support
           </Typography>
 
           <a href={routes.home} className="ml-auto">
@@ -38,8 +37,6 @@ export const RagPageView = () => {
             </Button>
           </a>
         </div>
-
-        <RagPageRoom fileName="sdf" systemMessage="" />
       </div>
     </div>
   );
