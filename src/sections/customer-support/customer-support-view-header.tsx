@@ -1,8 +1,10 @@
+import routes from '@/app/routes';
 import { BaseUseCaseViewHeader } from '@/components/common/base-use-case-view-header';
 
 export const CustomerSupportViewHeader = () => (
   <BaseUseCaseViewHeader
     title="Customer support using Function calls"
+    buttonLinkURL={routes.customerSupport}
     description="
       Customer support through function calls is a structured approach to address customer 
       inquiries and issues. The process begins with an initialization function gathering 

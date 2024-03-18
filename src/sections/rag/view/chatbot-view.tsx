@@ -1,3 +1,5 @@
+'use client';
+
 /* eslint-disable no-nested-ternary */
 import React, { useEffect, useState } from 'react';
 import { Button, Spinner, Textarea } from '@material-tailwind/react';
