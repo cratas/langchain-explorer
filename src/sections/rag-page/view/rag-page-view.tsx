@@ -11,7 +11,7 @@ import { RagPageRoom } from '../rag-page-room';
 export const RagPageView = () => {
   const [settingsOpen, setSettingsOpen] = useState(false);
 
-  const isSmallDevice = useResponsive('down', 'md');
+  const isSmallDevice = useResponsive('down', 'lg');
 
   const ragFormRef = useRef<HTMLFormElement>();
 
