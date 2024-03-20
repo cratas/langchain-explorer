@@ -9,6 +9,8 @@ import { RagPageSettings } from '../rag-page-settings';
 import { RagPageRoom } from '../rag-page-room';
 
 export const RagPageView = () => {
+  const isSmallDevice = useResponsive('down', 'lg');
+
   const [settingsOpen, setSettingsOpen] = useState(false);
 
   const isSmallDevice = useResponsive('down', 'lg');

@@ -3,7 +3,6 @@
 import { useEffect, useState } from 'react';
 
 type Query = 'up' | 'down' | 'between';
-
 type BreakPoints = 'sm' | 'md' | 'lg' | 'xl' | '2xl';
 
 // Breakpoint should be dynamically imported from tw config
@@ -43,5 +42,5 @@ export const useResponsive = (query: Query, start: BreakPoints, end?: BreakPoint
     }
   };
 
-  return calculateQuery(query, start, end);
+  return width === 0 ? null : calculateQuery(query, start, end);
 };
