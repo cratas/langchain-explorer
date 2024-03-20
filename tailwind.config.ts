@@ -28,6 +28,7 @@ module.exports = withMT({
       colors: {
         'background-dark': '#0c0c0d',
         'background-light': '#121314',
+        'background-lighter': '#1a1b1c',
         'light-purple': 'rgba(138, 92, 255, 0.5)',
         'lighter-purple': 'rgba(138, 92, 255, 1)',
         'text-primary': '#a3a3a3',

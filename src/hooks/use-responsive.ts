@@ -16,11 +16,13 @@ const BREAKPOINTS = {
 };
 
 export const useResponsive = (query: Query, start: BreakPoints, end?: BreakPoints) => {
-  const [width, setWidth] = useState(window.innerWidth);
+  const [width, setWidth] = useState(0);
 
   const handleWindowSizeChange = () => setWidth(window.innerWidth);
 
   useEffect(() => {
+    handleWindowSizeChange();
+
     window.addEventListener('resize', handleWindowSizeChange);
 
     return () => {

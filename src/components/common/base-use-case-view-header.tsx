@@ -73,7 +73,7 @@ export const BaseUseCaseViewHeader = ({
 
 const renderItem = (label: string, value: string, tooltipContent: string) => (
   <div
-    key={label}
+    key={value}
     className="flex min-w-[10rem] grow gap-2 rounded-lg border border-gray-900 bg-background-dark p-1 pr-2"
   >
     <Tooltip

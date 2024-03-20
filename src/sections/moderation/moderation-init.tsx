@@ -44,7 +44,7 @@ export const ModerationInit = ({ onSubmit }: Props) => {
         size="sm"
         className="mt-10 flex items-center rounded bg-lighter-purple"
       >
-        Create ChatBot
+        Create Chatbot
       </Button>
     </div>
   );
