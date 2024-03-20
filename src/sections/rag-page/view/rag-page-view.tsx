@@ -13,8 +13,6 @@ export const RagPageView = () => {
 
   const [settingsOpen, setSettingsOpen] = useState(false);
 
-  const isSmallDevice = useResponsive('down', 'lg');
-
   const ragFormRef = useRef<HTMLFormElement>();
 
   const onSubmitButtonClick = () => ragFormRef.current?.submit();
