@@ -7,7 +7,7 @@ import React, { PropsWithChildren } from 'react';
 type Props = {
   open: boolean;
   setOpen: (open: boolean) => void;
-  onSubmitButtonClick: VoidFunction;
+  onSubmitButtonClick?: VoidFunction;
 };
 
 export const UseCaseSettingsDrawer = ({
