@@ -16,15 +16,13 @@ export const RHFSlider = ({ name, label }: Props) => {
       render={({ field }) => (
         <div>
           <div className="flex justify-between">
-            <Typography placeholder="" className="mb-1 text-xs text-text-primary">
-              {label}
-            </Typography>
+            <Typography className="mb-1 text-xs text-text-primary">{label}</Typography>
 
-            <Typography placeholder="" className="mb-1 text-sm font-bold text-text-light">
+            <Typography className="mb-1 text-sm font-bold text-text-light">
               {(Number(field.value) / 100).toFixed(2)}
             </Typography>
           </div>
-          <Slider placeholder="" size="sm" barClassName="bg-lighter-purple" {...field} />
+          <Slider size="sm" barClassName="bg-lighter-purple" {...field} />
         </div>
       )}
       control={control}

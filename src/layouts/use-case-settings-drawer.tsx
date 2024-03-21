@@ -21,11 +21,7 @@ export const UseCaseSettingsDrawer = ({
   const isLargeDevice = useResponsive('up', 'lg');
 
   const renderSubmitButton = (
-    <Button
-      placeholder=""
-      className="bg-lighter-purple hover:bg-light-purple"
-      onClick={onSubmitButtonClick}
-    >
+    <Button className="bg-lighter-purple hover:bg-light-purple" onClick={onSubmitButtonClick}>
       Generate new Chatbot
     </Button>
   );
@@ -37,10 +33,10 @@ export const UseCaseSettingsDrawer = ({
       </div>
 
       <div className="flex flex-col items-start justify-between overflow-hidden">
-        <Typography placeholder="" className="truncate text-ellipsis text-sm text-text-primary">
+        <Typography className="truncate text-ellipsis text-sm text-text-primary">
           Set up your chatbot
         </Typography>
-        <Typography placeholder="" className="text-md truncate text-lg font-bold text-text-light">
+        <Typography className="text-md truncate text-lg font-bold text-text-light">
           Chatbot Customization
         </Typography>
       </div>
@@ -48,12 +44,7 @@ export const UseCaseSettingsDrawer = ({
   );
 
   const renderMobile = (
-    <Drawer
-      placeholder=""
-      open={open}
-      onClose={closeDrawer}
-      className="flex flex-col bg-background-light p-4"
-    >
+    <Drawer open={open} onClose={closeDrawer} className="flex flex-col bg-background-light p-4">
       {renderHeader}
 
       {children}

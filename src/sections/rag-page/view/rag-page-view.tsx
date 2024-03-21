@@ -31,7 +31,6 @@ export const RagPageView = () => {
         <div className="m-3 flex items-center justify-between border-b-2 border-browser-light pb-3">
           {isSmallDevice && (
             <IconButton
-              placeholder=""
               className="mr-2 bg-lighter-purple"
               size="sm"
               onClick={() => setSettingsOpen(!settingsOpen)}
@@ -42,14 +41,11 @@ export const RagPageView = () => {
             </IconButton>
           )}
 
-          <Typography placeholder="" className="font-bold">
-            RAG Chatbot
-          </Typography>
+          <Typography className="font-bold">RAG Chatbot</Typography>
 
           <a href={routes.home} className="ml-auto">
             <Button
               className="flex items-center gap-2 text-text-light hover:text-text-primary"
-              placeholder=""
               size="sm"
             >
               <span className="icon-[fluent--home-24-filled] text-lg" />

@@ -39,18 +39,15 @@ export const BaseUseCaseViewHeader = ({
 
       <div className="flex flex-col gap-10 lg:flex-row">
         <div className="flex w-full flex-col gap-2 lg:w-[45%]">
-          <Typography placeholder="" variant="h5" className="text-text-light">
+          <Typography variant="h5" className="text-text-light">
             {title}
           </Typography>
 
-          <Typography placeholder="" className="text-sm text-text-primary">
-            {description}
-          </Typography>
+          <Typography className="text-sm text-text-primary">{description}</Typography>
 
           <div>
             <a href={buttonLinkURL}>
               <Button
-                placeholder=""
                 size="sm"
                 className="mt-5 w-auto rounded bg-lighter-purple hover:bg-light-purple"
               >
@@ -91,12 +88,8 @@ const renderItem = (label: string, value: string, tooltipContent: string) => (
     </Tooltip>
 
     <div className="flex flex-col items-start justify-between overflow-hidden">
-      <Typography placeholder="" className="truncate text-ellipsis text-sm text-text-primary">
-        {label}
-      </Typography>
-      <Typography placeholder="" className="truncate  text-sm font-bold text-text-light">
-        {value}
-      </Typography>
+      <Typography className="truncate text-ellipsis text-sm text-text-primary">{label}</Typography>
+      <Typography className="truncate  text-sm font-bold text-text-light">{value}</Typography>
     </div>
   </div>
 );

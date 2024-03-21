@@ -16,7 +16,6 @@ export const RHFSelect = ({ name, label, options }: Props) => {
       name={name}
       render={({ field, fieldState: { error } }) => (
         <Select
-          placeholder=""
           error={!!error}
           label={label}
           className="text-text-light"

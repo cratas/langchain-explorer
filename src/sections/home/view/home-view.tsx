@@ -63,7 +63,6 @@ export const HomeView = () => {
 
       <Tabs value={activeTab}>
         <TabsHeader
-          placeholder=""
           className="no-scrollbar mx-auto mt-2 max-w-[60rem] overflow-auto text-nowrap rounded-none border-b border-gray-900 bg-transparent p-0"
           indicatorProps={{
             className: 'bg-transparent border-b-2 border-lighter-purple rounded-none shadow-inner',
@@ -71,7 +70,6 @@ export const HomeView = () => {
         >
           {TABS.map(({ label, value }) => (
             <Tab
-              placeholder=""
               key={value}
               value={value}
               onClick={() => setActiveTab(value)}
@@ -85,7 +83,7 @@ export const HomeView = () => {
             </Tab>
           ))}
         </TabsHeader>
-        <TabsBody placeholder="" className="mb-10">
+        <TabsBody className="mb-10">
           {TABS.map(({ value, content }) => (
             <TabPanel key={value} value={value} className="p-0">
               {content}

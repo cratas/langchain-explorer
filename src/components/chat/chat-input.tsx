@@ -21,6 +21,7 @@ export const ChatInput = ({ handleSubmit, stop, isLoading, input, handleInputCha
   <form onSubmit={handleSubmit}>
     <div className="relative">
       <Input
+        type="text"
         labelProps={{
           className: 'hidden',
         }}
@@ -37,7 +38,6 @@ export const ChatInput = ({ handleSubmit, stop, isLoading, input, handleInputCha
       <Button
         type="submit"
         onClick={isLoading ? stop : undefined}
-        placeholder=""
         disabled={!isLoading && !input}
         size="sm"
         className="!absolute right-1 top-1 flex items-center gap-3 rounded bg-lighter-purple"

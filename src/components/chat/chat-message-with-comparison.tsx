@@ -43,7 +43,6 @@ export const ChatMessageWithComparison = ({ message, question, isError, isLoadin
           comparasionButton={
             !isLoading && (
               <Button
-                placeholder=""
                 onClick={() => setShowComparison(!showComparison)}
                 variant="text"
                 size="sm"
