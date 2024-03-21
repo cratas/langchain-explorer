@@ -30,13 +30,29 @@ export const CONVERSATION_MODEL_OPTIONS: OptionType<string>[] = [
     label: 'gpt-3.5-turbo (OpenAI)',
     value: 'gpt-3.5-turbo',
   },
+  // {
+  //   label: 'mistral-large-2402 (Mistral AI)',
+  //   value: 'mistral-large-2402',
+  // },
   {
-    label: 'claude-3-opus-20240229 (Anthropic)',
-    value: 'claude-3-opus-20240229',
+    label: 'mistral-medium-2312 (Mistral AI)',
+    value: 'mistral-medium-2312',
   },
+  {
+    label: 'mistral-small-2402 (Mistral AI)',
+    value: 'mistral-small-2402',
+  },
+  // {
+  //   label: 'claude-3-opus-20240229 (Anthropic)',
+  //   value: 'claude-3-opus-20240229',
+  // },
   {
     label: 'claude-3-sonnet-20240229 (Anthropic)',
     value: 'claude-3-sonnet-20240229',
+  },
+  {
+    label: 'claude-3-haiku-20240307 (Anthropic)',
+    value: 'claude-3-haiku-20240307',
   },
 ];
 

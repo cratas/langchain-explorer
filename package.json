@@ -20,11 +20,12 @@
     "@hookform/resolvers": "^3.3.4",
     "@iconify/tailwind": "^0.1.4",
     "@langchain/anthropic": "^0.1.8",
-    "@langchain/core": "^0.1.30",
-    "@langchain/openai": "^0.0.14",
+    "@langchain/core": "^0.1.49",
+    "@langchain/mistralai": "^0.0.15",
+    "@langchain/openai": "^0.0.22",
     "@langchain/pinecone": "^0.0.3",
     "@material-tailwind/react": "^2.1.9",
-    "@pinecone-database/pinecone": "^2.0.1",
+    "@pinecone-database/pinecone": "^2.1.0",
     "@prisma/client": "^5.10.2",
     "@vercel/postgres": "^0.7.2",
     "ai": "^2.2.35",
@@ -32,7 +33,7 @@
     "dotenv": "^16.4.2",
     "fs": "^0.0.1-security",
     "jotai": "^2.6.5",
-    "langchain": "^0.1.17",
+    "langchain": "^0.1.28",
     "next": "14.1.0",
     "numeral": "^2.0.6",
     "openai": "^4.27.0",
@@ -79,14 +80,14 @@
     "seed": "ts-node prisma/seed.ts"
   },
   "resolutions": {
-    "@langchain/core": "0.1.30"
+    "@langchain/core": "0.1.49"
   },
   "overrides": {
-    "@langchain/core": "0.1.30"
+    "@langchain/core": "0.1.49"
   },
   "pnpm": {
     "overrides": {
-      "@langchain/core": "0.1.30"
+      "@langchain/core": "0.1.49"
     }
   },
   "browser": {
