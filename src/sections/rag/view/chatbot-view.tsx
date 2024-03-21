@@ -75,11 +75,10 @@ export const ChatBotView = () => {
 
       <Button
         onClick={initializeChatBotRoom}
-        placeholder=""
         size="sm"
         className="mt-12 flex h-full items-center rounded bg-lighter-purple hover:bg-light-purple"
       >
-        Create ChatBot
+        Create Chatbot
       </Button>
     </div>
   );

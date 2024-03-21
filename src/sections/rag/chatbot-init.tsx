@@ -47,11 +47,10 @@ export const ChatBotInit = ({ onSubmit, setContextFile, contextFile }: Props) =>
 
       <Button
         onClick={handleSubmit}
-        placeholder=""
         size="sm"
         className="mt-5 flex items-center rounded bg-lighter-purple"
       >
-        Create ChatBot
+        Create Chatbot
       </Button>
     </div>
   );

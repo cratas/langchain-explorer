@@ -44,7 +44,7 @@ export const CustomerSupportRoom = ({ onBack, selectedUseCase }: Props) => {
         onBackText="Change settings"
         onClear={() => setMessages([])}
         title={
-          <Typography placeholder="" color="white" className="font-bold">
+          <Typography color="white" className="font-bold">
             <span className="mx-1 font-normal text-text-primary">Role:</span>
             {selectedUseCase.label}
           </Typography>

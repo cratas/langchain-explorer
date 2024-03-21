@@ -13,7 +13,6 @@ export const RoomHeader = ({ onBack, onClear, title, onBackText }: Props) => (
     <div className="flex w-full flex-row items-center justify-between">
       <Button
         onClick={onBack}
-        placeholder=""
         variant="text"
         size="sm"
         className="flex items-center gap-1 pl-0 text-sm normal-case text-text-primary hover:bg-transparent"
@@ -32,7 +31,6 @@ export const RoomHeader = ({ onBack, onClear, title, onBackText }: Props) => (
       >
         <IconButton
           onClick={onClear}
-          placeholder=""
           size="sm"
           variant="outlined"
           className="flex items-center gap-1 border-2 border-browser-light text-sm normal-case text-text-primary focus:ring-0 active:ring-0"

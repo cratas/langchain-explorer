@@ -11,7 +11,7 @@ export const InputWhisperer = ({ proposals }: Props) => {
 
   return visible ? (
     <div className="my-3 flex items-center justify-between gap-3 rounded-md bg-browser-finder/30 py-1.5 pl-4 pr-1.5 backdrop-blur-sm">
-      <Typography placeholder="" className="text-nowrap font-normal text-text-light">
+      <Typography className="text-nowrap font-normal text-text-light">
         <Typewriter
           options={{
             strings: proposals,
@@ -25,7 +25,7 @@ export const InputWhisperer = ({ proposals }: Props) => {
       </Typography>
 
       <div>
-        <IconButton placeholder="" size="sm" onClick={() => setVisible(false)}>
+        <IconButton size="sm" onClick={() => setVisible(false)}>
           <div className="flex items-center justify-center">
             <span className="icon-[material-symbols--cancel] bg-text-primary text-xl" />
           </div>

@@ -6,7 +6,7 @@ import React from 'react';
 
 type Props = {
   accept: string;
-  file: File | null;
+  file?: File | null;
   setFile: (file: File) => void;
 };
 
@@ -32,14 +32,12 @@ export const FileUpload = ({ accept, setFile, file }: Props) => {
         />
       </label>
 
-      {file && (
-        <div className="mx-2">
-          {/* <p className="text-sm font-bold text-text-dark">{fData(file.size)}</p> */}
-          <p className="text-sm font-bold text-text-light">
-            {file.name} <span className="text-nowrap text-text-primary">({fData(file.size)})</span>
-          </p>
-        </div>
-      )}
+      <div className="mx-2 mr-auto">
+        <p className="text-sm font-bold text-text-light">
+          {file ? file.name : 'Upload file'}{' '}
+          {file && <span className="text-nowrap text-text-primary">({fData(file.size)})</span>}
+        </p>
+      </div>
     </div>
   );
 };

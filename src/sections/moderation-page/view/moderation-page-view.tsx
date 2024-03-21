@@ -22,14 +22,11 @@ export const ModerationPageView = () => {
         <div className="m-3 flex items-center justify-between border-b-2 border-browser-light pb-3">
           {isSmallDevice && <SettingsDrawerButton onClick={() => setSettingsOpen(!settingsOpen)} />}
 
-          <Typography placeholder="" className="font-bold">
-            Moderation Layer
-          </Typography>
+          <Typography className="font-bold">Moderation Layer</Typography>
 
           <a href={routes.home} className="ml-auto">
             <Button
               className="flex items-center gap-2 text-text-light hover:text-text-primary"
-              placeholder=""
               size="sm"
             >
               <span className="icon-[fluent--home-24-filled] text-lg" />

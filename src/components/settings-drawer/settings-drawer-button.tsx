@@ -10,7 +10,6 @@ export const SettingsDrawerButton = ({ onClick }: Props) => (
     size="sm"
     onClick={onClick}
     variant="text"
-    placeholder=""
     className="mr-2 justify-center bg-lighter-purple text-white hover:bg-light-purple"
   >
     <div className="flex items-center justify-center">
