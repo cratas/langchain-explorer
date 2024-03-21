@@ -6,25 +6,20 @@ import { useForm, useWatch } from 'react-hook-form';
 import { RHFUpload } from '@/components/form/rhf-upload';
 import { UseCaseSettingsCard } from '@/components/common';
 import { CONVERSATION_MODEL_OPTIONS, SOURCE_OPTIONS } from './types';
-import { defaultValues, RAGSettingsSchema } from './constants';
-
-// TODO: options
-// ('openai');
-// ('anthropic');
-// ('mistral');
+import { CustomChatbotSettingsSchema, defaultValues } from './constants';
 
 type Props = {
   formRef: MutableRefObject<unknown>;
 };
 
-export const RagPageSettings = ({ formRef }: Props) => {
+export const CustomChatbotPageSettings = ({ formRef }: Props) => {
   useImperativeHandle(formRef, () => ({
     submit: () => onSubmit(getValues()),
   }));
 
   const methods = useForm({
     defaultValues,
-    resolver: yupResolver(RAGSettingsSchema),
+    resolver: yupResolver(CustomChatbotSettingsSchema),
   });
 
   const { handleSubmit, getValues, trigger } = methods;

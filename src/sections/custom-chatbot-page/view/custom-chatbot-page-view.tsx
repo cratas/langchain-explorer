@@ -5,17 +5,17 @@ import React, { useRef, useState } from 'react';
 import { Button, IconButton, Typography } from '@material-tailwind/react';
 import routes from '@/app/routes';
 import { useResponsive } from '@/hooks/use-responsive';
-import { RagPageSettings } from '../rag-page-settings';
-import { RagPageRoom } from '../rag-page-room';
+import { CustomChatbotPageSettings } from '../custom-chatbot-page-settings';
+import { CustomChatbotPageRoom } from '../custom-chatbot-page-room';
 
-export const RagPageView = () => {
+export const CustomChatbotPageView = () => {
   const isSmallDevice = useResponsive('down', 'lg');
 
   const [settingsOpen, setSettingsOpen] = useState(false);
 
-  const ragFormRef = useRef<HTMLFormElement>();
+  const settingsFormRef = useRef<HTMLFormElement>();
 
-  const onSubmitButtonClick = () => ragFormRef.current?.submit();
+  const onSubmitButtonClick = () => settingsFormRef.current?.submit();
 
   return (
     <div className="flex h-screen">
@@ -24,7 +24,7 @@ export const RagPageView = () => {
         setOpen={setSettingsOpen}
         onSubmitButtonClick={onSubmitButtonClick}
       >
-        <RagPageSettings formRef={ragFormRef} />
+        <CustomChatbotPageSettings formRef={settingsFormRef} />
       </UseCaseSettingsDrawer>
 
       <div className="flex w-full flex-col">
@@ -54,7 +54,7 @@ export const RagPageView = () => {
           </a>
         </div>
 
-        <RagPageRoom fileName="sdf" systemMessage="" />
+        <CustomChatbotPageRoom fileName="sdf" systemMessage="" />
       </div>
     </div>
   );

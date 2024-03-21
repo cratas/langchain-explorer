@@ -17,7 +17,7 @@ type Props = {
   systemMessage: string;
 };
 
-export const RagPageRoom = ({ fileName, systemMessage }: Props) => {
+export const CustomChatbotPageRoom = ({ fileName, systemMessage }: Props) => {
   const [isStreaming, setIsStreaming] = useState(false);
 
   const { messages, input, handleInputChange, isLoading, handleSubmit, error, stop } = useChat({

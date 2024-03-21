@@ -2,7 +2,7 @@ import * as Yup from 'yup';
 import { DEFAULT_FILE_NAME } from '@/constants/custom-chatbot';
 import { SOURCE_OPTIONS, SourceOptions } from './types';
 
-export const RAGSettingsSchema = Yup.object().shape({
+export const CustomChatbotSettingsSchema = Yup.object().shape({
   conversationModel: Yup.string().required('Conversation model is required'),
   conversationTemperature: Yup.number().required('Temperature is required'),
   embeddingModel: Yup.string().required('Embedding model is required'),
