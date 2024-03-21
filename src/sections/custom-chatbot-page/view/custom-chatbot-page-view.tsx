@@ -2,13 +2,22 @@
 
 import { UseCaseSettingsDrawer } from '@/layouts';
 import React, { useRef, useState } from 'react';
-import { Button, IconButton, Typography } from '@material-tailwind/react';
-import routes from '@/app/routes';
+import { Button, IconButton, Spinner, Typography } from '@material-tailwind/react';
 import { useResponsive } from '@/hooks/use-responsive';
+import { useEmbedContext } from '@/hooks/use-embed-context';
+import { toast } from 'react-toastify';
+import routes from '@/app/routes';
 import { CustomChatbotPageSettings } from '../custom-chatbot-page-settings';
 import { CustomChatbotPageRoom } from '../custom-chatbot-page-room';
+import { defaultValues } from '../constants';
+import { CustomChatbotPageSettingsType } from '../types';
 
 export const CustomChatbotPageView = () => {
+  const { embedContext, isLoading } = useEmbedContext();
+
+  const [currentSettings, setCurrentSettings] =
+    useState<CustomChatbotPageSettingsType>(defaultValues);
+
   const isSmallDevice = useResponsive('down', 'lg');
 
   const [settingsOpen, setSettingsOpen] = useState(false);
@@ -17,6 +26,23 @@ export const CustomChatbotPageView = () => {
 
   const onSubmitButtonClick = () => settingsFormRef.current?.submit();
 
+  const handleChangeSettings = async (data: CustomChatbotPageSettingsType) => {
+    const context =
+      ((data.sourceType === 'cheerio-web-scraping' || data.sourceType === 'github-repository') &&
+        data.sourceUrl) ||
+      (data.sourceType === 'text' && data.sourceFileTxt) ||
+      data.sourceFilePdf!;
+
+    const saved = await embedContext(context, data.sourceType, data.chunkOverlap, data.chunkSize);
+
+    if (saved) {
+      setCurrentSettings(data);
+      toast.success('Chat set successfully.');
+    } else {
+      toast.error('Something went wrong, try set chat again.');
+    }
+  };
+
   return (
     <div className="flex h-screen">
       <UseCaseSettingsDrawer
@@ -24,10 +50,14 @@ export const CustomChatbotPageView = () => {
         setOpen={setSettingsOpen}
         onSubmitButtonClick={onSubmitButtonClick}
       >
-        <CustomChatbotPageSettings formRef={settingsFormRef} />
+        <CustomChatbotPageSettings
+          formRef={settingsFormRef}
+          defaultSettings={currentSettings}
+          changeSettings={handleChangeSettings}
+        />
       </UseCaseSettingsDrawer>
 
-      <div className="flex w-full flex-col">
+      <div className="flex h-screen w-full flex-col">
         <div className="m-3 flex items-center justify-between border-b-2 border-browser-light pb-3">
           {isSmallDevice && (
             <IconButton
@@ -41,7 +71,7 @@ export const CustomChatbotPageView = () => {
             </IconButton>
           )}
 
-          <Typography className="font-bold">RAG Chatbot</Typography>
+          <Typography className="font-bold">{getSourceName(currentSettings)}</Typography>
 
           <a href={routes.home} className="ml-auto">
             <Button
@@ -54,8 +84,34 @@ export const CustomChatbotPageView = () => {
           </a>
         </div>
 
-        <CustomChatbotPageRoom fileName="sdf" systemMessage="" />
+        {isLoading ? (
+          <div className="flex w-full flex-col items-center justify-center gap-2 md:gap-4">
+            <Spinner className="h-12 w-12 text-lighter-purple" />
+            <Typography className="font-bold text-text-primary">Embedding ...</Typography>
+          </div>
+        ) : (
+          <CustomChatbotPageRoom fileName={getSourceName(currentSettings)} systemMessage="" />
+        )}
       </div>
     </div>
   );
+};
+
+const getSourceName = (settings: CustomChatbotPageSettingsType): string => {
+  if (
+    settings.sourceType === 'cheerio-web-scraping' ||
+    settings.sourceType === 'github-repository'
+  ) {
+    return settings.sourceUrl as string;
+  }
+
+  if (settings.sourceType === 'pdf') {
+    return settings?.sourceFilePdf?.name as string;
+  }
+
+  if (settings.sourceType === 'text') {
+    return settings?.sourceFileTxt?.name as string;
+  }
+
+  throw new Error('Invalid source type');
 };

@@ -1,28 +1,35 @@
 import { RHFInput, RHFSelect, RHFSlider, RHFTextarea } from '@/components/form';
 import FormProvider from '@/components/form/form-provider';
 import { yupResolver } from '@hookform/resolvers/yup';
-import React, { MutableRefObject, useEffect, useImperativeHandle } from 'react';
+import React, { MutableRefObject, useEffect, useImperativeHandle, useMemo } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 import { RHFUpload } from '@/components/form/rhf-upload';
-import { UseCaseSettingsCard } from '@/components/common';
-import { CONVERSATION_MODEL_OPTIONS, SOURCE_OPTIONS } from './types';
-import { CustomChatbotSettingsSchema, defaultValues } from './constants';
+import { ChangedSettingsFields, UseCaseSettingsCard } from '@/components/common';
+import {
+  CONVERSATION_MODEL_OPTIONS,
+  CustomChatbotSettingsSchema,
+  EMBEDDING_MODEL_OPTIONS,
+  SOURCE_OPTIONS,
+} from './constants';
+import { CustomChatbotPageSettingsType } from './types';
 
 type Props = {
   formRef: MutableRefObject<unknown>;
+  defaultSettings: CustomChatbotPageSettingsType;
+  changeSettings: (data: CustomChatbotPageSettingsType) => void;
 };
 
-export const CustomChatbotPageSettings = ({ formRef }: Props) => {
+export const CustomChatbotPageSettings = ({ formRef, defaultSettings, changeSettings }: Props) => {
   useImperativeHandle(formRef, () => ({
     submit: () => onSubmit(getValues()),
   }));
 
-  const methods = useForm({
-    defaultValues,
+  const methods = useForm<CustomChatbotPageSettingsType>({
+    defaultValues: defaultSettings,
     resolver: yupResolver(CustomChatbotSettingsSchema),
   });
 
-  const { handleSubmit, getValues, trigger } = methods;
+  const { handleSubmit, getValues, trigger, reset } = methods;
 
   const watchAllFields = useWatch({ control: methods.control });
 
@@ -32,69 +39,97 @@ export const CustomChatbotPageSettings = ({ formRef }: Props) => {
     trigger();
   }, [watchAllFields, trigger]);
 
-  const onSubmit = async (data: any) => {
+  const onSubmit = async (data: CustomChatbotPageSettingsType) => {
     const validated = await trigger();
 
     if (!validated) {
       return;
     }
 
-    console.log('result', data);
+    changeSettings(data);
   };
 
+  const changedFields = useMemo(
+    () =>
+      Object.entries(watchAllFields)
+        .filter(
+          ([key, value]) =>
+            JSON.stringify(value) !==
+            JSON.stringify(defaultSettings[key as keyof CustomChatbotPageSettingsType])
+        )
+        .map(([key]) => key as keyof CustomChatbotPageSettingsType),
+    [watchAllFields, defaultSettings]
+  );
+
   return (
-    <div className="h-screen overflow-auto">
-      <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
-        <UseCaseSettingsCard title="Conversation model">
-          <RHFSelect
-            name="conversationModel"
-            label="Conversation LLM"
-            options={CONVERSATION_MODEL_OPTIONS}
-          />
+    <>
+      {!!changedFields.length && (
+        <ChangedSettingsFields onReset={() => reset()} changedFields={changedFields} />
+      )}
 
-          <RHFSlider name="conversationTemperature" defaultValue={50} label="Temperature" />
-        </UseCaseSettingsCard>
+      <div className="my-2 h-screen overflow-auto">
+        <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
+          <UseCaseSettingsCard title="Conversation model">
+            <RHFSelect
+              name="conversationModel"
+              label="Conversation LLM"
+              options={CONVERSATION_MODEL_OPTIONS}
+            />
 
-        <UseCaseSettingsCard title="Embedding">
-          <RHFSelect
-            name="embeddingModel"
-            label="Embedding LLM"
-            options={[{ value: 'chatgpt-3.5', label: 'chatgpt-3.5' }]}
-          />
+            <RHFSlider name="conversationTemperature" defaultValue={50} label="Temperature" />
+          </UseCaseSettingsCard>
 
-          <RHFSlider name="embeddingTemperature" defaultValue={50} label="Temperature" />
+          <UseCaseSettingsCard title="Embedding">
+            <RHFSelect
+              name="embeddingModel"
+              label="Embedding LLM"
+              options={EMBEDDING_MODEL_OPTIONS}
+            />
 
-          <RHFInput type="number" name="chunkSize" defaultValue={1024} label="Chunk size" />
+            <RHFSlider name="embeddingTemperature" defaultValue={50} label="Temperature" />
 
-          <div className="flex flex-col gap-3 lg:flex-row ">
-            <RHFInput type="number" name="chunkOverlap" defaultValue={200} label="Chunk overlap" />
+            <RHFInput type="number" name="chunkSize" defaultValue={1024} label="Chunk size" />
 
-            <RHFInput type="number" name="retrievalSize" defaultValue={3} label="Retrieval size" />
-          </div>
-        </UseCaseSettingsCard>
+            <div className="flex flex-col gap-3 lg:flex-row ">
+              <RHFInput
+                type="number"
+                name="chunkOverlap"
+                defaultValue={200}
+                label="Chunk overlap"
+              />
 
-        <UseCaseSettingsCard title="Source">
-          <>
-            <RHFSelect name="sourceType" label="Source type" options={SOURCE_OPTIONS} />
+              <RHFInput
+                type="number"
+                name="retrievalSize"
+                defaultValue={3}
+                label="Retrieval size"
+              />
+            </div>
+          </UseCaseSettingsCard>
 
-            {sourceType === 'pdf' && <RHFUpload name="sourceFilePdf" accept=".pdf" />}
+          <UseCaseSettingsCard title="Source">
+            <>
+              <RHFSelect name="sourceType" label="Source type" options={SOURCE_OPTIONS} />
 
-            {sourceType === 'text' && <RHFUpload name="sourceFileTxt" accept=".txt" />}
+              {sourceType === 'pdf' && <RHFUpload name="sourceFilePdf" accept=".pdf" />}
 
-            {sourceType === 'cheerio-web-scraping' && (
-              <RHFInput type="url" name="sourceUrl" label="Web URL" />
-            )}
+              {sourceType === 'text' && <RHFUpload name="sourceFileTxt" accept=".txt" />}
 
-            {sourceType === 'github-repository' && (
-              <RHFInput type="url" name="sourceUrl" label="GibHub repo URL" />
-            )}
-          </>
-        </UseCaseSettingsCard>
+              {sourceType === 'cheerio-web-scraping' && (
+                <RHFInput type="url" name="sourceUrl" label="Web URL" />
+              )}
 
-        <UseCaseSettingsCard title="System message">
-          <RHFTextarea name="systemMessage" label="System Message" />
-        </UseCaseSettingsCard>
-      </FormProvider>
-    </div>
+              {sourceType === 'github-repository' && (
+                <RHFInput type="url" name="sourceUrl" label="GibHub repo URL" />
+              )}
+            </>
+          </UseCaseSettingsCard>
+
+          <UseCaseSettingsCard title="System message">
+            <RHFTextarea name="systemMessage" label="System Message" />
+          </UseCaseSettingsCard>
+        </FormProvider>
+      </div>
+    </>
   );
 };

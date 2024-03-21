@@ -34,7 +34,7 @@ export const ChatBotRoom = ({ fileName, systemMessage }: Props) => {
       onFinish: () => setIsStreaming(false),
       onError: () => setIsStreaming(false),
       body: { context: fileName },
-      api: endpoints.customChatbot,
+      api: endpoints.customChatbot.sample,
     });
 
   const [newGptMessageSignal] = useAtom(gptMessageScrollHelper);

@@ -1,11 +1,86 @@
 import * as Yup from 'yup';
 import { DEFAULT_FILE_NAME } from '@/constants/custom-chatbot';
-import { SOURCE_OPTIONS, SourceOptions } from './types';
+import {
+  ConversationModelOptions,
+  CustomChatbotPageSettingsType,
+  EmbeddingModelOptions,
+  OptionType,
+  SourceOptions,
+} from './types';
+
+export const SOURCE_OPTIONS: OptionType<SourceOptions>[] = [
+  {
+    label: 'PDF',
+    value: 'pdf',
+  },
+  {
+    label: 'Text',
+    value: 'text',
+  },
+  {
+    label: 'GitHub Repository',
+    value: 'github-repository',
+  },
+  {
+    label: 'Cheerio Web Scraping',
+    value: 'cheerio-web-scraping',
+  },
+];
+
+export const CONVERSATION_MODEL_OPTIONS: OptionType<ConversationModelOptions>[] = [
+  {
+    label: 'chatgpt-3.5 (OpenAI)',
+    value: 'gpt-3.5-turbo',
+  },
+  {
+    label: 'gpt-3.5-turbo (OpenAI)',
+    value: 'gpt-3.5-turbo',
+  },
+  // {
+  //   label: 'mistral-large-2402 (Mistral AI)',
+  //   value: 'mistral-large-2402',
+  // },
+  {
+    label: 'mistral-medium-2312 (Mistral AI)',
+    value: 'mistral-medium-2312',
+  },
+  {
+    label: 'mistral-small-2402 (Mistral AI)',
+    value: 'mistral-small-2402',
+  },
+  // {
+  //   label: 'claude-3-opus-20240229 (Anthropic)',
+  //   value: 'claude-3-opus-20240229',
+  // },
+  {
+    label: 'claude-3-sonnet-20240229 (Anthropic)',
+    value: 'claude-3-sonnet-20240229',
+  },
+  {
+    label: 'claude-3-haiku-20240307 (Anthropic)',
+    value: 'claude-3-haiku-20240307',
+  },
+];
+
+export const EMBEDDING_MODEL_OPTIONS: OptionType<EmbeddingModelOptions>[] = [
+  {
+    label: 'text-embedding-3-small (OpenAI)',
+    value: 'text-embedding-3-small',
+  },
+  {
+    label: 'text-embedding-3-large (OpenAI)',
+    value: 'text-embedding-3-large',
+  },
+];
 
 export const CustomChatbotSettingsSchema = Yup.object().shape({
-  conversationModel: Yup.string().required('Conversation model is required'),
+  conversationModel: Yup.mixed<ConversationModelOptions>()
+    .oneOf(CONVERSATION_MODEL_OPTIONS.map((o) => o.value))
+    .required('Conversation model is required'),
   conversationTemperature: Yup.number().required('Temperature is required'),
-  embeddingModel: Yup.string().required('Embedding model is required'),
+  embeddingModel: Yup.mixed<EmbeddingModelOptions>()
+    .oneOf(EMBEDDING_MODEL_OPTIONS.map((o) => o.value))
+    .required('Embedding model is required'),
   embeddingTemperature: Yup.number().required('Temperature is required'),
   chunkSize: Yup.number()
     .required('Chunk size is required')
@@ -26,11 +101,11 @@ export const CustomChatbotSettingsSchema = Yup.object().shape({
   sourceType: Yup.mixed<SourceOptions>()
     .oneOf(SOURCE_OPTIONS.map((o) => o.value))
     .required('Source type is required'),
-  sourceFilePdf: Yup.mixed().when('sourceType', {
+  sourceFilePdf: Yup.mixed<File>().when('sourceType', {
     is: 'pdf',
     then: (schema) => schema.required('PDF file is required'),
   }),
-  sourceFileTxt: Yup.mixed().when('sourceType', {
+  sourceFileTxt: Yup.mixed<File>().when('sourceType', {
     is: 'text',
     then: (schema) =>
       schema
@@ -43,10 +118,10 @@ export const CustomChatbotSettingsSchema = Yup.object().shape({
   }),
 });
 
-export const defaultValues = {
+export const defaultValues: CustomChatbotPageSettingsType = {
   conversationModel: 'gpt-3.5-turbo',
   conversationTemperature: 50,
-  embeddingModel: 'chatgpt-3.5',
+  embeddingModel: 'text-embedding-3-small' as EmbeddingModelOptions,
   embeddingTemperature: 50,
   chunkSize: 1024,
   chunkOverlap: 200,
@@ -58,7 +133,22 @@ export const defaultValues = {
     size: 1200000,
     type: 'application/pdf',
     lastModified: Date.now(),
-  },
-  sourceFileTxt: {},
+  } as File,
+  sourceFileTxt: {} as File,
   sourceUrl: '',
+};
+
+export const SETTINGS_FORM_LABELS: { [K in keyof CustomChatbotPageSettingsType]?: string } = {
+  conversationModel: 'Conversation LLM',
+  conversationTemperature: 'Temperature',
+  embeddingModel: 'Embedding LLM',
+  embeddingTemperature: 'Temperature',
+  chunkSize: 'Chunk size',
+  chunkOverlap: 'Chunk overlap',
+  retrievalSize: 'Retrieval size',
+  sourceType: 'Source type',
+  sourceFilePdf: 'PDF file',
+  sourceFileTxt: 'Text file',
+  sourceUrl: 'URL',
+  systemMessage: 'System message',
 };

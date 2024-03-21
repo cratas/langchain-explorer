@@ -32,7 +32,7 @@ export const CustomChatbotPageRoom = ({ fileName, systemMessage }: Props) => {
     onFinish: () => setIsStreaming(false),
     onError: () => setIsStreaming(false),
     body: { context: fileName },
-    api: endpoints.customChatbot,
+    api: endpoints.customChatbot.sample,
   });
 
   const [newGptMessageSignal] = useAtom(gptMessageScrollHelper);
@@ -40,11 +40,11 @@ export const CustomChatbotPageRoom = ({ fileName, systemMessage }: Props) => {
   const { messagesEndRef } = useMessagesScroll([messages, newGptMessageSignal]);
 
   return (
-    <div className="relative flex h-full w-full flex-col p-3">
+    <div className="flex h-full w-full flex-col overflow-hidden p-3">
       <div className="flex h-full w-full flex-col gap-8 overflow-y-auto p-3" ref={messagesEndRef}>
         {!messages.filter((m: Message) => m.role !== 'system').length && <NoMessages />}
 
-        {messages.map((message, idx) =>
+        {[...messages, ...messages].map((message, idx) =>
           message.role === 'assistant' ? (
             <ChatMessageWithComparison
               isLoading={false}
