@@ -1,5 +1,5 @@
 import { endpoints } from '@/app/api/endpoints';
-import { SourceOptions } from '@/sections/custom-chatbot-page/types';
+import { EmbeddingModelOptions, SourceOptions } from '@/sections/custom-chatbot-page/types';
 import { useState } from 'react';
 
 export const useEmbedContext = () => {
@@ -11,7 +11,8 @@ export const useEmbedContext = () => {
     context: File | string,
     sourceType: SourceOptions,
     chunkOverlap: number,
-    chunkSize: number
+    chunkSize: number,
+    model: EmbeddingModelOptions
   ): Promise<boolean> => {
     setIsLoading(true);
 
@@ -20,6 +21,7 @@ export const useEmbedContext = () => {
     formData.append('sourceType', sourceType);
     formData.append('chunkSize', String(chunkSize));
     formData.append('chunkOverlap', String(chunkOverlap));
+    formData.append('embeddingModel', model);
 
     if (sourceType === 'pdf' || sourceType === 'text') {
       formData.append('file', context);

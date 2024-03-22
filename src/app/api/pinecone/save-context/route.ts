@@ -9,12 +9,13 @@ import { CharacterTextSplitter } from 'langchain/text_splitter';
 import { GithubRepoLoader } from 'langchain/document_loaders/web/github';
 import { NextResponse } from 'next/server';
 import { DEFAULT_FILE_NAME } from '@/constants/custom-chatbot';
-import { SourceOptions } from '@/sections/custom-chatbot-page/types';
+import { EmbeddingModelOptions, SourceOptions } from '@/sections/custom-chatbot-page/types';
 
 export const POST = async (request: Request) => {
   try {
     const formData = await request.formData();
 
+    const embeddingModel = formData.get('embeddingModel') as EmbeddingModelOptions;
     const sourceType = formData.get('sourceType') as SourceOptions;
     const chunkSize = formData.get('chunkSize') as string;
     const chunkOverlap = formData.get('chunkOverlap') as string;
@@ -72,7 +73,13 @@ export const POST = async (request: Request) => {
     // storing chunks into variable to be sent to Pinecone
     const splitDocs = await splitter.splitDocuments(documents);
 
-    await PineconeStore.fromDocuments(splitDocs, new OpenAIEmbeddings(), {
+    // TODO: create class structure for getting embeddings by model
+    const embedder = new OpenAIEmbeddings({
+      modelName: embeddingModel,
+      openAIApiKey: process.env.OPENAI_API_KEY as string,
+    });
+
+    await PineconeStore.fromDocuments(splitDocs, embedder, {
       pineconeIndex,
       namespace: (fileName || url) as string,
     });

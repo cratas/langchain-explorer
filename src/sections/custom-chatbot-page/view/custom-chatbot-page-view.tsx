@@ -11,6 +11,7 @@ import { CustomChatbotPageSettings } from '../custom-chatbot-page-settings';
 import { CustomChatbotPageRoom } from '../custom-chatbot-page-room';
 import { defaultValues } from '../constants';
 import { CustomChatbotPageSettingsType } from '../types';
+import { getSourceName } from '../utils/get-source-name';
 
 export const CustomChatbotPageView = () => {
   const { embedContext, isLoading } = useEmbedContext();
@@ -33,10 +34,17 @@ export const CustomChatbotPageView = () => {
       (data.sourceType === 'text' && data.sourceFileTxt) ||
       data.sourceFilePdf!;
 
-    const saved = await embedContext(context, data.sourceType, data.chunkOverlap, data.chunkSize);
+    const saved = await embedContext(
+      context,
+      data.sourceType,
+      data.chunkOverlap,
+      data.chunkSize,
+      data.embeddingModel
+    );
 
     if (saved) {
       setCurrentSettings(data);
+
       toast.success('Chat set successfully.');
     } else {
       toast.error('Something went wrong, try set chat again.');
@@ -90,28 +98,9 @@ export const CustomChatbotPageView = () => {
             <Typography className="font-bold text-text-primary">Embedding ...</Typography>
           </div>
         ) : (
-          <CustomChatbotPageRoom fileName={getSourceName(currentSettings)} systemMessage="" />
+          <CustomChatbotPageRoom {...currentSettings} sourceName={getSourceName(currentSettings)} />
         )}
       </div>
     </div>
   );
-};
-
-const getSourceName = (settings: CustomChatbotPageSettingsType): string => {
-  if (
-    settings.sourceType === 'cheerio-web-scraping' ||
-    settings.sourceType === 'github-repository'
-  ) {
-    return settings.sourceUrl as string;
-  }
-
-  if (settings.sourceType === 'pdf') {
-    return settings?.sourceFilePdf?.name as string;
-  }
-
-  if (settings.sourceType === 'text') {
-    return settings?.sourceFileTxt?.name as string;
-  }
-
-  throw new Error('Invalid source type');
 };

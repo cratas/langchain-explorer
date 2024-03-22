@@ -11,13 +11,18 @@ import { ChatMessageWithComparison } from '@/components/chat/chat-message-with-c
 import { gptMessageScrollHelper } from '@/global-states/atoms';
 import { useAtom } from 'jotai';
 import { generateRandomId } from '@/utils/generate-random-id';
+import { CustomChatbotPageSettingsType } from './types';
 
-type Props = {
-  fileName: string;
-  systemMessage: string;
+type Props = CustomChatbotPageSettingsType & {
+  sourceName: string;
 };
 
-export const CustomChatbotPageRoom = ({ fileName, systemMessage }: Props) => {
+export const CustomChatbotPageRoom = ({
+  sourceName,
+  systemMessage,
+  conversationModel,
+  conversationTemperature,
+}: Props) => {
   const [isStreaming, setIsStreaming] = useState(false);
 
   const { messages, input, handleInputChange, isLoading, handleSubmit, error, stop } = useChat({
@@ -31,8 +36,8 @@ export const CustomChatbotPageRoom = ({ fileName, systemMessage }: Props) => {
     onResponse: () => setIsStreaming(true),
     onFinish: () => setIsStreaming(false),
     onError: () => setIsStreaming(false),
-    body: { context: fileName },
-    api: endpoints.customChatbot.sample,
+    body: { context: sourceName, conversationModel, conversationTemperature },
+    api: endpoints.customChatbot.main,
   });
 
   const [newGptMessageSignal] = useAtom(gptMessageScrollHelper);
@@ -44,7 +49,7 @@ export const CustomChatbotPageRoom = ({ fileName, systemMessage }: Props) => {
       <div className="flex h-full w-full flex-col gap-8 overflow-y-auto p-3" ref={messagesEndRef}>
         {!messages.filter((m: Message) => m.role !== 'system').length && <NoMessages />}
 
-        {[...messages, ...messages].map((message, idx) =>
+        {messages.map((message, idx) =>
           message.role === 'assistant' ? (
             <ChatMessageWithComparison
               isLoading={false}
