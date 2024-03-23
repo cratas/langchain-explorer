@@ -9,8 +9,7 @@ import { toast } from 'react-toastify';
 import routes from '@/app/routes';
 import { CustomChatbotPageSettings } from '../custom-chatbot-page-settings';
 import { CustomChatbotPageRoom } from '../custom-chatbot-page-room';
-import { defaultValues } from '../constants';
-import { CustomChatbotPageSettingsType } from '../types';
+import { CustomChatbotPageSettingsType, defaultValues } from '../types';
 import { getSourceName } from '../utils/get-source-name';
 
 export const CustomChatbotPageView = () => {
