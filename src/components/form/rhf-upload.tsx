@@ -30,6 +30,7 @@ export const RHFUpload = ({ name, accept }: Props) => {
               <div className="flex h-10 w-10 items-center justify-center rounded-md bg-lighter-purple">
                 <span className="icon-[mingcute--upload-2-fill] text-lg text-text-light" />
               </div>
+
               <input
                 id="dropzone-file"
                 type="file"

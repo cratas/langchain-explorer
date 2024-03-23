@@ -1,6 +1,6 @@
 'use client';
 
-import { ChatBotView } from '@/sections/rag/view';
+import { ChatBotView } from '@/sections/custom-chatbot/view';
 import { CustomerSupportView } from '@/sections/customer-support/view';
 import { ModerationView } from '@/sections/moderation/view';
 import { Tabs, TabsHeader, Tab, TabsBody, TabPanel } from '@material-tailwind/react';

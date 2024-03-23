@@ -11,13 +11,19 @@ import { ChatMessageWithComparison } from '@/components/chat/chat-message-with-c
 import { gptMessageScrollHelper } from '@/global-states/atoms';
 import { useAtom } from 'jotai';
 import { generateRandomId } from '@/utils/generate-random-id';
+import { CustomChatbotPageSettingsType } from './types';
 
-type Props = {
-  fileName: string;
-  systemMessage: string;
+type Props = CustomChatbotPageSettingsType & {
+  sourceName: string;
 };
 
-export const RagPageRoom = ({ fileName, systemMessage }: Props) => {
+export const CustomChatbotPageRoom = ({
+  sourceName,
+  systemMessage,
+  conversationModel,
+  conversationTemperature,
+  retrievalSize,
+}: Props) => {
   const [isStreaming, setIsStreaming] = useState(false);
 
   const { messages, input, handleInputChange, isLoading, handleSubmit, error, stop } = useChat({
@@ -31,8 +37,8 @@ export const RagPageRoom = ({ fileName, systemMessage }: Props) => {
     onResponse: () => setIsStreaming(true),
     onFinish: () => setIsStreaming(false),
     onError: () => setIsStreaming(false),
-    body: { context: fileName },
-    api: endpoints.customChatbot,
+    body: { context: sourceName, conversationModel, conversationTemperature, retrievalSize },
+    api: endpoints.customChatbot.main,
   });
 
   const [newGptMessageSignal] = useAtom(gptMessageScrollHelper);
@@ -40,7 +46,7 @@ export const RagPageRoom = ({ fileName, systemMessage }: Props) => {
   const { messagesEndRef } = useMessagesScroll([messages, newGptMessageSignal]);
 
   return (
-    <div className="relative flex h-full w-full flex-col p-3">
+    <div className="flex h-full w-full flex-col overflow-hidden p-3">
       <div className="flex h-full w-full flex-col gap-8 overflow-y-auto p-3" ref={messagesEndRef}>
         {!messages.filter((m: Message) => m.role !== 'system').length && <NoMessages />}
 

@@ -1,18 +1,16 @@
 /* eslint-disable no-restricted-syntax */
-import { getPineconeStore } from '@/utils/get-pinecone-store';
-import { NextResponse } from 'next/server';
-import { ConversationalRetrievalQAChain } from 'langchain/chains';
 import { QA_TEMPLATE, STANDALONE_QUESTION_TEMPLATE } from '@/constants/custom-chatbot';
 import { formatChatHistory } from '@/utils/format-chat-history';
-import { ChatMistralAI } from '@langchain/mistralai';
-import { StreamingTextResponse, LangChainStream } from 'ai';
+import { getPineconeStore } from '@/utils/get-pinecone-store';
 import { ChatOpenAI } from '@langchain/openai';
-import { CHAT_MODEL_NAME } from '@/config-global';
+import { LangChainStream, StreamingTextResponse } from 'ai';
+import { ConversationalRetrievalQAChain } from 'langchain/chains';
+import { NextResponse } from 'next/server';
 
 export const POST = async (request: Request) => {
   try {
     const body = await request.json();
-    const { messages, context } = body;
+    const { messages, context, conversationModel, conversationTemperature, retrievalSize } = body;
 
     const message = messages[messages.length - 1].content;
 
@@ -36,10 +34,10 @@ export const POST = async (request: Request) => {
     //   streaming: true,
     // });
 
-    const mistralStreamingModel = new ChatMistralAI({
-      modelName: 'mistral-small',
-      apiKey: process.env.MISTRAL_API_KEY,
-      temperature: 0.2,
+    const mistralStreamingModel = new ChatOpenAI({
+      modelName: conversationModel,
+      openAIApiKey: process.env.OPENAI_API_KEY,
+      temperature: conversationTemperature,
       streaming: true,
     });
 
@@ -56,20 +54,19 @@ export const POST = async (request: Request) => {
     // });
 
     const nonStreamingModel = new ChatOpenAI({
-      modelName: CHAT_MODEL_NAME,
+      modelName: conversationModel,
       openAIApiKey: process.env.OPENAI_API_KEY,
-      temperature: 0.2,
+      temperature: conversationTemperature,
     });
 
     const vectorStore = await getPineconeStore(context);
 
     const chain = ConversationalRetrievalQAChain.fromLLM(
       mistralStreamingModel,
-      vectorStore.asRetriever(),
+      vectorStore.asRetriever({ k: retrievalSize ?? 3 }),
       {
         qaTemplate: QA_TEMPLATE,
         questionGeneratorTemplate: STANDALONE_QUESTION_TEMPLATE,
-        returnSourceDocuments: true,
         questionGeneratorChainOptions: {
           llm: nonStreamingModel,
         },

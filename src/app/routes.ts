@@ -1,6 +1,6 @@
 const routes = {
   home: '/',
-  rag: '/rag',
+  customChatbot: '/custom-chatbot',
   moderation: '/moderation',
   customerSupport: '/customer-support',
   notFound: '/not-found',

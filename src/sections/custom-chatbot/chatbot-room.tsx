@@ -14,12 +14,11 @@ import { generateRandomId } from '@/utils/generate-random-id';
 import { RoomHeader } from '@/components/common';
 
 type Props = {
-  onBack: () => void;
   fileName: string;
   systemMessage: string;
 };
 
-export const ChatBotRoom = ({ onBack, fileName, systemMessage }: Props) => {
+export const ChatBotRoom = ({ fileName, systemMessage }: Props) => {
   const [isStreaming, setIsStreaming] = useState(false);
 
   const { messages, input, handleInputChange, isLoading, handleSubmit, error, stop, setMessages } =
@@ -35,7 +34,7 @@ export const ChatBotRoom = ({ onBack, fileName, systemMessage }: Props) => {
       onFinish: () => setIsStreaming(false),
       onError: () => setIsStreaming(false),
       body: { context: fileName },
-      api: endpoints.customChatbot,
+      api: endpoints.customChatbot.sample,
     });
 
   const [newGptMessageSignal] = useAtom(gptMessageScrollHelper);
@@ -44,12 +43,7 @@ export const ChatBotRoom = ({ onBack, fileName, systemMessage }: Props) => {
 
   return (
     <div className="relative flex h-full w-full flex-col rounded-xl border border-browser-background bg-background-light p-3">
-      <RoomHeader
-        onClear={() => setMessages([])}
-        onBack={onBack}
-        title={fileName}
-        onBackText="Create new chat"
-      />
+      <RoomHeader onClear={() => setMessages([])} title={fileName} />
 
       <div className="flex h-full w-full flex-col gap-8 overflow-y-auto p-3" ref={messagesEndRef}>
         {!messages.filter((m: Message) => m.role !== 'system').length && <NoMessages />}
