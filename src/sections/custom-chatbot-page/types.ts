@@ -22,7 +22,6 @@ export type CustomChatbotPageSettingsType = {
   conversationModel: ConversationModelOptions;
   conversationTemperature: number;
   embeddingModel: EmbeddingModelOptions;
-  embeddingTemperature: number;
   chunkSize: number;
   chunkOverlap: number;
   systemMessage: string;

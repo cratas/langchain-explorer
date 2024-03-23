@@ -22,6 +22,7 @@ export const CustomChatbotPageRoom = ({
   systemMessage,
   conversationModel,
   conversationTemperature,
+  retrievalSize,
 }: Props) => {
   const [isStreaming, setIsStreaming] = useState(false);
 
@@ -36,7 +37,7 @@ export const CustomChatbotPageRoom = ({
     onResponse: () => setIsStreaming(true),
     onFinish: () => setIsStreaming(false),
     onError: () => setIsStreaming(false),
-    body: { context: sourceName, conversationModel, conversationTemperature },
+    body: { context: sourceName, conversationModel, conversationTemperature, retrievalSize },
     api: endpoints.customChatbot.main,
   });
 

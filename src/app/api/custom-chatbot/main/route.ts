@@ -10,7 +10,7 @@ import { NextResponse } from 'next/server';
 export const POST = async (request: Request) => {
   try {
     const body = await request.json();
-    const { messages, context, conversationModel, conversationTemperature } = body;
+    const { messages, context, conversationModel, conversationTemperature, retrievalSize } = body;
 
     const message = messages[messages.length - 1].content;
 
@@ -63,7 +63,7 @@ export const POST = async (request: Request) => {
 
     const chain = ConversationalRetrievalQAChain.fromLLM(
       mistralStreamingModel,
-      vectorStore.asRetriever(),
+      vectorStore.asRetriever({ k: retrievalSize ?? 3 }),
       {
         qaTemplate: QA_TEMPLATE,
         questionGeneratorTemplate: STANDALONE_QUESTION_TEMPLATE,

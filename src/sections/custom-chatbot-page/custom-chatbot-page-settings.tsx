@@ -86,8 +86,6 @@ export const CustomChatbotPageSettings = ({ formRef, defaultSettings, changeSett
               options={EMBEDDING_MODEL_OPTIONS}
             />
 
-            <RHFSlider name="embeddingTemperature" defaultValue={50} label="Temperature" />
-
             <RHFInput type="number" name="chunkSize" defaultValue={1024} label="Chunk size" />
 
             <div className="flex flex-col gap-3 lg:flex-row ">

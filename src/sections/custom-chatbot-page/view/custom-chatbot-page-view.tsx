@@ -93,7 +93,7 @@ export const CustomChatbotPageView = () => {
         </div>
 
         {isLoading ? (
-          <div className="flex w-full flex-col items-center justify-center gap-2 md:gap-4">
+          <div className="flex h-full w-full flex-col items-center justify-center gap-2 md:gap-4">
             <Spinner className="h-12 w-12 text-lighter-purple" />
             <Typography className="font-bold text-text-primary">Embedding ...</Typography>
           </div>

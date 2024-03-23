@@ -89,7 +89,6 @@ export const CustomChatbotSettingsSchema = Yup.object().shape({
   embeddingModel: Yup.mixed<EmbeddingModelOptions>()
     .oneOf(EMBEDDING_MODEL_OPTIONS.map((o) => o.value))
     .required('Embedding model is required'),
-  embeddingTemperature: Yup.number().required('Temperature is required'),
   chunkSize: Yup.number()
     .required('Chunk size is required')
     .min(1, 'Chunk size must be greater than 0')
@@ -130,7 +129,6 @@ export const defaultValues: CustomChatbotPageSettingsType = {
   conversationModel: 'gpt-3.5-turbo',
   conversationTemperature: 50,
   embeddingModel: 'text-embedding-3-small' as EmbeddingModelOptions,
-  embeddingTemperature: 50,
   chunkSize: 1024,
   chunkOverlap: 200,
   retrievalSize: 3,
@@ -150,7 +148,6 @@ export const SETTINGS_FORM_LABELS: { [K in keyof CustomChatbotPageSettingsType]?
   conversationModel: 'Conversation LLM',
   conversationTemperature: 'Temperature',
   embeddingModel: 'Embedding LLM',
-  embeddingTemperature: 'Temperature',
   chunkSize: 'Chunk size',
   chunkOverlap: 'Chunk overlap',
   retrievalSize: 'Retrieval size',
