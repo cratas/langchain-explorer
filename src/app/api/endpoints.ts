@@ -10,6 +10,6 @@ export const endpoints = {
     main: `${ROOT}/custom-chatbot/main`,
   },
   openAI: `${ROOT}/openai`,
-  moderation: `${ROOT}/moderation`,
+  moderation: { sample: `${ROOT}/moderation/sample`, main: `${ROOT}/moderation/main` },
   customerSupport: `${ROOT}/customer-support`,
 };

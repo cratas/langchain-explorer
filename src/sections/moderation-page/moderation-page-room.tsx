@@ -7,44 +7,35 @@ import { Message } from 'ai';
 import { useChat } from 'ai/react';
 import { generateRandomId } from '@/utils/generate-random-id';
 import { ChatMessage } from '@/components/chat/chat-message';
-import { RoomHeader } from '@/components/common';
-import { FlaggedMessage } from './flagged-message';
-import { ModerationUseCase } from './types';
+import { FlaggedMessage } from '../moderation/flagged-message';
+import { ModerationPageSettingsType } from './types';
 
-const createModerationSystemMessageOject = (systemMessage: string): Message => ({
-  content: systemMessage,
-  role: 'system',
-  id: generateRandomId(),
-});
+type Props = ModerationPageSettingsType;
 
-type Props = {
-  onBack: () => void;
-  selectedUseCase: ModerationUseCase;
-};
-
-export const ModerationRoom = ({ onBack, selectedUseCase }: Props) => {
+export const ModerationPageRoom = ({ systemMessage, ...otherSettings }: Props) => {
   const [isStreaming, setIsStreaming] = useState(false);
 
-  const { setMessages, messages, input, handleInputChange, isLoading, handleSubmit, stop } =
-    useChat({
-      api: endpoints.moderation.sample,
-      onResponse: () => setIsStreaming(true),
-      initialMessages: [createModerationSystemMessageOject(selectedUseCase.systemMessage)],
-      onFinish: () => setIsStreaming(false),
-      onError: () => setIsStreaming(false),
-    });
+  const { messages, input, handleInputChange, isLoading, handleSubmit, stop } = useChat({
+    api: endpoints.moderation.main,
+    initialMessages: [
+      {
+        id: generateRandomId(),
+        content: systemMessage,
+        role: 'system',
+      },
+    ],
+    body: {
+      ...otherSettings,
+    },
+    onResponse: () => setIsStreaming(true),
+    onFinish: () => setIsStreaming(false),
+    onError: () => setIsStreaming(false),
+  });
 
   const { messagesEndRef } = useMessagesScroll(messages);
 
   return (
-    <div className="relative flex h-full w-full flex-col rounded-xl border border-browser-light bg-background-light p-3">
-      <RoomHeader
-        onBack={onBack}
-        onBackText="Change Chat type"
-        onClear={() => setMessages([])}
-        title={selectedUseCase.label}
-      />
-
+    <div className="flex h-full w-full flex-col overflow-hidden p-3">
       <div className="flex h-full w-full flex-col gap-8 overflow-y-auto p-3" ref={messagesEndRef}>
         {!messages.filter((m: Message) => m.role !== 'system').length && <NoMessages />}
 

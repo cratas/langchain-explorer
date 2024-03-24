@@ -1,10 +1,8 @@
-import routes from '@/app/routes';
 import { BaseUseCaseViewHeader } from '@/components/common/base-use-case-view-header';
 
 export const CustomerSupportViewHeader = () => (
   <BaseUseCaseViewHeader
     title="Customer support using Function calls"
-    buttonLinkURL={routes.customerSupport}
     description="
       Customer support through function calls is a structured approach to address customer 
       inquiries and issues. The process begins with an initialization function gathering 
@@ -13,7 +11,6 @@ export const CustomerSupportViewHeader = () => (
       in which the model interacts with external or additional functionalities that are not part of
       its core language processing capabilities. These function calls allow the model to perform 
       tasks or access information that is outside of its immediate scope of trained knowledge."
-    buttonText="Customize Customer Support"
     chipItems={['Function calls', 'Database stored data', 'Role based access', 'Real Time']}
     settingsItems={[
       {

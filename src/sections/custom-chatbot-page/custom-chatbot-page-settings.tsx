@@ -5,13 +5,15 @@ import React, { MutableRefObject, useEffect, useImperativeHandle, useMemo } from
 import { useForm, useWatch } from 'react-hook-form';
 import { RHFUpload } from '@/components/form/rhf-upload';
 import { ChangedSettingsFields, UseCaseSettingsCard } from '@/components/common';
+
 import {
   CONVERSATION_MODEL_OPTIONS,
+  CustomChatbotPageSettingsType,
   CustomChatbotSettingsSchema,
   EMBEDDING_MODEL_OPTIONS,
+  SETTINGS_FORM_LABELS,
   SOURCE_OPTIONS,
-} from './constants';
-import { CustomChatbotPageSettingsType } from './types';
+} from './types';
 
 type Props = {
   formRef: MutableRefObject<unknown>;
@@ -64,7 +66,11 @@ export const CustomChatbotPageSettings = ({ formRef, defaultSettings, changeSett
   return (
     <>
       {!!changedFields.length && (
-        <ChangedSettingsFields onReset={() => reset()} changedFields={changedFields} />
+        <ChangedSettingsFields<CustomChatbotPageSettingsType>
+          onReset={() => reset()}
+          changedFields={changedFields}
+          labels={SETTINGS_FORM_LABELS}
+        />
       )}
 
       <div className="my-2 h-screen overflow-auto">
