@@ -23,7 +23,7 @@ export const POST = async (request: Request) => {
     if (Object.values(categoryScores).some((score) => score >= MIN_SCORE)) {
       const [category, score] = Object.entries(categoryScores).sort((x, y) => y[1] - x[1])[0];
 
-      return NextResponse.json({ flagged: true, category, score: (score * 100).toFixed(2) });
+      return NextResponse.json({ flagged: true, category, score: (score * 100).toFixed(4) });
     }
 
     const stream = await getOpenAIChatChainStream(messages, COMMON_TEMPLATE_WITH_CHAT_HISTORY, 0.9);

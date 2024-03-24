@@ -17,13 +17,7 @@ type Props = CustomChatbotPageSettingsType & {
   sourceName: string;
 };
 
-export const CustomChatbotPageRoom = ({
-  sourceName,
-  systemMessage,
-  conversationModel,
-  conversationTemperature,
-  retrievalSize,
-}: Props) => {
+export const CustomChatbotPageRoom = ({ sourceName, systemMessage, ...otherSettings }: Props) => {
   const [isStreaming, setIsStreaming] = useState(false);
 
   const { messages, input, handleInputChange, isLoading, handleSubmit, error, stop } = useChat({
@@ -37,7 +31,7 @@ export const CustomChatbotPageRoom = ({
     onResponse: () => setIsStreaming(true),
     onFinish: () => setIsStreaming(false),
     onError: () => setIsStreaming(false),
-    body: { context: sourceName, conversationModel, conversationTemperature, retrievalSize },
+    body: { context: sourceName, ...otherSettings },
     api: endpoints.customChatbot.main,
   });
 

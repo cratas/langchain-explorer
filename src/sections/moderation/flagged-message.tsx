@@ -8,7 +8,7 @@ type Props = {
 };
 
 export const FlaggedMessage = ({ message }: Props) => {
-  const { category, score } = getDataFromFlaggedMessage(message);
+  const { matches } = getDataFromFlaggedMessage(message);
 
   return (
     <div className="flex flex-col items-center justify-between gap-2 rounded-xl border-2 border-red-600 p-3 md:flex-row md:gap-0 ">
@@ -19,7 +19,11 @@ export const FlaggedMessage = ({ message }: Props) => {
         </Typography>
       </div>
 
-      <Chip value={`${Math.ceil(score)}% ${category}`} size="lg" />
+      <div className="flex flex-wrap gap-2">
+        {matches.map(({ score, category }: any) => (
+          <Chip key={category} value={`${Math.ceil(score)}% ${category}`} size="lg" />
+        ))}
+      </div>
     </div>
   );
 };

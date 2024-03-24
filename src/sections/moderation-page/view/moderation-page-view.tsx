@@ -2,32 +2,47 @@
 
 import { UseCaseSettingsDrawer } from '@/layouts';
 import React, { useRef, useState } from 'react';
-import { useResponsive } from '@/hooks/use-responsive';
-import { Button, IconButton, Spinner, Typography } from '@material-tailwind/react';
-import routes from '@/app/routes';
+import { Spinner, Typography } from '@material-tailwind/react';
+import { toast } from 'react-toastify';
+import { MainUseCaseViewHeader } from '@/components/common';
 import { ModerationPageSettings } from '../moderation-page-settings';
 import { ModerationPageSettingsType, defaultValues } from '../types';
+import { ModerationPageRoom } from '../moderation-page-room';
 
 export const ModerationPageView = () => {
-  const isSmallDevice = useResponsive('down', 'lg');
-
   const [currentSettings, setCurrentSettings] = useState<ModerationPageSettingsType>(defaultValues);
 
   const [settingsOpen, setSettingsOpen] = useState(false);
 
-  const isLoading = false;
+  // state for re-mounting whole chat component (room)
+  const [roomKey, setRoomKey] = useState(0);
+
+  const [isLoading, setIsLoading] = useState(false);
 
   const settingsFormRef = useRef<HTMLFormElement>();
 
   const onSubmitButtonClick = () => settingsFormRef.current?.submit();
 
-  const handleChangeSettings = (data: unknown) => {
-    console.log(data);
-  };
+  const handleChangeSettings = async (data: ModerationPageSettingsType) => {
+    setIsLoading(true);
 
+    // fake loading effect
+    await new Promise((resolve) => setTimeout(resolve, 500));
+
+    setCurrentSettings(data);
+
+    setRoomKey((prevKey) => prevKey + 1);
+
+    setIsLoading(false);
+    toast.success('Chat set successfully.');
+  };
   return (
     <div className="flex h-screen">
-      <UseCaseSettingsDrawer open={settingsOpen} setOpen={setSettingsOpen}>
+      <UseCaseSettingsDrawer
+        open={settingsOpen}
+        setOpen={setSettingsOpen}
+        onSubmitButtonClick={onSubmitButtonClick}
+      >
         <ModerationPageSettings
           formRef={settingsFormRef}
           defaultSettings={currentSettings}
@@ -36,40 +51,17 @@ export const ModerationPageView = () => {
       </UseCaseSettingsDrawer>
 
       <div className="flex h-screen w-full flex-col">
-        <div className="m-3 flex items-center justify-between border-b-2 border-browser-light pb-3">
-          {isSmallDevice && (
-            <IconButton
-              className="mr-2 bg-lighter-purple"
-              size="sm"
-              onClick={() => setSettingsOpen(!settingsOpen)}
-            >
-              <div className="flex items-center justify-center">
-                <span className="icon-[majesticons--menu-expand-right] text-3xl" />
-              </div>
-            </IconButton>
-          )}
-
-          {/* <Typography className="font-bold">{getSourceName(currentSettings)}</Typography> */}
-
-          <a href={routes.home} className="ml-auto">
-            <Button
-              className="flex items-center gap-2 text-text-light hover:text-text-primary"
-              size="sm"
-            >
-              <span className="icon-[fluent--home-24-filled] text-lg" />
-              Home
-            </Button>
-          </a>
-        </div>
+        <MainUseCaseViewHeader openMenu={() => setSettingsOpen(!settingsOpen)} />
 
         {isLoading ? (
           <div className="flex h-full w-full flex-col items-center justify-center gap-2 md:gap-4">
             <Spinner className="h-12 w-12 text-lighter-purple" />
-            <Typography className="font-bold text-text-primary">Embedding ...</Typography>
+            <Typography className="font-bold text-text-primary">
+              Initializing new chat ...
+            </Typography>
           </div>
         ) : (
-          <div />
-          // <CustomChatbotPageRoom {...currentSettings} sourceName={getSourceName(currentSettings)} />
+          <ModerationPageRoom key={roomKey} {...currentSettings} />
         )}
       </div>
     </div>

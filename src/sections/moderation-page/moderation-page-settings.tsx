@@ -1,4 +1,4 @@
-import { RHFSelect, RHFSlider, RHFTextarea } from '@/components/form';
+import { RHFCheckbox, RHFSelect, RHFSlider, RHFTextarea } from '@/components/form';
 import FormProvider from '@/components/form/form-provider';
 import { yupResolver } from '@hookform/resolvers/yup';
 import React, { MutableRefObject, useEffect, useImperativeHandle, useMemo } from 'react';
@@ -79,8 +79,30 @@ export const ModerationPageSettings = ({ formRef, defaultSettings, changeSetting
             <RHFSlider name="conversationTemperature" defaultValue={50} label="Temperature" />
           </UseCaseSettingsCard>
 
-          <UseCaseSettingsCard title="Moderation">
-            <RHFSlider name="minScore" defaultValue={50} label="Min. propability score" />
+          <UseCaseSettingsCard title="Classification categories">
+            <div className="grid grid-cols-1 lg:grid-cols-2">
+              <RHFCheckbox
+                name="categories.harassment/threatening"
+                label="Harassment/Threatening"
+              />
+              <RHFCheckbox name="categories.hate" label="Hate" />
+              <RHFCheckbox name="categories.hate/threatening" label="Hate/Threatening" />
+              <RHFCheckbox name="categories.harassment" label="Harassment" />
+              <RHFCheckbox
+                name="categories.self-harm/instructions"
+                label="Self-harm/instructions"
+              />
+              <RHFCheckbox name="categories.self-harm" label="Self-harm" />
+              <RHFCheckbox name="categories.sexual/minors" label="Sexual/Minors" />
+              <RHFCheckbox name="categories.violence/graphic" label="Violence/Graphic" />
+              <RHFCheckbox name="categories.self-harm/intent" label="Self-harm/Intent" />
+              <RHFCheckbox name="categories.violence" label="Violence" />
+              <RHFCheckbox name="categories.sexual" label="Sexual" />
+            </div>
+          </UseCaseSettingsCard>
+
+          <UseCaseSettingsCard title="Min. classification score">
+            <RHFSlider name="minScore" defaultValue={50} label="Min. score" />
           </UseCaseSettingsCard>
 
           <UseCaseSettingsCard title="System message">

@@ -1,5 +1,5 @@
 import * as Yup from 'yup';
-import { DEFAULT_FILE_NAME } from '@/constants/custom-chatbot';
+import { DEFAULT_FILE_NAME, DEFAULT_SYSTEM_MESSAGE } from '@/constants/custom-chatbot';
 
 export const SOURCE_OPTIONS: OptionType<SourceOptions>[] = [
   {
@@ -120,13 +120,13 @@ export const CustomChatbotSettingsSchema = Yup.object().shape({
 
 export const defaultValues: CustomChatbotPageSettingsType = {
   conversationModel: 'gpt-3.5-turbo',
-  conversationTemperature: 50,
+  conversationTemperature: 0.5,
   embeddingModel: 'text-embedding-3-small' as EmbeddingModelOptions,
   chunkSize: 1024,
   chunkOverlap: 200,
   retrievalSize: 3,
   sourceType: 'pdf' as SourceOptions,
-  systemMessage: 'Example system message.',
+  systemMessage: DEFAULT_SYSTEM_MESSAGE,
   sourceFilePdf: {
     name: DEFAULT_FILE_NAME,
     size: 1200000,

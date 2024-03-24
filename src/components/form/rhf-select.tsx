@@ -21,7 +21,6 @@ export const RHFSelect = ({ name, label, options }: Props) => {
           className="text-text-light"
           labelProps={{ className: 'text-text-primary' }}
           color="indigo"
-          // onChange={(value) => console.log('value', value)}
           {...field}
         >
           {options.map((option) => (
