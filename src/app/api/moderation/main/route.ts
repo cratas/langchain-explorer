@@ -1,5 +1,5 @@
 import { COMMON_TEMPLATE_WITH_CHAT_HISTORY } from '@/backend/constants/prompt-templates';
-import { getOpenAIChatChainStream } from '@/backend/utils/get-openai-chat-chain-stream';
+import { ChatService } from '@/backend/services/chat-service';
 import { StreamingTextResponse } from 'ai';
 import { OpenAIModerationChain } from 'langchain/chains';
 import { NextResponse } from 'next/server';
@@ -39,10 +39,13 @@ export const POST = async (request: Request) => {
       return NextResponse.json({ flagged: true, matches });
     }
 
-    // set the conversation model based on the user's selection with temperature
-    console.log('conversationModel', conversationModel);
-    console.log('conversationTemperature', conversationTemperature);
-    const stream = await getOpenAIChatChainStream(messages, COMMON_TEMPLATE_WITH_CHAT_HISTORY, 0.9);
+    const chatService = new ChatService({
+      modelName: conversationModel,
+      modelTemperature: conversationTemperature,
+      promptTemplate: COMMON_TEMPLATE_WITH_CHAT_HISTORY,
+    });
+
+    const stream = await chatService.getLLMResponseStream(messages);
 
     return new StreamingTextResponse(stream);
   } catch (error) {

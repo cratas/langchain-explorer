@@ -136,7 +136,7 @@ export const defaultValues: CustomChatbotPageSettingsType = {
   chunkOverlap: 200,
   retrievalSize: 3,
   sourceType: 'pdf' as SourceOptions,
-  systemMessage: 'Example system message.',
+  systemMessage: DEFAULT_SYSTEM_MESSAGE,
   sourceFilePdf: {
     name: CUSTOM_CHATBOT_DEFAULT_FILE_NAME,
     size: 1200000,

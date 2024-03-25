@@ -1,4 +1,3 @@
-/* eslint-disable no-restricted-syntax */
 import { StreamingTextResponse } from 'ai';
 import { NextResponse } from 'next/server';
 import { CustomChatbotService } from '@/backend/services/custom-chatbot-service';
