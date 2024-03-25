@@ -27,7 +27,7 @@ export const ModerationRoom = ({ onBack, selectedUseCase }: Props) => {
 
   const { setMessages, messages, input, handleInputChange, isLoading, handleSubmit, stop } =
     useChat({
-      api: endpoints.moderation,
+      api: endpoints.moderation.sample,
       onResponse: () => setIsStreaming(true),
       initialMessages: [createModerationSystemMessageOject(selectedUseCase.systemMessage)],
       onFinish: () => setIsStreaming(false),

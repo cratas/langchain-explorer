@@ -1,5 +1,5 @@
 import { Slider, SliderProps, Typography } from '@material-tailwind/react';
-import React from 'react';
+import React, { useState } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 
 type Props = SliderProps & {
@@ -8,7 +8,17 @@ type Props = SliderProps & {
 };
 
 export const RHFSlider = ({ name, label }: Props) => {
-  const { control } = useFormContext();
+  const { control, setValue: setFormValue, getValues } = useFormContext();
+
+  const [value, setValue] = useState<number>(getValues(name) * 100);
+
+  const handleChangeValue = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(Number(e.target.value));
+
+    const normalizedValue = (Number(e.target.value) / 100).toFixed(4);
+
+    setFormValue(name, normalizedValue);
+  };
 
   return (
     <Controller
@@ -19,10 +29,16 @@ export const RHFSlider = ({ name, label }: Props) => {
             <Typography className="mb-1 text-xs text-text-primary">{label}</Typography>
 
             <Typography className="mb-1 text-sm font-bold text-text-light">
-              {(Number(field.value) / 100).toFixed(2)}
+              {field.value}
             </Typography>
           </div>
-          <Slider size="sm" barClassName="bg-lighter-purple" {...field} />
+          <Slider
+            size="sm"
+            barClassName="bg-lighter-purple"
+            {...field}
+            value={value}
+            onChange={handleChangeValue}
+          />
         </div>
       )}
       control={control}

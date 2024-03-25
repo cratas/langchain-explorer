@@ -5,8 +5,8 @@ type Props = {
   chipItems: string[];
   title: string;
   description: string;
-  buttonText: string;
-  buttonLinkURL: string;
+  buttonText?: string;
+  buttonLinkURL?: string;
   settingsItems: {
     label: string;
     value: string;
@@ -45,16 +45,18 @@ export const BaseUseCaseViewHeader = ({
 
           <Typography className="text-sm text-text-primary">{description}</Typography>
 
-          <div>
-            <a href={buttonLinkURL}>
-              <Button
-                size="sm"
-                className="mt-5 w-auto rounded bg-lighter-purple hover:bg-light-purple"
-              >
-                {buttonText}
-              </Button>
-            </a>
-          </div>
+          {buttonLinkURL && buttonText && (
+            <div>
+              <a href={buttonLinkURL}>
+                <Button
+                  size="sm"
+                  className="mt-5 w-auto rounded bg-lighter-purple hover:bg-light-purple"
+                >
+                  {buttonText}
+                </Button>
+              </a>
+            </div>
+          )}
         </div>
 
         <div className="flex w-full items-center justify-center lg:w-[55%]">
