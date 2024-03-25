@@ -1,9 +1,9 @@
 /* eslint-disable no-restricted-syntax */
-import { getPineconeStore } from '@/utils/get-pinecone-store';
+import { getPineconeStore } from '@/backend/utils/get-pinecone-store';
 import { NextResponse } from 'next/server';
 import { ConversationalRetrievalQAChain } from 'langchain/chains';
 import { QA_TEMPLATE, STANDALONE_QUESTION_TEMPLATE } from '@/constants/custom-chatbot';
-import { formatChatHistory } from '@/utils/format-chat-history';
+import { formatChatHistory } from '@/backend/utils/format-chat-history';
 import { ChatMistralAI } from '@langchain/mistralai';
 import { StreamingTextResponse, LangChainStream } from 'ai';
 import { ChatOpenAI } from '@langchain/openai';

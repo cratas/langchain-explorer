@@ -1,5 +1,5 @@
 import { COMMON_TEMPLATE_WITH_CHAT_HISTORY } from '@/constants/common';
-import { getOpenAIChatChainStream } from '@/utils/get-openai-chat-chain-stream';
+import { getOpenAIChatChainStream } from '@/backend/utils/get-openai-chat-chain-stream';
 import { StreamingTextResponse } from 'ai';
 import { OpenAIModerationChain } from 'langchain/chains';
 import { NextResponse } from 'next/server';

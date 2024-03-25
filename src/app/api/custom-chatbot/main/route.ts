@@ -1,7 +1,7 @@
 /* eslint-disable no-restricted-syntax */
 import { QA_TEMPLATE, STANDALONE_QUESTION_TEMPLATE } from '@/constants/custom-chatbot';
-import { formatChatHistory } from '@/utils/format-chat-history';
-import { getPineconeStore } from '@/utils/get-pinecone-store';
+import { formatChatHistory } from '@/backend/utils/format-chat-history';
+import { getPineconeStore } from '@/backend/utils/get-pinecone-store';
 import { ChatOpenAI } from '@langchain/openai';
 import { LangChainStream, StreamingTextResponse } from 'ai';
 import { ConversationalRetrievalQAChain } from 'langchain/chains';

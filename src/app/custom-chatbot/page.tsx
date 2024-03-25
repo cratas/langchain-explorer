@@ -1,4 +1,4 @@
-import { CustomChatbotPageView } from '@/sections/custom-chatbot-page/view';
+import { CustomChatbotPageView } from '@/frontend/sections/custom-chatbot-page/view';
 
 export const metadata = {
   title: 'LangChain Explorer | RAG',

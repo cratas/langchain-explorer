@@ -1,6 +1,6 @@
 'use client';
 
-import { SplashScreen } from '@/components/common/splash-screen';
+import { SplashScreen } from '@/frontend/components/common/splash-screen';
 
 const Loading = () => <SplashScreen />;
 

@@ -1,5 +1,5 @@
-import { HomeLayout } from '@/layouts';
-import { HomeView } from '@/sections/home/view';
+import { HomeLayout } from '@/frontend/layouts';
+import { HomeView } from '@/frontend/sections/home/view';
 
 export const metadata = {
   title: 'LangChain Explorer | Explore power of LangChain',
