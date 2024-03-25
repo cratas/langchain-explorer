@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { COMMON_TEMPLATE_WITH_CHAT_HISTORY } from '@/constants/common';
-import { formatChatHistory } from '@/utils/format-chat-history';
+import { formatChatHistory } from '@/backend/utils/format-chat-history';
 import { PromptTemplate } from '@langchain/core/prompts';
 import { ChatOpenAI } from '@langchain/openai';
 import { RunnableSequence } from '@langchain/core/runnables';
@@ -9,7 +9,7 @@ import { HttpResponseOutputParser } from 'langchain/output_parsers';
 import {
   FUNCTIONS,
   functionCallsDefinition,
-} from '@/lib/customer-support/function-calls-definition';
+} from '@/backend/customer-support/function-calls-definition';
 
 export const POST = async (request: Request) => {
   try {

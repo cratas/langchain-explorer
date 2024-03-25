@@ -1,4 +1,4 @@
-import { ModerationPageView } from '@/sections/moderation-page/view';
+import { ModerationPageView } from '@/frontend/sections/moderation-page/view';
 
 export const metadata = {
   title: 'LangChain Explorer | Moderation Layer',

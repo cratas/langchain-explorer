@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
 import 'react-toastify/dist/ReactToastify.css';
-import { ThemeProvider } from '@/components/tailwind-components';
+import { ThemeProvider } from '@/frontend/components/tailwind-components';
 import { ToastContainer } from 'react-toastify';
 import { Provider } from 'jotai';
 

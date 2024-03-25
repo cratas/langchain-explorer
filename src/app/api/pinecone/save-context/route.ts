@@ -2,14 +2,12 @@
 import { Pinecone } from '@pinecone-database/pinecone';
 import { OpenAIEmbeddings } from '@langchain/openai';
 import { PineconeStore } from '@langchain/pinecone';
-import { PDFLoader } from 'langchain/document_loaders/fs/pdf';
-import { TextLoader } from 'langchain/document_loaders/fs/text';
-import { CheerioWebBaseLoader } from 'langchain/document_loaders/web/cheerio';
 import { CharacterTextSplitter } from 'langchain/text_splitter';
-import { GithubRepoLoader } from 'langchain/document_loaders/web/github';
 import { NextResponse } from 'next/server';
 import { DEFAULT_FILE_NAME } from '@/constants/custom-chatbot';
-import { EmbeddingModelOptions, SourceOptions } from '@/sections/custom-chatbot-page/types';
+import { EmbeddingModelOptions } from '@/frontend/sections/custom-chatbot-page/types';
+import { SourceOptions } from '@/shared/types/source';
+import { DocumentsLoaderFactory } from '@/backend/helpers/documents-loader-factory';
 
 export const POST = async (request: Request) => {
   try {
@@ -60,8 +58,9 @@ export const POST = async (request: Request) => {
       throw new Error('Failed to delete documents from Pinecone index');
     }
 
-    // using loaders to load document from file
-    const documents = await loadDocumentsByType(sourceType, file || url);
+    const loader = DocumentsLoaderFactory.createLoader(sourceType, file || url);
+
+    const documents = await loader.load();
 
     // splitting documents into chunks
     const splitter = new CharacterTextSplitter({
@@ -88,35 +87,4 @@ export const POST = async (request: Request) => {
   } catch (error) {
     return NextResponse.json({ message: 'Failed to save context' }, { status: 500 });
   }
-};
-
-const loadDocumentsByType = async (sourceType: SourceOptions, source: Blob | string) => {
-  let loader: PDFLoader | TextLoader | GithubRepoLoader | CheerioWebBaseLoader;
-
-  switch (sourceType) {
-    case 'pdf':
-      loader = new PDFLoader(source, {
-        splitPages: true,
-      });
-      break;
-    case 'text':
-      loader = new TextLoader(source);
-      break;
-    case 'github-repository':
-      loader = new GithubRepoLoader(source as string, {
-        branch: 'main',
-        recursive: false,
-        unknown: 'warn',
-        maxConcurrency: 5,
-      });
-      break;
-    case 'cheerio-web-scraping':
-      loader = new CheerioWebBaseLoader(source as string);
-      break;
-    default:
-      throw new Error('Invalid source type');
-  }
-  const documents = await loader.load();
-
-  return documents;
 };

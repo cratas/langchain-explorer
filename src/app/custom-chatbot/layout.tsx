@@ -1,4 +1,4 @@
-import { StarredBackgroundWrapper } from '@/layouts';
+import { StarredBackgroundWrapper } from '@/frontend/layouts';
 
 const Layout = ({
   children,
