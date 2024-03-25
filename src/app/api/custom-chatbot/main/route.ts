@@ -1,87 +1,29 @@
 /* eslint-disable no-restricted-syntax */
-import { QA_TEMPLATE } from '@/constants/custom-chatbot';
-import { formatChatHistory } from '@/backend/utils/format-chat-history';
-import { getPineconeStore } from '@/backend/utils/get-pinecone-store';
-import { ChatOpenAI } from '@langchain/openai';
-import { LangChainStream, StreamingTextResponse } from 'ai';
-import { ConversationalRetrievalQAChain } from 'langchain/chains';
+import { StreamingTextResponse } from 'ai';
 import { NextResponse } from 'next/server';
-import { STANDALONE_QUESTION_TEMPLATE } from '@/backend/constants/prompt-templates';
-import { OPENAI_API_KEY } from '@/config-global';
+import { CustomChatbotService } from '@/backend/services/custom-chatbot-service';
 
 export const POST = async (request: Request) => {
   try {
     const body = await request.json();
-    const { messages, context, conversationModel, conversationTemperature, retrievalSize } = body;
+    const {
+      messages,
+      context,
+      conversationModel,
+      conversationTemperature,
+      retrievalSize,
+      embeddingModel,
+    } = body;
 
-    const message = messages[messages.length - 1].content;
-
-    // Handle streaming
-    const { stream, handlers } = LangChainStream();
-
-    // OpenAI recommendation
-    const sanitizedQuestion = message.trim().replaceAll('\n', ' ');
-
-    // const streamingModel = new ChatOpenAI({
-    //   modelName: CHAT_MODEL_NAME,
-    //   temperature: 0.2,
-    //   openAIApiKey: OPENAI_API_KEY,
-    //   streaming: true,
-    // });
-
-    // const anthropicStreamingModel = new ChatAnthropic({
-    //   modelName: 'claude-3-haiku-20240307',
-    //   anthropicApiKey: ANTHROPIC_API_KEY,
-    //   temperature: 0.2,
-    //   streaming: true,
-    // });
-
-    const mistralStreamingModel = new ChatOpenAI({
-      modelName: conversationModel,
-      openAIApiKey: OPENAI_API_KEY,
-      temperature: conversationTemperature,
-      streaming: true,
+    const customChatbotService = new CustomChatbotService({
+      conversationModelName: conversationModel,
+      conversationModelTemperature: conversationTemperature,
+      embeddingModel,
+      pineconeNamespaceName: context,
+      retrievalSize,
     });
 
-    // const anthropicNonStreamingModel = new ChatAnthropic({
-    //   modelName: 'claude-3-haiku-20240307',
-    //   anthropicApiKey: MISTRAL_API_KEY,
-    //   temperature: 0.2,
-    // });
-
-    // const mistralNonStreamingModel = new ChatMistralAI({
-    //   modelName: 'mistral-small',
-    //   apiKey: MISTRAL_API_KEY,
-    //   temperature: 0.2,
-    // });
-
-    const nonStreamingModel = new ChatOpenAI({
-      modelName: conversationModel,
-      openAIApiKey: OPENAI_API_KEY,
-      temperature: conversationTemperature,
-    });
-
-    const vectorStore = await getPineconeStore(context);
-
-    const chain = ConversationalRetrievalQAChain.fromLLM(
-      mistralStreamingModel,
-      vectorStore.asRetriever({ k: retrievalSize ?? 3 }),
-      {
-        qaTemplate: QA_TEMPLATE,
-        questionGeneratorTemplate: STANDALONE_QUESTION_TEMPLATE,
-        questionGeneratorChainOptions: {
-          llm: nonStreamingModel,
-        },
-      }
-    );
-
-    chain.invoke(
-      {
-        question: sanitizedQuestion,
-        chat_history: formatChatHistory(messages),
-      },
-      { callbacks: [handlers] }
-    );
+    const stream = await customChatbotService.getLLMResponseStream(messages);
 
     return new StreamingTextResponse(stream);
   } catch (error) {

@@ -5,7 +5,7 @@ import {
   SourceOptions,
 } from '@/shared/types/common';
 import * as Yup from 'yup';
-import { CUSTOMER_SUPPORT_DEFAULT_FILE_NAME } from '@/shared/constants/common';
+import { CUSTOM_CHATBOT_DEFAULT_FILE_NAME } from '@/shared/constants/common';
 import { CustomChatbotPageSettingsType } from '../types/custom-chatbot';
 
 export const DEFAULT_SYSTEM_MESSAGE = `I will provide you code snippets from the book "The Almanack of Naval Ravikant" from the vector database to help you answer the user's questions. 
@@ -138,7 +138,7 @@ export const defaultValues: CustomChatbotPageSettingsType = {
   sourceType: 'pdf' as SourceOptions,
   systemMessage: 'Example system message.',
   sourceFilePdf: {
-    name: CUSTOMER_SUPPORT_DEFAULT_FILE_NAME,
+    name: CUSTOM_CHATBOT_DEFAULT_FILE_NAME,
     size: 1200000,
     type: 'application/pdf',
     lastModified: Date.now(),

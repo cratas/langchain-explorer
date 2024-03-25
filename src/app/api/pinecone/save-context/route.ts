@@ -6,7 +6,7 @@ import { CharacterTextSplitter } from 'langchain/text_splitter';
 import { NextResponse } from 'next/server';
 import { DocumentsLoaderFactory } from '@/backend/helpers/documents-loader-factory';
 import { EmbeddingModelOptions, SourceOptions } from '@/shared/types/common';
-import { CUSTOMER_SUPPORT_DEFAULT_FILE_NAME } from '@/shared/constants/common';
+import { CUSTOM_CHATBOT_DEFAULT_FILE_NAME } from '@/shared/constants/common';
 import { OPENAI_API_KEY, PINECONE_API_KEY, PINECONE_INDEX } from '@/config-global';
 
 export const POST = async (request: Request) => {
@@ -49,7 +49,7 @@ export const POST = async (request: Request) => {
 
       if (namespaces) {
         Object.keys(namespaces)
-          .filter((ns) => ns !== CUSTOMER_SUPPORT_DEFAULT_FILE_NAME)
+          .filter((ns) => ns !== CUSTOM_CHATBOT_DEFAULT_FILE_NAME)
           .forEach(async (namespace) => {
             await pineconeIndex.namespace(namespace).deleteAll();
           });

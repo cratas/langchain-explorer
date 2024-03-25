@@ -17,3 +17,7 @@ export type EmbeddingModelOptions =
   | 'text-embedding-ada-002'
   | 'text-embedding-3-small'
   | 'text-embedding-3-large';
+
+export type ChatLLMProvider = 'openai' | 'anthropic' | 'mistral';
+
+export type EmbeddingLLMProvider = 'openai' | 'mistral';
