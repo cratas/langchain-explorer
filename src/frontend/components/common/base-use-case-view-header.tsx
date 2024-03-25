@@ -1,5 +1,5 @@
 import { generateRandomId } from '@/shared/utils/generate-random-id';
-import { Button, Chip, Tooltip, Typography } from '@material-tailwind/react';
+import { Button, Chip, Tooltip, Typography } from '@/frontend/components/tailwind-components';
 
 type Props = {
   chipItems: string[];

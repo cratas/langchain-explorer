@@ -1,9 +1,15 @@
 'use client';
 
-import { ChatBotView } from '@/frontend/sections/custom-chatbot/view';
+import { CustomChatBotView } from '@/frontend/sections/custom-chatbot/view';
 import { CustomerSupportView } from '@/frontend/sections/customer-support/view';
 import { ModerationView } from '@/frontend/sections/moderation/view';
-import { Tabs, TabsHeader, Tab, TabsBody, TabPanel } from '@material-tailwind/react';
+import {
+  Tabs,
+  TabsHeader,
+  Tab,
+  TabsBody,
+  TabPanel,
+} from '@/frontend/components/tailwind-components';
 import { useState } from 'react';
 
 enum TabsEnum {
@@ -16,7 +22,7 @@ const TABS = [
   {
     label: 'Q&A ChatBot (RAG)',
     value: TabsEnum.CUSTOM_CHATBOT,
-    content: <ChatBotView />,
+    content: <CustomChatBotView />,
   },
   {
     label: 'Moderation Layer',

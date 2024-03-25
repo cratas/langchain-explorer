@@ -1,4 +1,4 @@
-import { Chip, Typography } from '@material-tailwind/react';
+import { Chip, Typography } from '@/frontend/components/tailwind-components';
 import React from 'react';
 
 type Props<T> = {

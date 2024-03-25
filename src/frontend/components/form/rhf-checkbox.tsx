@@ -1,4 +1,5 @@
-import { Checkbox, CheckboxProps } from '@material-tailwind/react';
+import { CheckboxProps } from '@material-tailwind/react';
+import { Checkbox } from '@/frontend/components/tailwind-components';
 import React from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 

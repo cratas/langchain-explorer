@@ -1,6 +1,7 @@
 import routes from '@/app/routes';
 import { useResponsive } from '@/frontend/hooks/use-responsive';
-import { Button, IconButton, Typography } from '@material-tailwind/react';
+import { Button, IconButton, Typography } from '@/frontend/components/tailwind-components';
+
 import React from 'react';
 
 type Props = {

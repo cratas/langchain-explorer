@@ -1,4 +1,4 @@
-import { CustomChatbotPageSettingsType } from '../types';
+import { CustomChatbotPageSettingsType } from '@/frontend/types/custom-chatbot';
 
 export const getSourceName = (settings: CustomChatbotPageSettingsType): string => {
   if (

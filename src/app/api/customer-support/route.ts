@@ -1,5 +1,4 @@
 import { NextResponse } from 'next/server';
-import { COMMON_TEMPLATE_WITH_CHAT_HISTORY } from '@/constants/common';
 import { formatChatHistory } from '@/backend/utils/format-chat-history';
 import { PromptTemplate } from '@langchain/core/prompts';
 import { ChatOpenAI } from '@langchain/openai';
@@ -10,6 +9,8 @@ import {
   FUNCTIONS,
   functionCallsDefinition,
 } from '@/backend/customer-support/function-calls-definition';
+import { COMMON_TEMPLATE_WITH_CHAT_HISTORY } from '@/backend/constants/prompt-templates';
+import { OPENAI_API_KEY } from '@/config-global';
 
 export const POST = async (request: Request) => {
   try {
@@ -22,7 +23,7 @@ export const POST = async (request: Request) => {
     const prompt = PromptTemplate.fromTemplate(COMMON_TEMPLATE_WITH_CHAT_HISTORY);
 
     const model = new ChatOpenAI({
-      openAIApiKey: process.env.OPENAI_API_KEY,
+      openAIApiKey: OPENAI_API_KEY,
       temperature: 0,
       modelName: 'gpt-3.5-turbo-0125',
       maxTokens: 1000,

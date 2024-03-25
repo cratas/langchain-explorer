@@ -1,8 +1,8 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import { Button } from '@material-tailwind/react';
+import { Button } from '@/frontend/components/tailwind-components';
+import { OPTIONS } from '@/frontend/constants/customer-support';
 import React, { useState } from 'react';
-import { OPTIONS } from './types';
 
 type Props = {
   onSubmit: (selectedUseCaseKey: string) => void;

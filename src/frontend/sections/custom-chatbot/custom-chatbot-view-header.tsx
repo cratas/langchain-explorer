@@ -1,7 +1,7 @@
 import routes from '@/app/routes';
 import { BaseUseCaseViewHeader } from '@/frontend/components/common/base-use-case-view-header';
 
-export const ChatBotViewHeader = () => (
+export const CustomChatBotViewHeader = () => (
   <BaseUseCaseViewHeader
     buttonText="Create custom RAG"
     buttonLinkURL={routes.customChatbot}

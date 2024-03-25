@@ -1,4 +1,4 @@
-import { COMMON_TEMPLATE_WITH_CHAT_HISTORY } from '@/constants/common';
+import { COMMON_TEMPLATE_WITH_CHAT_HISTORY } from '@/backend/constants/prompt-templates';
 import { getOpenAIChatChainStream } from '@/backend/utils/get-openai-chat-chain-stream';
 import { StreamingTextResponse } from 'ai';
 import { NextResponse } from 'next/server';

@@ -3,14 +3,14 @@ import { ChatInput, NoMessages } from '@/frontend/components/chat';
 import { RoomHeader } from '@/frontend/components/common';
 import { InputWhisperer } from '@/frontend/components/common/input-whisperer';
 import { useMessagesScroll } from '@/frontend/hooks/use-message-scroll';
-import { Typography } from '@material-tailwind/react';
+import { Typography } from '@/frontend/components/tailwind-components';
 import { Message } from 'ai';
 import { useChat } from 'ai/react';
 import React, { useState } from 'react';
-import { EXAMPLE_INPUTS } from '@/constants/customer-support';
 import { ChatMessage } from '@/frontend/components/chat/chat-message';
 import { generateRandomId } from '@/shared/utils/generate-random-id';
-import { CustomerSupportUseCase } from './types';
+import { CustomerSupportUseCase } from '@/frontend/types/customer-support';
+import { EXAMPLE_INPUTS } from '@/frontend/constants/customer-support';
 
 const createCustomerSupportSystemMessageOject = (systemMessage: string): Message => ({
   content: systemMessage,

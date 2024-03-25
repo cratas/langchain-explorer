@@ -4,12 +4,9 @@ import { useForm, useWatch } from 'react-hook-form';
 import FormProvider from '@/frontend/components/form/form-provider';
 import { RHFCheckbox, RHFSelect, RHFSlider, RHFTextarea } from '@/frontend/components/form';
 import { ChangedSettingsFields, UseCaseSettingsCard } from '@/frontend/components/common';
-import {
-  ModerationPageSettingsType,
-  ModerationSettingsSchema,
-  SETTINGS_FORM_LABELS,
-} from './types';
-import { CONVERSATION_MODEL_OPTIONS } from '../custom-chatbot-page/constants';
+import { ModerationPageSettingsType } from '@/frontend/types/moderation';
+import { ModerationSettingsSchema, SETTINGS_FORM_LABELS } from '@/frontend/constants/moderation';
+import { CONVERSATION_MODEL_OPTIONS } from '@/frontend/constants/custom-chatbot';
 
 type Props = {
   formRef: MutableRefObject<unknown>;

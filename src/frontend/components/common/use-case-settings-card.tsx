@@ -1,4 +1,4 @@
-import { Typography } from '@material-tailwind/react';
+import { Typography } from '@/frontend/components/tailwind-components';
 import { PropsWithChildren } from 'react';
 
 export const UseCaseSettingsCard = ({ title, children }: PropsWithChildren<{ title: string }>) => (

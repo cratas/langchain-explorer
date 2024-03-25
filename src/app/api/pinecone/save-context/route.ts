@@ -4,10 +4,10 @@ import { OpenAIEmbeddings } from '@langchain/openai';
 import { PineconeStore } from '@langchain/pinecone';
 import { CharacterTextSplitter } from 'langchain/text_splitter';
 import { NextResponse } from 'next/server';
-import { DEFAULT_FILE_NAME } from '@/constants/custom-chatbot';
-import { EmbeddingModelOptions } from '@/frontend/sections/custom-chatbot-page/types';
-import { SourceOptions } from '@/shared/types/source';
 import { DocumentsLoaderFactory } from '@/backend/helpers/documents-loader-factory';
+import { EmbeddingModelOptions, SourceOptions } from '@/shared/types/common';
+import { CUSTOMER_SUPPORT_DEFAULT_FILE_NAME } from '@/shared/constants/common';
+import { OPENAI_API_KEY, PINECONE_API_KEY, PINECONE_INDEX } from '@/config-global';
 
 export const POST = async (request: Request) => {
   try {
@@ -38,10 +38,10 @@ export const POST = async (request: Request) => {
     }
 
     const pc = new Pinecone({
-      apiKey: process.env.PINECONE_API_KEY as string,
+      apiKey: PINECONE_API_KEY,
     });
 
-    const pineconeIndex = pc.Index(process.env.PINECONE_INDEX as string);
+    const pineconeIndex = pc.Index(PINECONE_INDEX as string);
 
     // deleting all documents from index aside from the default one (Naval Almanack) to save space
     try {
@@ -49,7 +49,7 @@ export const POST = async (request: Request) => {
 
       if (namespaces) {
         Object.keys(namespaces)
-          .filter((ns) => ns !== DEFAULT_FILE_NAME)
+          .filter((ns) => ns !== CUSTOMER_SUPPORT_DEFAULT_FILE_NAME)
           .forEach(async (namespace) => {
             await pineconeIndex.namespace(namespace).deleteAll();
           });
@@ -75,7 +75,7 @@ export const POST = async (request: Request) => {
     // TODO: create class structure for getting embeddings by model
     const embedder = new OpenAIEmbeddings({
       modelName: embeddingModel,
-      openAIApiKey: process.env.OPENAI_API_KEY as string,
+      openAIApiKey: OPENAI_API_KEY as string,
     });
 
     await PineconeStore.fromDocuments(splitDocs, embedder, {

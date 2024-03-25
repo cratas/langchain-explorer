@@ -1,7 +1,5 @@
-'use client';
-
 import { useResponsive } from '@/frontend/hooks/use-responsive';
-import { Button, Drawer, Typography } from '@material-tailwind/react';
+import { Button, Drawer, Typography } from '@/frontend/components/tailwind-components';
 import React, { PropsWithChildren } from 'react';
 
 type Props = {

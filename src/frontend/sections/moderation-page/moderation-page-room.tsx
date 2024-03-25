@@ -7,8 +7,8 @@ import { ChatMessage } from '@/frontend/components/chat/chat-message';
 import { isFlagged } from '@/frontend/utils/is-flagged';
 import { ChatInput, NoMessages } from '@/frontend/components/chat';
 import { useMessagesScroll } from '@/frontend/hooks/use-message-scroll';
+import { ModerationPageSettingsType } from '@/frontend/types/moderation';
 import { FlaggedMessage } from '../moderation/flagged-message';
-import { ModerationPageSettingsType } from './types';
 
 type Props = ModerationPageSettingsType;
 

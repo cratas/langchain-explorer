@@ -1,8 +1,8 @@
-import { SourceOptions } from '@/shared/types/source';
 import { TextLoader } from 'langchain/document_loaders/fs/text';
 import { GithubRepoLoader } from 'langchain/document_loaders/web/github';
 import { CheerioWebBaseLoader } from 'langchain/document_loaders/web/cheerio';
 import { PDFLoader } from 'langchain/document_loaders/fs/pdf';
+import { SourceOptions } from '@/shared/types/common';
 
 /**
  * Creates a document loader instance based on the specified source type and source data.

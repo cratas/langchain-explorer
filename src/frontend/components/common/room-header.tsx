@@ -1,4 +1,4 @@
-import { Button, IconButton, Tooltip } from '@material-tailwind/react';
+import { Button, IconButton, Tooltip } from '@/frontend/components/tailwind-components';
 import React, { ReactNode } from 'react';
 
 type Props = {

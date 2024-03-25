@@ -3,6 +3,7 @@ import { RunnableSequence } from '@langchain/core/runnables';
 import { ChatOpenAI } from '@langchain/openai';
 import { Message } from 'ai';
 import { HttpResponseOutputParser } from 'langchain/output_parsers';
+import { OPENAI_API_KEY } from '@/config-global';
 import { formatChatHistory } from './format-chat-history';
 
 export const getOpenAIChatChainStream = async (
@@ -16,7 +17,7 @@ export const getOpenAIChatChainStream = async (
   const prompt = PromptTemplate.fromTemplate(template);
 
   const model = new ChatOpenAI({
-    openAIApiKey: process.env.OPENAI_API_KEY,
+    openAIApiKey: OPENAI_API_KEY,
     temperature,
     modelName: 'gpt-3.5-turbo',
     streaming: true,

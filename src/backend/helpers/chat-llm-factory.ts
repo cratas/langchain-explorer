@@ -1,6 +1,7 @@
 import { ChatMistralAI } from '@langchain/mistralai';
 import { ChatOpenAI } from '@langchain/openai';
 import { ChatAnthropic } from '@langchain/anthropic';
+import { ANTHROPIC_API_KEY, MISTRAL_API_KEY, OPENAI_API_KEY } from '@/config-global';
 
 /**
  * Creates an instance of a chat language model based on the provided provider, model, and temperature settings.
@@ -26,21 +27,21 @@ export class ChatLLMFactory {
       case 'mistral':
         return new ChatMistralAI({
           modelName: model,
-          apiKey: process.env.MISTRAL_API_KEY,
+          apiKey: MISTRAL_API_KEY,
           temperature,
           streaming,
         });
       case 'openai':
         return new ChatOpenAI({
           modelName: model,
-          openAIApiKey: process.env.OPENAI_API_KEY,
+          openAIApiKey: OPENAI_API_KEY,
           streaming,
           temperature,
         });
       case 'anthropic':
         return new ChatAnthropic({
           modelName: model,
-          anthropicApiKey: process.env.ANTHROPIC_API_KEY,
+          anthropicApiKey: ANTHROPIC_API_KEY,
           streaming,
           temperature,
         });

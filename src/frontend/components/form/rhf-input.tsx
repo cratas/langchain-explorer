@@ -1,4 +1,5 @@
-import { Input, InputProps } from '@material-tailwind/react';
+import { Input } from '@/frontend/components/tailwind-components';
+import { InputProps } from '@material-tailwind/react';
 import React from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 

@@ -1,8 +1,9 @@
+import { ModerationUseCase } from '@/frontend/types/moderation';
+import { OPTIONS } from '@/frontend/constants/moderation';
 import { useState } from 'react';
 import { BrowserLayout } from '@/frontend/layouts';
 import { ModerationRoom } from '../moderation-room';
 import { ModerationInit } from '../moderation-init';
-import { ModerationUseCase, OPTIONS } from '../types';
 import { ModerationViewHeader } from '../moderation-view-header';
 
 export const ModerationView = () => {
@@ -10,6 +11,7 @@ export const ModerationView = () => {
 
   const handleSubmit = (value: string) => {
     const selected = OPTIONS.find((option) => option.value === value);
+
     setSelectedUseCase(selected!);
   };
 

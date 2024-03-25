@@ -1,4 +1,4 @@
-import { IconButton, Typography } from '@material-tailwind/react';
+import { IconButton, Typography } from '@/frontend/components/tailwind-components';
 import React, { useState } from 'react';
 import Typewriter from 'typewriter-effect';
 

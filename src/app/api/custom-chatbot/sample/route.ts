@@ -2,12 +2,13 @@
 import { getPineconeStore } from '@/backend/utils/get-pinecone-store';
 import { NextResponse } from 'next/server';
 import { ConversationalRetrievalQAChain } from 'langchain/chains';
-import { QA_TEMPLATE, STANDALONE_QUESTION_TEMPLATE } from '@/constants/custom-chatbot';
+import { QA_TEMPLATE } from '@/constants/custom-chatbot';
 import { formatChatHistory } from '@/backend/utils/format-chat-history';
 import { ChatMistralAI } from '@langchain/mistralai';
 import { StreamingTextResponse, LangChainStream } from 'ai';
 import { ChatOpenAI } from '@langchain/openai';
-import { CHAT_MODEL_NAME } from '@/config-global';
+import { MISTRAL_API_KEY, OPENAI_API_KEY } from '@/config-global';
+import { STANDALONE_QUESTION_TEMPLATE } from '@/backend/constants/prompt-templates';
 
 export const POST = async (request: Request) => {
   try {
@@ -24,14 +25,14 @@ export const POST = async (request: Request) => {
 
     const mistralStreamingModel = new ChatMistralAI({
       modelName: 'mistral-small',
-      apiKey: process.env.MISTRAL_API_KEY,
+      apiKey: MISTRAL_API_KEY,
       temperature: 0.2,
       streaming: true,
     });
 
     const nonStreamingModel = new ChatOpenAI({
-      modelName: CHAT_MODEL_NAME,
-      openAIApiKey: process.env.OPENAI_API_KEY,
+      modelName: 'gpt-3.5-turbo',
+      openAIApiKey: OPENAI_API_KEY,
       temperature: 0.2,
     });
 

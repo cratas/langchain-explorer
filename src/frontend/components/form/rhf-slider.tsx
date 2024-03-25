@@ -1,4 +1,5 @@
-import { Slider, SliderProps, Typography } from '@material-tailwind/react';
+import { Slider, Typography } from '@/frontend/components/tailwind-components';
+import { SliderProps } from '@material-tailwind/react';
 import React, { useState } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 
