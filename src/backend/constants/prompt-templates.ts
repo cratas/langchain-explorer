@@ -11,3 +11,12 @@ Chat History:
 
 Follow Up Input: {question}
 Standalone question:`;
+
+export const CREATE_ANSWER_FROM_FUNCTION_CALLS_TEMPLATE = `Create me user response considering my results from function calls 
+without mentioning logic behind (function calls e.g., just use provided context and chat history for creating user friendly response). 
+There are results grouped by function call names:
+
+{input} 
+`;
+
+export const REPEATE_MESSAGE_TEMPLATE = `Return me exactly the same message: {input}`;

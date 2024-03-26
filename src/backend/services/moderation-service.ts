@@ -16,9 +16,9 @@ interface ModerationServiceOptions {
  * based on specified categories and scores using OpenAI's moderation API.
  */
 export class ModerationService {
-  private _moderation: OpenAIModerationChain;
+  private readonly _moderation: OpenAIModerationChain;
 
-  private _minScore: number;
+  private readonly _minScore: number;
 
   private _flaggedCategories: CategoryWithScore[] = [];
 

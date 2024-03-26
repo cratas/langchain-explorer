@@ -27,15 +27,15 @@ interface CustomChatbotServiceOptions {
 }
 
 export class CustomChatbotService {
-  private streamingModel: ChatMistralAI | ChatOpenAI | ChatAnthropic;
+  private readonly _streamingModel: ChatMistralAI | ChatOpenAI | ChatAnthropic;
 
-  private nonStreamingModel: ChatMistralAI | ChatOpenAI | ChatAnthropic;
+  private readonly _nonStreamingModel: ChatMistralAI | ChatOpenAI | ChatAnthropic;
 
-  private embeddingModel: OpenAIEmbeddings | MistralAIEmbeddings;
+  private readonly _embeddingModel: OpenAIEmbeddings | MistralAIEmbeddings;
 
-  private pineconeNamespaceName: string;
+  private readonly _pineconeNamespaceName: string;
 
-  private retrievalSize: number;
+  private readonly _retrievalSize: number;
 
   constructor({
     conversationModelName,
@@ -44,28 +44,28 @@ export class CustomChatbotService {
     pineconeNamespaceName,
     retrievalSize = 3,
   }: CustomChatbotServiceOptions) {
-    this.streamingModel = ChatLLMFactory.createObject(
+    this._streamingModel = ChatLLMFactory.createObject(
       getProviderByModelName(conversationModelName),
       conversationModelName,
       conversationModelTemperature,
       true
     );
 
-    this.nonStreamingModel = ChatLLMFactory.createObject(
+    this._nonStreamingModel = ChatLLMFactory.createObject(
       getProviderByModelName(conversationModelName),
       conversationModelName,
       conversationModelTemperature,
       false
     );
 
-    this.embeddingModel = EmbeddingLLMFactory.createObject(
+    this._embeddingModel = EmbeddingLLMFactory.createObject(
       getProviderByModelName(embeddingModel) as EmbeddingLLMProvider,
       embeddingModel
     );
 
-    this.pineconeNamespaceName = pineconeNamespaceName;
+    this._pineconeNamespaceName = pineconeNamespaceName;
 
-    this.retrievalSize = retrievalSize;
+    this._retrievalSize = retrievalSize;
   }
 
   private getVectorStoreRetrieval = async () => {
@@ -74,12 +74,12 @@ export class CustomChatbotService {
 
       const pcIndex = pc.Index(PINECONE_INDEX);
 
-      const pcStore = await PineconeStore.fromExistingIndex(this.embeddingModel, {
+      const pcStore = await PineconeStore.fromExistingIndex(this._embeddingModel, {
         pineconeIndex: pcIndex,
-        namespace: this.pineconeNamespaceName,
+        namespace: this._pineconeNamespaceName,
       });
 
-      return pcStore.asRetriever({ k: this.retrievalSize });
+      return pcStore.asRetriever({ k: this._retrievalSize });
     } catch (error) {
       throw new Error(`Error in getVectorStoreRetrieval: ${error}`);
     }
@@ -92,20 +92,20 @@ export class CustomChatbotService {
       const vectorStoreRetrieval = await this.getVectorStoreRetrieval();
 
       const chain = ConversationalRetrievalQAChain.fromLLM(
-        this.streamingModel,
+        this._streamingModel,
         vectorStoreRetrieval,
         {
           qaTemplate: QA_TEMPLATE,
           questionGeneratorTemplate: STANDALONE_QUESTION_TEMPLATE,
           questionGeneratorChainOptions: {
-            llm: this.nonStreamingModel,
+            llm: this._nonStreamingModel,
           },
         }
       );
 
       let sanitizedQuestion = question;
 
-      if (this.streamingModel instanceof ChatOpenAI) {
+      if (this._streamingModel instanceof ChatOpenAI) {
         sanitizedQuestion = question.trim().replaceAll('\n', ' '); // OpenAI recommendation
       }
 

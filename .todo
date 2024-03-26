@@ -1,6 +1,5 @@
 - Create service for prisma db
 - Create service for Pinecone storage (saving and getting index)
-- Create service for Moderation
 - Create service for customer support
 - Logging
 - Code comments
