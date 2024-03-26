@@ -14,8 +14,6 @@ export const lowStockProducts = async ({ limit }: FunctionArgs) => {
     },
   });
 
-  console.log('products', products);
-
   return JSON.stringify(products);
 };
 

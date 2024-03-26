@@ -1,7 +1,8 @@
 import { COMMON_TEMPLATE_WITH_CHAT_HISTORY } from '@/backend/constants/prompt-templates';
 import { ChatService } from '@/backend/services/chat-service';
+import { ModerationService } from '@/backend/services/moderation-service';
+import { ConversationModelOptions } from '@/shared/types/common';
 import { StreamingTextResponse } from 'ai';
-import { OpenAIModerationChain } from 'langchain/chains';
 import { NextResponse } from 'next/server';
 
 const MIN_SCORE = 0.1;
@@ -12,22 +13,18 @@ export const POST = async (request: Request) => {
     const { messages } = body;
     const input = messages[messages.length - 1].content;
 
-    const moderation = new OpenAIModerationChain({});
+    const moderationService = new ModerationService({ minScore: MIN_SCORE });
 
-    const { results } = await moderation.invoke({
-      input,
-    });
+    const isInputFlaggedAsHarmful =
+      await moderationService.checkInputAndSaveFlaggedCategories(input);
 
-    const categoryScores: { [key: string]: number } = results[0].category_scores;
+    if (isInputFlaggedAsHarmful) {
+      const matches = moderationService.flaggedCategories;
 
-    if (Object.values(categoryScores).some((score) => score >= MIN_SCORE)) {
-      const [category, score] = Object.entries(categoryScores).sort((x, y) => y[1] - x[1])[0];
-
-      return NextResponse.json({ flagged: true, category, score: (score * 100).toFixed(4) });
+      return NextResponse.json({ flagged: true, matches });
     }
-
     const chatService = new ChatService({
-      modelName: 'gpt-3.5-turbo',
+      modelName: 'gpt-3.5-turbo' as ConversationModelOptions,
       modelTemperature: 0.2,
       promptTemplate: COMMON_TEMPLATE_WITH_CHAT_HISTORY,
     });
