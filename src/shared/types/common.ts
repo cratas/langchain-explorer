@@ -1,6 +1,6 @@
-import { SourceOptions } from '@/shared/types/source';
-
 export type OptionType<T extends string> = { label: string; value: T };
+
+export type SourceOptions = 'pdf' | 'text' | 'github-repository' | 'cheerio-web-scraping';
 
 export type ConversationModelOptions =
   | 'gpt-3.5-turbo'
@@ -18,16 +18,6 @@ export type EmbeddingModelOptions =
   | 'text-embedding-3-small'
   | 'text-embedding-3-large';
 
-export type CustomChatbotPageSettingsType = {
-  conversationModel: ConversationModelOptions;
-  conversationTemperature: number;
-  embeddingModel: EmbeddingModelOptions;
-  chunkSize: number;
-  chunkOverlap: number;
-  systemMessage: string;
-  retrievalSize: number;
-  sourceType: SourceOptions;
-  sourceFilePdf?: File;
-  sourceFileTxt?: File;
-  sourceUrl?: string;
-};
+export type ChatLLMProvider = 'openai' | 'anthropic' | 'mistral';
+
+export type EmbeddingLLMProvider = 'openai' | 'mistral';

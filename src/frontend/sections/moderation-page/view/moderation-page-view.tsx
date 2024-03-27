@@ -1,12 +1,13 @@
 'use client';
 
 import React, { useRef, useState } from 'react';
-import { Spinner, Typography } from '@material-tailwind/react';
+import { Spinner, Typography } from '@/frontend/components/tailwind-components';
 import { toast } from 'react-toastify';
 import { UseCaseSettingsDrawer } from '@/frontend/layouts';
 import { MainUseCaseViewHeader } from '@/frontend/components/common';
+import { ModerationPageSettingsType } from '@/frontend/types/moderation';
+import { defaultValues } from '@/frontend/constants/moderation';
 import { ModerationPageSettings } from '../moderation-page-settings';
-import { ModerationPageSettingsType, defaultValues } from '../types';
 import { ModerationPageRoom } from '../moderation-page-room';
 
 export const ModerationPageView = () => {

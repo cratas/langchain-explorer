@@ -1,11 +1,11 @@
-import { Button } from '@material-tailwind/react';
+import { Button } from '@/frontend/components/tailwind-components';
 import React from 'react';
 
 type Props = {
   initializeChatbot: VoidFunction;
 };
 
-export const InitChatbot = ({ initializeChatbot }: Props) => (
+export const CustomChatbotInit = ({ initializeChatbot }: Props) => (
   <div className="flex flex-col items-center">
     <div className="mb-8 text-center">
       <h1 className="text-2xl font-bold text-text-light">{`Let's start a conversation`}</h1>

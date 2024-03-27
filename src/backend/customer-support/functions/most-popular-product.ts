@@ -1,5 +1,5 @@
+import { PrismaClientConnectionSingleton } from '@/backend/db/prisma-client-connection-singleton';
 import { z } from 'zod';
-import prisma from '../../../../lib/prisma';
 
 type FunctionArgs = {
   count: number;
@@ -16,6 +16,8 @@ type FunctionArgs = {
 
 export const mostPopularProducts = async ({ categoryName, count }: FunctionArgs) => {
   let products;
+
+  const prisma = PrismaClientConnectionSingleton.getInstance();
 
   if (categoryName) {
     const category = await prisma.category.findFirst({

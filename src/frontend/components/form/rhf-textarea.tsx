@@ -1,4 +1,5 @@
-import { Textarea, TextareaProps } from '@material-tailwind/react';
+import { Textarea } from '@/frontend/components/tailwind-components';
+import { TextareaProps } from '@material-tailwind/react';
 import React from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 

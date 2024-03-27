@@ -1,90 +1,45 @@
 /* eslint-disable no-case-declarations */
-import { Pinecone } from '@pinecone-database/pinecone';
-import { OpenAIEmbeddings } from '@langchain/openai';
-import { PineconeStore } from '@langchain/pinecone';
-import { CharacterTextSplitter } from 'langchain/text_splitter';
 import { NextResponse } from 'next/server';
-import { DEFAULT_FILE_NAME } from '@/constants/custom-chatbot';
-import { EmbeddingModelOptions } from '@/frontend/sections/custom-chatbot-page/types';
-import { SourceOptions } from '@/shared/types/source';
+import { PINECONE_INDEX } from '@/config-global';
+import { PineconeIndexService } from '@/backend/services/pinecone-index-service';
+import { CUSTOM_CHATBOT_DEFAULT_FILE_NAME } from '@/shared/constants/common';
 import { DocumentsLoaderFactory } from '@/backend/helpers/documents-loader-factory';
+import { CharacterTextSplitter } from 'langchain/text_splitter';
+import { validateRequestAndGetFormData } from './validate-request-and-get-data';
 
 export const POST = async (request: Request) => {
   try {
     const formData = await request.formData();
 
-    const embeddingModel = formData.get('embeddingModel') as EmbeddingModelOptions;
-    const sourceType = formData.get('sourceType') as SourceOptions;
-    const chunkSize = formData.get('chunkSize') as string;
-    const chunkOverlap = formData.get('chunkOverlap') as string;
-    const fileName = formData.get('fileName');
-    const url = formData.get('url');
-    const file = formData.get('file') as Blob;
+    const { chunkOverlap, chunkSize, sourceType, file, url, embeddingModel, fileName } =
+      validateRequestAndGetFormData(formData);
 
-    if (!chunkSize || !chunkOverlap) {
-      return NextResponse.json({ message: 'Missing Chunk size or Chunk overlap' }, { status: 400 });
-    }
+    const pineconeService = new PineconeIndexService(PINECONE_INDEX);
 
-    if (sourceType === 'pdf' || sourceType === 'text') {
-      if (!file) {
-        return NextResponse.json({ message: 'Missing Context file' }, { status: 400 });
-      }
-    }
-
-    if (sourceType === 'cheerio-web-scraping' || sourceType === 'github-repository') {
-      if (!url) {
-        return NextResponse.json({ message: 'Missing Source URL' }, { status: 400 });
-      }
-    }
-
-    const pc = new Pinecone({
-      apiKey: process.env.PINECONE_API_KEY as string,
-    });
-
-    const pineconeIndex = pc.Index(process.env.PINECONE_INDEX as string);
-
-    // deleting all documents from index aside from the default one (Naval Almanack) to save space
-    try {
-      const { namespaces } = await pineconeIndex.describeIndexStats();
-
-      if (namespaces) {
-        Object.keys(namespaces)
-          .filter((ns) => ns !== DEFAULT_FILE_NAME)
-          .forEach(async (namespace) => {
-            await pineconeIndex.namespace(namespace).deleteAll();
-          });
-      }
-    } catch {
-      throw new Error('Failed to delete documents from Pinecone index');
-    }
+    await pineconeService.deleteAllNamespacesExceptProvidedNamespace(
+      CUSTOM_CHATBOT_DEFAULT_FILE_NAME
+    );
 
     const loader = DocumentsLoaderFactory.createLoader(sourceType, file || url);
 
     const documents = await loader.load();
 
-    // splitting documents into chunks
     const splitter = new CharacterTextSplitter({
       separator: '\n',
       chunkSize: Number(chunkSize),
       chunkOverlap: Number(chunkOverlap),
     });
 
-    // storing chunks into variable to be sent to Pinecone
     const splitDocs = await splitter.splitDocuments(documents);
 
-    // TODO: create class structure for getting embeddings by model
-    const embedder = new OpenAIEmbeddings({
-      modelName: embeddingModel,
-      openAIApiKey: process.env.OPENAI_API_KEY as string,
-    });
-
-    await PineconeStore.fromDocuments(splitDocs, embedder, {
-      pineconeIndex,
-      namespace: (fileName || url) as string,
-    });
+    await pineconeService.saveDocumentsToVectorStore(splitDocs, embeddingModel, fileName as string);
 
     return NextResponse.json({ message: 'Pinecone index created' }, { status: 201 });
   } catch (error) {
+    if (error instanceof Error) {
+      return NextResponse.json({ message: error.message }, { status: 400 });
+    }
+
     return NextResponse.json({ message: 'Failed to save context' }, { status: 500 });
   }
 };

@@ -1,4 +1,5 @@
-import { Option, Select, SelectProps } from '@material-tailwind/react';
+import { Option, Select } from '@/frontend/components/tailwind-components';
+import { SelectProps } from '@material-tailwind/react';
 import React from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 

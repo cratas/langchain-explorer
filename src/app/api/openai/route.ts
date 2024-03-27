@@ -1,5 +1,5 @@
-import { COMMON_TEMPLATE_WITH_CHAT_HISTORY } from '@/constants/common';
-import { getOpenAIChatChainStream } from '@/backend/utils/get-openai-chat-chain-stream';
+import { COMMON_TEMPLATE_WITH_CHAT_HISTORY } from '@/backend/constants/prompt-templates';
+import { ChatService } from '@/backend/services/chat-service';
 import { StreamingTextResponse } from 'ai';
 import { NextResponse } from 'next/server';
 
@@ -8,7 +8,13 @@ export const POST = async (request: Request) => {
     const body = await request.json();
     const { messages } = body;
 
-    const stream = await getOpenAIChatChainStream(messages, COMMON_TEMPLATE_WITH_CHAT_HISTORY);
+    const chatService = new ChatService({
+      modelName: 'gpt-3.5-turbo',
+      modelTemperature: 0.2,
+      promptTemplate: COMMON_TEMPLATE_WITH_CHAT_HISTORY,
+    });
+
+    const stream = await chatService.getLLMResponseStream(messages);
 
     return new StreamingTextResponse(stream);
   } catch (error) {

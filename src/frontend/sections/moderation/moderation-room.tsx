@@ -8,8 +8,8 @@ import { useChat } from 'ai/react';
 import { generateRandomId } from '@/shared/utils/generate-random-id';
 import { ChatMessage } from '@/frontend/components/chat/chat-message';
 import { RoomHeader } from '@/frontend/components/common';
+import { ModerationUseCase } from '@/frontend/types/moderation';
 import { FlaggedMessage } from './flagged-message';
-import { ModerationUseCase } from './types';
 
 const createModerationSystemMessageOject = (systemMessage: string): Message => ({
   content: systemMessage,

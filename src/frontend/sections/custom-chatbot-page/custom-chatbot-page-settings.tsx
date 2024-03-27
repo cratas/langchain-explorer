@@ -1,18 +1,17 @@
-import { RHFInput, RHFSelect, RHFSlider, RHFTextarea } from '@/frontend/components/form';
+import { RHFInput, RHFSelect, RHFSlider, RHFTextarea, RHFUpload } from '@/frontend/components/form';
 import FormProvider from '@/frontend/components/form/form-provider';
 import { yupResolver } from '@hookform/resolvers/yup';
 import React, { MutableRefObject, useEffect, useImperativeHandle, useMemo } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
-import { RHFUpload } from '@/frontend/components/form/rhf-upload';
 import { ChangedSettingsFields, UseCaseSettingsCard } from '@/frontend/components/common';
-import { CustomChatbotPageSettingsType } from './types';
+import { CustomChatbotPageSettingsType } from '@/frontend/types/custom-chatbot';
 import {
   CONVERSATION_MODEL_OPTIONS,
   CustomChatbotSettingsSchema,
   EMBEDDING_MODEL_OPTIONS,
   SETTINGS_FORM_LABELS,
   SOURCE_OPTIONS,
-} from './constants';
+} from '@/frontend/constants/custom-chatbot';
 
 type Props = {
   formRef: MutableRefObject<unknown>;

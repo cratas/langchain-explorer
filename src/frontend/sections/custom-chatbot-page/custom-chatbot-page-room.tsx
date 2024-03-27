@@ -1,17 +1,20 @@
 'use client';
 
-import { ChatInput, NoMessages } from '@/frontend/components/chat';
-import { ChatMessage } from '@/frontend/components/chat/chat-message';
+import {
+  ChatInput,
+  NoMessages,
+  ChatMessageWithComparison,
+  ChatMessage,
+} from '@/frontend/components/chat';
 import React, { useState } from 'react';
 import { useChat } from 'ai/react';
 import { endpoints } from '@/app/api/endpoints';
 import { useMessagesScroll } from '@/frontend/hooks/use-message-scroll';
 import { Message } from 'ai';
-import { ChatMessageWithComparison } from '@/frontend/components/chat/chat-message-with-comparison';
-import { gptMessageScrollHelper } from '@/frontend/global-states/atoms';
+import { gptMessageScrollHelper } from '@/frontend/jotai/atoms';
 import { useAtom } from 'jotai';
 import { generateRandomId } from '@/shared/utils/generate-random-id';
-import { CustomChatbotPageSettingsType } from './types';
+import { CustomChatbotPageSettingsType } from '@/frontend/types/custom-chatbot';
 
 type Props = CustomChatbotPageSettingsType & {
   sourceName: string;

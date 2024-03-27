@@ -1,7 +1,7 @@
 /* eslint-disable no-await-in-loop */
 /* eslint-disable no-constant-condition */
 import { endpoints } from '@/app/api/endpoints';
-import { gptMessageScrollHelper, gptMessagesAtom } from '@/frontend/global-states/atoms';
+import { gptMessageScrollHelper, gptMessagesAtom } from '@/frontend/jotai/atoms';
 import { generateRandomId } from '@/shared/utils/generate-random-id';
 import { Message } from 'ai';
 import { useAtom } from 'jotai';

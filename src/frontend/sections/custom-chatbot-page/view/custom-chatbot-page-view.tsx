@@ -2,15 +2,15 @@
 
 import { UseCaseSettingsDrawer } from '@/frontend/layouts';
 import React, { useRef, useState } from 'react';
-import { Spinner, Typography } from '@material-tailwind/react';
+import { Spinner, Typography } from '@/frontend/components/tailwind-components';
 import { useEmbedContext } from '@/frontend/hooks/use-embed-context';
 import { toast } from 'react-toastify';
 import { MainUseCaseViewHeader } from '@/frontend/components/common';
+import { CustomChatbotPageSettingsType } from '@/frontend/types/custom-chatbot';
+import { defaultValues } from '@/frontend/constants/custom-chatbot';
 import { CustomChatbotPageSettings } from '../custom-chatbot-page-settings';
 import { CustomChatbotPageRoom } from '../custom-chatbot-page-room';
-import { CustomChatbotPageSettingsType } from '../types';
 import { getSourceName } from '../utils/get-source-name';
-import { defaultValues } from '../constants';
 
 export const CustomChatbotPageView = () => {
   const { embedContext, isLoading } = useEmbedContext();

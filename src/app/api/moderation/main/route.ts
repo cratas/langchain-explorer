@@ -1,7 +1,7 @@
-import { getOpenAIChatChainStream } from '@/backend/utils/get-openai-chat-chain-stream';
-import { COMMON_TEMPLATE_WITH_CHAT_HISTORY } from '@/constants/common';
+import { COMMON_TEMPLATE_WITH_CHAT_HISTORY } from '@/backend/constants/prompt-templates';
+import { ChatService } from '@/backend/services/chat-service';
+import { ModerationService } from '@/backend/services/moderation-service';
 import { StreamingTextResponse } from 'ai';
-import { OpenAIModerationChain } from 'langchain/chains';
 import { NextResponse } from 'next/server';
 
 export const POST = async (request: Request) => {
@@ -12,37 +12,29 @@ export const POST = async (request: Request) => {
 
     // map object into array of selected categories
     const userSelectedCategories = Object.entries(categories)
-      .filter(([category, value]) => value)
+      .filter(([, value]) => value)
       .map(([category]) => category);
 
-    const moderation = new OpenAIModerationChain({});
+    const moderationService = new ModerationService({ minScore });
 
-    const { results } = await moderation.invoke({
+    const isInputFlaggedAsHarmful = await moderationService.checkInputAndSaveFlaggedCategories(
       input,
-    });
-
-    // categories classified by openAI model
-    const categoryScores: { [key: string]: number } = results[0].category_scores;
-
-    // categories filtered by user req (selected categories and min score)
-    const wantedCategories = Object.entries(categoryScores).filter(
-      ([category, value]) => userSelectedCategories.includes(category) && value >= minScore
+      userSelectedCategories
     );
 
-    // checking if there is match with user selected categories
-    if (wantedCategories.length > 0) {
-      const matches = wantedCategories
-        .sort((x, y) => y[1] - x[1])
-        .slice(0, 3)
-        .map(([category, score]) => ({ category, score: (score * 100).toFixed(4) }));
+    if (isInputFlaggedAsHarmful) {
+      const matches = moderationService.flaggedCategories;
 
       return NextResponse.json({ flagged: true, matches });
     }
 
-    // set the conversation model based on the user's selection with temperature
-    console.log('conversationModel', conversationModel);
-    console.log('conversationTemperature', conversationTemperature);
-    const stream = await getOpenAIChatChainStream(messages, COMMON_TEMPLATE_WITH_CHAT_HISTORY, 0.9);
+    const chatService = new ChatService({
+      modelName: conversationModel,
+      modelTemperature: conversationTemperature,
+      promptTemplate: COMMON_TEMPLATE_WITH_CHAT_HISTORY,
+    });
+
+    const stream = await chatService.getLLMResponseStream(messages);
 
     return new StreamingTextResponse(stream);
   } catch (error) {

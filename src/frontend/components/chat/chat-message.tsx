@@ -1,4 +1,4 @@
-import { Spinner } from '@material-tailwind/react';
+import { Spinner } from '@/frontend/components/tailwind-components';
 import { Message } from 'ai';
 import React, { ReactNode } from 'react';
 

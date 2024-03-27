@@ -1,6 +1,6 @@
 import { Message } from 'ai';
 import React from 'react';
-import { Chip, Typography } from '@material-tailwind/react';
+import { Chip, Typography } from '@/frontend/components/tailwind-components';
 import { getDataFromFlaggedMessage } from './utils/get-data-from-flagged-message';
 
 type Props = {

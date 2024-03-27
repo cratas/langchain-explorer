@@ -1,6 +1,5 @@
 import { endpoints } from '@/app/api/endpoints';
-import { EmbeddingModelOptions } from '@/frontend/sections/custom-chatbot-page/types';
-import { SourceOptions } from '@/shared/types/source';
+import { EmbeddingModelOptions, SourceOptions } from '@/shared/types/common';
 import { useState } from 'react';
 
 export const useEmbedContext = () => {

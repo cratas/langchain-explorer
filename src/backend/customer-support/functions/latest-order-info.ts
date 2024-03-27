@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import prisma from '../../../../lib/prisma';
+import { PrismaClientConnectionSingleton } from '@/backend/db/prisma-client-connection-singleton';
 import { BaseFunctionArgs } from '../types';
 
 type FunctionArgs = BaseFunctionArgs & {
@@ -15,6 +15,8 @@ export const latestOrderInfo = async ({ role, username, loggedUserName }: Functi
   if (role === 'user' && username !== loggedUserName) {
     return 'NOT_AUTHORIZED';
   }
+
+  const prisma = PrismaClientConnectionSingleton.getInstance();
 
   const customer = await prisma.customer.findFirst({
     where: {

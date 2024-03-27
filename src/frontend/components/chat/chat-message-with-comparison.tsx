@@ -1,7 +1,7 @@
 import React, { PropsWithChildren, useEffect, useState } from 'react';
 import { Message } from 'ai/react';
-import { Button } from '@material-tailwind/react';
 import { useChatGptChat } from '@/frontend/hooks/use-chat-gpt-chat';
+import { Button } from '@/frontend/components/tailwind-components';
 import { ChatMessage } from './chat-message';
 
 type Props = {

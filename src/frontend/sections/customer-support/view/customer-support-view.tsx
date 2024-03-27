@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { BrowserLayout } from '@/frontend/layouts';
+import { OPTIONS } from '@/frontend/constants/customer-support';
+import { CustomerSupportUseCase } from '@/frontend/types/customer-support';
 import { CustomerSupportInit } from '../customer-support-init';
 import { CustomerSupportRoom } from '../customer-support-room';
-import { CustomerSupportUseCase, OPTIONS } from '../types';
 import { CustomerSupportViewHeader } from '../customer-support-view-header';
 
 export const CustomerSupportView = () => {
@@ -10,6 +11,7 @@ export const CustomerSupportView = () => {
 
   const handleSubmit = (value: string) => {
     const selected = OPTIONS.find((option) => option.value === value);
+
     setSelectedUseCase(selected!);
   };
 

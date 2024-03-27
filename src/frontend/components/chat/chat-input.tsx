@@ -1,6 +1,6 @@
 'use client';
 
-import { Button, Input } from '@material-tailwind/react';
+import { Button, Input } from '@/frontend/components/tailwind-components';
 import { ChatRequestOptions } from 'ai';
 import React, { FormEvent } from 'react';
 
