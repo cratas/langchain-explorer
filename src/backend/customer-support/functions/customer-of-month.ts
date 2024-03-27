@@ -1,6 +1,6 @@
 import { Customer } from '@prisma/client';
 import { z } from 'zod';
-import prisma from '../../../../lib/prisma';
+import { PrismaClientConnectionSingleton } from '@/backend/db/prisma-client-connection-singleton';
 import { BaseFunctionArgs } from '../types';
 
 type FunctionArgs = BaseFunctionArgs & {
@@ -42,6 +42,8 @@ export const customerOfMonth = async ({ role, month, year = 2024 }: FunctionArgs
 
   const startOfMonth = new Date(year, monthNumber!, 1);
   const endOfMonth = new Date(year, monthNumber! + 1, 0);
+
+  const prisma = PrismaClientConnectionSingleton.getInstance();
 
   const customers = await prisma.customer.findMany({
     where: {

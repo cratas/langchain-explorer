@@ -1,7 +1,4 @@
-- Create service for prisma db
-- Create service for Pinecone storage (saving and getting index)
-- Create service for customer support
+- put functions into PrismaDatabaseService
 - Logging
 - Code comments
 - Tests
-- Is it good to choose min score?
