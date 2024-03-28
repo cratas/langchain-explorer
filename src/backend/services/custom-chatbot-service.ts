@@ -26,17 +26,51 @@ interface CustomChatbotServiceOptions {
   retrievalSize: number;
 }
 
+/**
+ * Service class for handling custom chatbot interactions.
+ * This class encapsulates the logic for managing chatbot conversations,
+ * combining language model responses with vector store retrieval capabilities
+ * for enhanced conversational experiences.
+ */
+
 export class CustomChatbotService {
+  /**
+   * The streaming language model instance used for real-time chat responses.
+   * @private
+   */
   private readonly _streamingModel: ChatMistralAI | ChatOpenAI | ChatAnthropic;
 
+  /**
+   * The non-streaming language model instance used for processing stand-alone questions.
+   * @private
+   */
   private readonly _nonStreamingModel: ChatMistralAI | ChatOpenAI | ChatAnthropic;
 
+  /**
+   * The embedding model instance used for vector store retrievals.
+   * @private
+   */
   private readonly _embeddingModel: OpenAIEmbeddings | MistralAIEmbeddings;
 
+  /**
+   * The namespace name used in the Pinecone vector store.
+   * @private
+   */
   private readonly _pineconeNamespaceName: string;
 
+  /**
+   * The number of retrieved items in vector store retrieval operations.
+   * @private
+   */
   private readonly _retrievalSize: number;
 
+  /**
+   * Constructs a CustomChatbotService object.
+   * Initializes language model instances for streaming and non-streaming scenarios,
+   * an embedding model for vector store retrievals, and sets retrieval parameters.
+   *
+   * @param {CustomChatbotServiceOptions} options - Configuration options for the chatbot service.
+   */
   constructor({
     conversationModelName,
     conversationModelTemperature,
@@ -68,6 +102,14 @@ export class CustomChatbotService {
     this._retrievalSize = retrievalSize;
   }
 
+  /**
+   * Retrieves a vector store instance for information retrieval.
+   * Sets up a Pinecone vector store retriever with the configured embedding model and namespace.
+   *
+   * @returns {Promise<Retriever>} A promise resolving to a retriever instance.
+   * @throws {Error} Throws an error if the retriever setup fails.
+   * @private
+   */
   private getVectorStoreRetrieval = async () => {
     try {
       const pc = new Pinecone({ apiKey: PINECONE_API_KEY });
@@ -85,6 +127,15 @@ export class CustomChatbotService {
     }
   };
 
+  /**
+   * Generates a streaming response for a given set of chat messages.
+   * Processes the input messages through a ConversationalRetrievalQAChain
+   * to combine language model responses with vector store retrievals.
+   *
+   * @param {Message[]} messages - An array of messages in the chat conversation.
+   * @returns {Promise<Stream>} A promise resolving to a stream of chatbot responses.
+   * @throws {Error} Throws an error if the streaming response generation fails.
+   */
   public getLLMResponseStream = async (messages: Message[]) => {
     try {
       const question = messages[messages.length - 1].content;
@@ -121,7 +172,6 @@ export class CustomChatbotService {
 
       return stream;
     } catch (error) {
-      // TODO: Handle by exception type
       throw new Error(`Error in getLLMResponseStream: ${error}`);
     }
   };

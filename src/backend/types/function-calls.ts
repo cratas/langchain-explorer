@@ -1,25 +1,20 @@
 import { ChatOpenAICallOptions } from '@langchain/openai';
 import zodToJsonSchema from 'zod-to-json-schema';
 import {
-  customerOfMonth,
-  customerOfMonthSchema,
-  latestOrderInfoSchema,
-  latestOrderInfo,
-  mostPopularProducts,
-  mostPopularProductsSchema,
-  lowStockProductsSchema,
-  lowStockProducts,
   findOrderSchema,
-  findOrder,
-} from './functions';
+  getCustomerOfMonthSchema,
+  getLatestOrderInfoSchema,
+  getLowStockProductsSchema,
+  getMostPopularProductsSchema,
+} from './customer-support';
 
-export const FUNCTIONS: { [key: string]: Function } = {
-  customerOfMonth,
-  latestOrderInfo,
-  mostPopularProducts,
-  lowStockProducts,
-  findOrder,
-};
+export enum FunctionCallsNames {
+  getCustomerOfMonth = 'getCustomerOfMonth',
+  getLatestOrderInfo = 'getLatestOrderInfo',
+  getMostPopularProducts = 'getMostPopularProducts',
+  getLowStockProducts = 'getLowStockProducts',
+  findOrder = 'findOrder',
+}
 
 export const functionCallsDefinition: Partial<ChatOpenAICallOptions> = {
   tool_choice: 'auto',
@@ -27,42 +22,42 @@ export const functionCallsDefinition: Partial<ChatOpenAICallOptions> = {
     {
       type: 'function' as const,
       function: {
-        name: 'customerOfMonth',
+        name: FunctionCallsNames.getCustomerOfMonth,
         description: 'Get the customer of the month for a given month',
-        parameters: zodToJsonSchema(customerOfMonthSchema),
+        parameters: zodToJsonSchema(getCustomerOfMonthSchema),
       },
     },
     {
       type: 'function' as const,
       function: {
-        name: 'latestOrderInfo',
+        name: FunctionCallsNames.getLatestOrderInfo,
         description: 'Get the info about the latest order of the customer',
-        parameters: zodToJsonSchema(latestOrderInfoSchema),
+        parameters: zodToJsonSchema(getLatestOrderInfoSchema),
       },
     },
     {
       type: 'function' as const,
       function: {
-        name: 'mostPopularProducts',
+        name: FunctionCallsNames.getMostPopularProducts,
         description:
           'Get the most popular product/s for a given category or all products if no category is provided',
-        parameters: zodToJsonSchema(mostPopularProductsSchema),
+        parameters: zodToJsonSchema(getMostPopularProductsSchema),
       },
     },
     {
       type: 'function' as const,
       function: {
-        name: 'lowStockProducts',
+        name: FunctionCallsNames.getLowStockProducts,
         description:
           'Get the products that are running low on stock, stock limit could be provided as parameter (default value is 10).',
-        parameters: zodToJsonSchema(lowStockProductsSchema),
+        parameters: zodToJsonSchema(getLowStockProductsSchema),
       },
     },
     {
       type: 'function' as const,
       function: {
-        name: 'findOrder',
-        description: 'Find the order by username, order status, date range or order id.',
+        name: FunctionCallsNames.findOrder,
+        description: 'Find the specific order by id, username, order status, date range,.',
         parameters: zodToJsonSchema(findOrderSchema),
       },
     },

@@ -11,6 +11,7 @@ import { ChatMessage } from '@/frontend/components/chat/chat-message';
 import { generateRandomId } from '@/shared/utils/generate-random-id';
 import { CustomerSupportUseCase } from '@/frontend/types/customer-support';
 import { EXAMPLE_INPUTS } from '@/frontend/constants/customer-support';
+import { toast } from 'react-toastify';
 
 const createCustomerSupportSystemMessageOject = (systemMessage: string): Message => ({
   content: systemMessage,
@@ -26,13 +27,19 @@ type Props = {
 export const CustomerSupportRoom = ({ onBack, selectedUseCase }: Props) => {
   const [isStreaming, setIsStreaming] = useState(false);
 
+  const handleError = () => {
+    setIsStreaming(false);
+
+    toast.error('There was an error processing your last input. Please try again.');
+  };
+
   const { setMessages, messages, input, stop, handleInputChange, handleSubmit, isLoading } =
     useChat({
       api: endpoints.customerSupport,
       onResponse: () => setIsStreaming(true),
       initialMessages: [createCustomerSupportSystemMessageOject(selectedUseCase.systemMessage)],
       onFinish: () => setIsStreaming(false),
-      onError: () => setIsStreaming(false),
+      onError: handleError,
     });
 
   const { messagesEndRef } = useMessagesScroll(messages);

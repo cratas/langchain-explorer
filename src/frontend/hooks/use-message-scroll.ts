@@ -1,5 +1,9 @@
 import { useCallback, useEffect, useRef } from 'react';
 
+/**
+ * A hook for automatically scrolling to the bottom of a messages container.
+ * Useful for chat interfaces where the newest messages should be visible.
+ */
 export const useMessagesScroll = (messages: unknown[]) => {
   const messagesEndRef = useRef<HTMLDivElement>(null);
 

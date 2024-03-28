@@ -8,12 +8,19 @@ import { isFlagged } from '@/frontend/utils/is-flagged';
 import { ChatInput, NoMessages } from '@/frontend/components/chat';
 import { useMessagesScroll } from '@/frontend/hooks/use-message-scroll';
 import { ModerationPageSettingsType } from '@/frontend/types/moderation';
+import { toast } from 'react-toastify';
 import { FlaggedMessage } from '../moderation/flagged-message';
 
 type Props = ModerationPageSettingsType;
 
 export const ModerationPageRoom = ({ systemMessage, ...otherSettings }: Props) => {
   const [isStreaming, setIsStreaming] = useState(false);
+
+  const handleError = () => {
+    setIsStreaming(false);
+
+    toast.error('There was an error processing your last input. Please try again.');
+  };
 
   const { messages, input, handleInputChange, isLoading, handleSubmit, stop } = useChat({
     api: endpoints.moderation.main,
@@ -29,7 +36,7 @@ export const ModerationPageRoom = ({ systemMessage, ...otherSettings }: Props) =
     },
     onResponse: () => setIsStreaming(true),
     onFinish: () => setIsStreaming(false),
-    onError: () => setIsStreaming(false),
+    onError: handleError,
   });
 
   const { messagesEndRef } = useMessagesScroll(messages);

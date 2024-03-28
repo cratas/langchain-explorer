@@ -9,6 +9,7 @@ import { generateRandomId } from '@/shared/utils/generate-random-id';
 import { ChatMessage } from '@/frontend/components/chat/chat-message';
 import { RoomHeader } from '@/frontend/components/common';
 import { ModerationUseCase } from '@/frontend/types/moderation';
+import { toast } from 'react-toastify';
 import { FlaggedMessage } from './flagged-message';
 
 const createModerationSystemMessageOject = (systemMessage: string): Message => ({
@@ -25,13 +26,19 @@ type Props = {
 export const ModerationRoom = ({ onBack, selectedUseCase }: Props) => {
   const [isStreaming, setIsStreaming] = useState(false);
 
+  const handleError = () => {
+    setIsStreaming(false);
+
+    toast.error('There was an error processing your last input. Please try again.');
+  };
+
   const { setMessages, messages, input, handleInputChange, isLoading, handleSubmit, stop } =
     useChat({
       api: endpoints.moderation.sample,
       onResponse: () => setIsStreaming(true),
       initialMessages: [createModerationSystemMessageOject(selectedUseCase.systemMessage)],
       onFinish: () => setIsStreaming(false),
-      onError: () => setIsStreaming(false),
+      onError: handleError,
     });
 
   const { messagesEndRef } = useMessagesScroll(messages);

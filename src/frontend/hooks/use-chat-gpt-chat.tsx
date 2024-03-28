@@ -1,5 +1,4 @@
 /* eslint-disable no-await-in-loop */
-/* eslint-disable no-constant-condition */
 import { endpoints } from '@/app/api/endpoints';
 import { gptMessageScrollHelper, gptMessagesAtom } from '@/frontend/jotai/atoms';
 import { generateRandomId } from '@/shared/utils/generate-random-id';
@@ -7,6 +6,11 @@ import { Message } from 'ai';
 import { useAtom } from 'jotai';
 import { useCallback, useState } from 'react';
 
+/**
+ * Custom React hook to manage interactions with a ChatGPT-like model.
+ * This hook handles sending user messages, receiving model responses,
+ * and updating the chat history state.
+ */
 export const useChatGptChat = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);

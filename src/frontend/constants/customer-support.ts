@@ -1,3 +1,4 @@
+import { CustomerSupportRoles } from '@/shared/constants/customer-support';
 import { CustomerSupportUseCase } from '../types/customer-support';
 
 export const EXAMPLE_INPUTS = [
@@ -10,7 +11,7 @@ export const EXAMPLE_INPUTS = [
   'Are there any orders that are not delivered yet?',
 ];
 
-const createSystemMessage = (role: 'user' | 'guest' | 'administrator', username?: string) =>
+const createSystemMessage = (role: CustomerSupportRoles, username?: string) =>
   `You are customer support assistant for an e-shop. Your role is to assist users with product-related queries. User role is ${role} and logged user's name is ${username}, consider it in creating parameters for function calls which will be used in the chat.`;
 
 export const SYSTEM_MESSAGE_GUEST = createSystemMessage('guest');

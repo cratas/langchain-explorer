@@ -1,56 +1,137 @@
-import { ChatOpenAICallOptions } from '@langchain/openai';
+import { Message } from 'ai';
 import { ChatService } from './chat-service';
-import { FUNCTIONS } from '../customer-support/function-calls-definition';
 import {
   COMMON_TEMPLATE_WITH_CHAT_HISTORY,
   CREATE_ANSWER_FROM_FUNCTION_CALLS_TEMPLATE,
   REPEATE_MESSAGE_TEMPLATE,
 } from '../constants/prompt-templates';
+import { PrismaDatabaseService } from './prisma-database-service';
+import { FunctionCallsNames, functionCallsDefinition } from '../types/function-calls';
+import {
+  FindOrderFunctionArgs,
+  GetCustomerOfMonthFunctionArgs,
+  GetLatestOrderInfoFunctionArgs,
+  GetLowStockProductsFunctionArgs,
+  GetMostPopularProductsFunctionArgs,
+} from '../types/customer-support';
 
-interface CustomerSupportServiceOptions {
-  functionCallsDefinition: Partial<ChatOpenAICallOptions>;
-}
-
+/**
+ * Service class for handling customer support interactions using a language model.
+ * Manages the logic for generating responses based on customer support queries,
+ * involving conditional processing and execution of function calls as needed.
+ */
 export class CustomerSupportService {
+  /**
+   * A ChatService instance configured for handling function calls in customer support scenarios.
+   * @private
+   */
   private readonly _functionCallChatService: ChatService;
 
-  constructor({ functionCallsDefinition }: CustomerSupportServiceOptions) {
+  /**
+   * A PrismaDatabaseService instance for executing function calls related to customer support.
+   * @private
+   */
+  private readonly _prismaDatabaseService: PrismaDatabaseService;
+
+  /**
+   * Constructs a CustomerSupportService object.
+   * Initializes the ChatService instance and the PrismaDatabaseService instance.
+   */
+  constructor() {
     this._functionCallChatService = new ChatService({
       modelName: 'gpt-3.5-turbo-0125',
       modelTemperature: 0,
       promptTemplate: COMMON_TEMPLATE_WITH_CHAT_HISTORY,
       functionCallsDefinition,
     });
+
+    this._prismaDatabaseService = new PrismaDatabaseService();
   }
 
-  public getLLMResponseStream = async (messages: any[]) => {
+  /**
+   * Executes a function call by name with the provided arguments.
+   *
+   * @param {FunctionCallsNames} name - The name of the function call to execute.
+   * @param {unknown} args - The arguments to pass to the function call.
+   * @returns {Promise<unknown>} A promise resolving to the result of the function call.
+   * @throws {Error} Throws an error if the function call name is not supported.
+   */
+  private execFunctionCallByName = async (
+    name: FunctionCallsNames,
+    args:
+      | GetCustomerOfMonthFunctionArgs
+      | GetLatestOrderInfoFunctionArgs
+      | GetMostPopularProductsFunctionArgs
+      | GetLowStockProductsFunctionArgs
+      | FindOrderFunctionArgs
+  ): Promise<unknown> => {
+    switch (name) {
+      case FunctionCallsNames.getCustomerOfMonth:
+        return this._prismaDatabaseService.getCustomerOfMonth({
+          ...(args as GetCustomerOfMonthFunctionArgs),
+        });
+      case FunctionCallsNames.getLatestOrderInfo:
+        return this._prismaDatabaseService.getLatestOrderInfo(
+          args as GetLatestOrderInfoFunctionArgs
+        );
+      case FunctionCallsNames.getMostPopularProducts:
+        return this._prismaDatabaseService.getMostPopularProducts(
+          args as GetMostPopularProductsFunctionArgs
+        );
+      case FunctionCallsNames.getLowStockProducts:
+        return this._prismaDatabaseService.getLowStockProducts(
+          args as GetLowStockProductsFunctionArgs
+        );
+      case FunctionCallsNames.findOrder:
+        return this._prismaDatabaseService.findOrder({ ...(args as FindOrderFunctionArgs) });
+      default:
+        throw new Error(`Function call with name ${name} is not supported`);
+    }
+  };
+
+  /**
+   * Generates a response stream for a given set of customer support messages.
+   * Processes the input messages, executes any necessary function calls, and generates responses
+   * using a language model. Supports both direct language model responses and responses generated from function call results.
+   *
+   * @param {Message} messages - An array of messages in the customer support conversation.
+   * @returns {Promise<Stream>} A promise resolving to a stream of responses.
+   * @throws {Error} Throws an error if there is an issue in generating the response.
+   */
+  public getLLMResponseStream = async (messages: Message[]) => {
     try {
       const response = await this._functionCallChatService.getLLMResponse(messages);
 
       let finalInput;
 
+      // If the response contains content, use it as the input for the next message
+      // Otherwise, execute the function calls and use the results as the input
       if (response.content) {
         finalInput = response.content;
       } else {
         const fCalls =
           response.additional_kwargs.tool_calls?.map((call) => ({
-            name: call.function.name,
-            args: call.function.arguments,
+            name: call.function.name as string,
+            args: call.function.arguments as string,
           })) || [];
 
         const results = await Promise.all(
-          fCalls.map(async (call) => {
-            const funcToExec = FUNCTIONS[call.name];
+          fCalls.map(async ({ args, name }) => {
+            const parserArgs = JSON.parse(args);
 
-            const result = await funcToExec(JSON.parse(call.args));
+            const result = await this.execFunctionCallByName(
+              name as FunctionCallsNames,
+              parserArgs
+            );
 
-            return { result, call: call.name };
+            return { result, call: name };
           })
         );
 
         finalInput = JSON.stringify(results);
       }
 
+      // Create a new ChatService instance for getting final result based on function calls or previous response
       const chatServiceWithoutFunctionCalling = new ChatService({
         modelName: 'gpt-3.5-turbo-0125',
         modelTemperature: 0,

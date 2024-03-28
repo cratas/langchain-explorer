@@ -5,7 +5,6 @@ import { useEffect, useState } from 'react';
 type Query = 'up' | 'down' | 'between';
 type BreakPoints = 'sm' | 'md' | 'lg' | 'xl' | '2xl';
 
-// Breakpoint should be dynamically imported from tw config
 const BREAKPOINTS = {
   sm: 640,
   md: 768,
@@ -14,6 +13,10 @@ const BREAKPOINTS = {
   '2xl': 1536,
 };
 
+/**
+ * A hook for responsive design, allowing components to adapt based on the viewport width.
+ * It evaluates media query-like conditions ('up', 'down', 'between') against specified breakpoints.
+ */
 export const useResponsive = (query: Query, start: BreakPoints, end?: BreakPoints) => {
   const [width, setWidth] = useState(0);
 
