@@ -2,6 +2,7 @@ import { StreamingTextResponse } from 'ai';
 import { NextResponse } from 'next/server';
 import { CustomChatbotService } from '@/backend/services/custom-chatbot-service';
 import { logger } from '../../../../../logger';
+import { endpoints } from '../../endpoints';
 
 export const POST = async (request: Request) => {
   try {
@@ -15,11 +16,7 @@ export const POST = async (request: Request) => {
       embeddingModel,
     } = body;
 
-    logger.info(
-      `Main custom chatbot request with context: ${context}, last message: ${messages[messages.length - 1].content},
-       conversation model: ${conversationModel}, conversation temperature: ${conversationTemperature}, 
-       retrieval size: ${retrievalSize}, embedding model: ${embeddingModel}`
-    );
+    logger.info(`POST ${endpoints.customChatbot.main} with data: ${JSON.stringify(body)}`);
 
     const customChatbotService = new CustomChatbotService({
       conversationModelName: conversationModel,

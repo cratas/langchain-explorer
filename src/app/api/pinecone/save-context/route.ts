@@ -7,6 +7,7 @@ import { DocumentsLoaderFactory } from '@/backend/helpers/documents-loader-facto
 import { CharacterTextSplitter } from 'langchain/text_splitter';
 import { validateRequestAndGetFormData } from './validate-request-and-get-data';
 import { logger } from '../../../../../logger';
+import { endpoints } from '../../endpoints';
 
 export const POST = async (request: Request) => {
   try {
@@ -16,8 +17,7 @@ export const POST = async (request: Request) => {
       validateRequestAndGetFormData(formData);
 
     logger.info(
-      `Save context request with sourceType: ${sourceType}, file: ${file}, url: ${url},
-       embeddingModel: ${embeddingModel}, fileName: ${fileName}`
+      `POST ${endpoints.pinecone.saveContext} with data: ${JSON.stringify(validateRequestAndGetFormData(formData))}`
     );
 
     const pineconeService = new PineconeIndexService(PINECONE_INDEX);

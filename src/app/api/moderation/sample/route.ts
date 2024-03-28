@@ -5,6 +5,7 @@ import { ConversationModelOptions } from '@/shared/types/common';
 import { StreamingTextResponse } from 'ai';
 import { NextResponse } from 'next/server';
 import { logger } from '../../../../../logger';
+import { endpoints } from '../../endpoints';
 
 const MIN_SCORE = 0.1;
 
@@ -14,7 +15,7 @@ export const POST = async (request: Request) => {
     const { messages } = body;
     const input = messages[messages.length - 1].content;
 
-    logger.info(`Sample moderation request with last message: ${input}`);
+    logger.info(`POST ${endpoints.moderation.sample} with data: ${JSON.stringify(body)}`);
 
     const moderationService = new ModerationService({ minScore: MIN_SCORE });
 

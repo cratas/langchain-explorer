@@ -3,15 +3,14 @@ import { ChatService } from '@/backend/services/chat-service';
 import { StreamingTextResponse } from 'ai';
 import { NextResponse } from 'next/server';
 import { logger } from '../../../../logger';
+import { endpoints } from '../endpoints';
 
 export const POST = async (request: Request) => {
   try {
     const body = await request.json();
     const { messages } = body;
 
-    logger.info(
-      `Customer support request with last message: ${messages[messages.length - 1].content}`
-    );
+    logger.info(`POST ${endpoints.openAI} with data: ${JSON.stringify(body)}`);
 
     const chatService = new ChatService({
       modelName: 'gpt-3.5-turbo',

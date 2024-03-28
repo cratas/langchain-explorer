@@ -4,6 +4,7 @@ import { ModerationService } from '@/backend/services/moderation-service';
 import { StreamingTextResponse } from 'ai';
 import { NextResponse } from 'next/server';
 import { logger } from '../../../../../logger';
+import { endpoints } from '../../endpoints';
 
 export const POST = async (request: Request) => {
   try {
@@ -11,10 +12,7 @@ export const POST = async (request: Request) => {
     const { messages, minScore, conversationModel, conversationTemperature, categories } = body;
     const input = messages[messages.length - 1].content;
 
-    logger.info(
-      `Main moderation request with last message: ${input}, min score: ${minScore}, conversation model: ${conversationModel}, 
-      conversation temperature: ${conversationTemperature}, categories: ${JSON.stringify(categories)}`
-    );
+    logger.info(`POST ${endpoints.moderation.main} with data: ${JSON.stringify(body)}`);
 
     // map object into array of selected categories
     const userSelectedCategories = Object.entries(categories)
