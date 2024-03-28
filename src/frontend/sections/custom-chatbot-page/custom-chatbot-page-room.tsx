@@ -15,6 +15,7 @@ import { gptMessageScrollHelper } from '@/frontend/jotai/atoms';
 import { useAtom } from 'jotai';
 import { generateRandomId } from '@/shared/utils/generate-random-id';
 import { CustomChatbotPageSettingsType } from '@/frontend/types/custom-chatbot';
+import { toast } from 'react-toastify';
 
 type Props = CustomChatbotPageSettingsType & {
   sourceName: string;
@@ -22,6 +23,12 @@ type Props = CustomChatbotPageSettingsType & {
 
 export const CustomChatbotPageRoom = ({ sourceName, systemMessage, ...otherSettings }: Props) => {
   const [isStreaming, setIsStreaming] = useState(false);
+
+  const handleError = () => {
+    setIsStreaming(false);
+
+    toast.error('There was an error processing your last input. Please try again.');
+  };
 
   const { messages, input, handleInputChange, isLoading, handleSubmit, error, stop } = useChat({
     initialMessages: [
@@ -33,7 +40,7 @@ export const CustomChatbotPageRoom = ({ sourceName, systemMessage, ...otherSetti
     ],
     onResponse: () => setIsStreaming(true),
     onFinish: () => setIsStreaming(false),
-    onError: () => setIsStreaming(false),
+    onError: handleError,
     body: { context: sourceName, ...otherSettings },
     api: endpoints.customChatbot.main,
   });
