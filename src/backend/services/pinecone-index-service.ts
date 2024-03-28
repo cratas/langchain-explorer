@@ -6,9 +6,26 @@ import { PineconeClientConnectionSingleton } from '../db/pinecone-client-connect
 import { EmbeddingLLMFactory } from '../helpers/embedding-llm-factory';
 import { getProviderByModelName } from '../utils/get-provider-by-model';
 
+/**
+ * Service class for managing operations on a Pinecone index.
+ * Provides functionality to interact with a Pinecone vector database, such as deleting namespaces
+ * and saving documents to a vector store. It uses PineconeClientConnectionSingleton for database
+ * connection and EmbeddingLLMFactory for creating embedder objects.
+ */
 export class PineconeIndexService {
+  /**
+   * The Pinecone index instance.
+   * @private
+   */
   private _index: Index<RecordMetadata>;
 
+  /**
+   * Constructs a PineconeIndexService object.
+   * Initializes a connection to a Pinecone index with the specified name.
+   *
+   * @param {string} indexName - The name of the Pinecone index to connect to.
+   * @throws {Error} Throws an error if the index with the specified name is not found.
+   */
   constructor(indexName: string) {
     try {
       this._index = PineconeClientConnectionSingleton.getInstance().Index(indexName);
@@ -17,6 +34,13 @@ export class PineconeIndexService {
     }
   }
 
+  /**
+   * Deletes all namespaces in the Pinecone index except the provided namespace.
+   *
+   * @param {string} providedNamespace - The namespace to retain in the index.
+   * @returns {Promise<void>} A promise that resolves when the operation is complete.
+   * @throws {Error} Throws an error if the operation fails.
+   */
   public async deleteAllNamespacesExceptProvidedNamespace(
     providedNamespace: string
   ): Promise<void> {
@@ -35,6 +59,15 @@ export class PineconeIndexService {
     }
   }
 
+  /**
+   * Saves the given documents to the vector store using a specified embedding model and namespace.
+   *
+   * @param {Document<Record<string, any>>[]} documents - An array of documents to be saved.
+   * @param {EmbeddingModelOptions} embeddingModel - The embedding model options to be used.
+   * @param {string} namespace - The namespace in the index where the documents will be saved.
+   * @returns {Promise<void>} A promise that resolves when the operation is complete.
+   * @throws {Error} Throws an error if saving the documents fails.
+   */
   public async saveDocumentsToVectorStore(
     documents: Document<Record<string, any>>[],
     embeddingModel: EmbeddingModelOptions,

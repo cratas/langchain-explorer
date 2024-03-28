@@ -2,6 +2,10 @@ import { endpoints } from '@/app/api/endpoints';
 import { EmbeddingModelOptions, SourceOptions } from '@/shared/types/common';
 import { useState } from 'react';
 
+/**
+ * A hook for handling the embedding of text or PDF content.
+ * Manages loading state, error state, and success state of the embedding process.
+ */
 export const useEmbedContext = () => {
   const [contextSaved, setContextSaved] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
