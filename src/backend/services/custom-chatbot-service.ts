@@ -17,6 +17,7 @@ import { getProviderByModelName } from '../utils/get-provider-by-model';
 import { STANDALONE_QUESTION_TEMPLATE } from '../constants/prompt-templates';
 import { formatChatHistory } from '../utils/format-chat-history';
 import { EmbeddingLLMFactory } from '../helpers/embedding-llm-factory';
+import { logger } from '../../../logger';
 
 interface CustomChatbotServiceOptions {
   conversationModelName: ConversationModelOptions;
@@ -121,8 +122,14 @@ export class CustomChatbotService {
         namespace: this._pineconeNamespaceName,
       });
 
+      logger.info(
+        `CustomChatbotService - Retrieved Pinecone store for namespace: ${this._pineconeNamespaceName}`
+      );
+
       return pcStore.asRetriever({ k: this._retrievalSize });
     } catch (error) {
+      logger.error(`CustomChatbotService - Error in getVectorStoreRetrieval: ${error}`);
+
       throw new Error(`Error in getVectorStoreRetrieval: ${error}`);
     }
   };
@@ -170,8 +177,12 @@ export class CustomChatbotService {
         { callbacks: [handlers] }
       );
 
+      logger.info(`CustomChatbotService - Generated streaming response for question: ${question}`);
+
       return stream;
     } catch (error) {
+      logger.error(`CustomChatbotService - Error in getLLMResponseStream: ${error}`);
+
       throw new Error(`Error in getLLMResponseStream: ${error}`);
     }
   };

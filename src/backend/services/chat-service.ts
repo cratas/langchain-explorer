@@ -10,6 +10,7 @@ import { BaseMessageChunk } from '@langchain/core/messages';
 import { formatChatHistory } from '../utils/format-chat-history';
 import { getProviderByModelName } from '../utils/get-provider-by-model';
 import { ChatLLMFactory } from '../helpers/chat-llm-factory';
+import { logger } from '../../../logger';
 
 interface ChatServiceOptions {
   modelName: ConversationModelOptions;
@@ -102,8 +103,12 @@ export class ChatService {
         input: currentMessageContent,
       });
 
+      logger.info(`ChatService - Generated response for messages: ${JSON.stringify(messages)}`);
+
       return response as BaseMessageChunk;
     } catch (error) {
+      logger.error(`ChatService - Error in getLLMResponse: ${error}`);
+
       throw new Error(`Error in getLLMResponseStream ${error}`);
     }
   };
@@ -128,8 +133,14 @@ export class ChatService {
         input: currentMessageContent,
       });
 
+      logger.info(
+        `ChatService - Generated streaming response for messages: ${JSON.stringify(messages)}`
+      );
+
       return stream;
     } catch (error) {
+      logger.error(`ChatService - Error in getLLMResponseStream: ${error}`);
+
       throw new Error(`Error in getLLMResponseStream ${error}`);
     }
   };

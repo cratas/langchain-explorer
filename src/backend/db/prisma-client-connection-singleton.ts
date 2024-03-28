@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/client';
+import { logger } from '../../../logger';
 
 /**
  * Singleton class for managing a connection to the Prisma client.
@@ -33,6 +34,8 @@ export class PrismaClientConnectionSingleton {
   public static getInstance(): PrismaClient {
     if (process.env.NODE_ENV === 'production') {
       if (!PrismaClientConnectionSingleton.instance) {
+        logger.info('PrismaClientConnectionSingleton - Creating Prisma client instance');
+
         PrismaClientConnectionSingleton.instance = new PrismaClient();
       }
 
@@ -45,6 +48,8 @@ export class PrismaClientConnectionSingleton {
     };
 
     if (!globalWithPrisma.prisma) {
+      logger.info('PrismaClientConnectionSingleton - Creating Prisma client instance');
+
       globalWithPrisma.prisma = new PrismaClient();
     }
 

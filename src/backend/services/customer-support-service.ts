@@ -14,6 +14,7 @@ import {
   GetLowStockProductsFunctionArgs,
   GetMostPopularProductsFunctionArgs,
 } from '../types/customer-support';
+import { logger } from '../../../logger';
 
 /**
  * Service class for handling customer support interactions using a language model.
@@ -65,6 +66,10 @@ export class CustomerSupportService {
       | GetLowStockProductsFunctionArgs
       | FindOrderFunctionArgs
   ): Promise<unknown> => {
+    logger.info(
+      `CustomerSupportService - Executing function call: ${name} with args: ${JSON.stringify(args)}`
+    );
+
     switch (name) {
       case FunctionCallsNames.getCustomerOfMonth:
         return this._prismaDatabaseService.getCustomerOfMonth({
@@ -85,6 +90,8 @@ export class CustomerSupportService {
       case FunctionCallsNames.findOrder:
         return this._prismaDatabaseService.findOrder({ ...(args as FindOrderFunctionArgs) });
       default:
+        logger.error(`CustomerSupportService - Error while calling function with name: ${name}`);
+
         throw new Error(`Function call with name ${name} is not supported`);
     }
   };
@@ -108,6 +115,8 @@ export class CustomerSupportService {
       // Otherwise, execute the function calls and use the results as the input
       if (response.content) {
         finalInput = response.content;
+
+        logger.info(`CustomerSupportService - Using response content as input: ${finalInput}`);
       } else {
         const fCalls =
           response.additional_kwargs.tool_calls?.map((call) => ({
@@ -129,6 +138,8 @@ export class CustomerSupportService {
         );
 
         finalInput = JSON.stringify(results);
+
+        logger.info(`CustomerSupportService - Using function call results as input: ${finalInput}`);
       }
 
       // Create a new ChatService instance for getting final result based on function calls or previous response
@@ -144,8 +155,14 @@ export class CustomerSupportService {
         finalInput as string
       );
 
+      logger.info(
+        `CustomerSupportService - Generated streaming response for customer support messages: ${JSON.stringify(messages)}`
+      );
+
       return stream;
     } catch (error) {
+      logger.error(`CustomerSupportService - Error in getting LLM response: ${error}`);
+
       throw new Error(`Error in getting LLM response: ${error}`);
     }
   };

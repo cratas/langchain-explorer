@@ -45,6 +45,7 @@
     "ts-node": "^10.9.2",
     "typewriter-effect": "^2.21.0",
     "uuid": "^9.0.1",
+    "winston": "^3.13.0",
     "yup": "^1.4.0",
     "zod": "^3.22.4",
     "zod-to-json-schema": "^3.22.4"

@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-dupe-class-members */
 import { OpenAIModerationChain } from 'langchain/chains';
+import { logger } from '../../../logger';
 
 type CategoryWithScore = {
   category: string;
@@ -114,11 +115,19 @@ export class ModerationService {
           selectedCategoriesWithScores
         );
 
+        logger.info(
+          `ModerationService - Flagged categories in input text: ${JSON.stringify(this.flaggedCategories)}`
+        );
+
         return true;
       }
 
+      logger.info('ModerationService - No categories flagged in input text.');
+
       return false;
     } catch (error) {
+      logger.error(`ModerationService - Error checking input for flagged categories: ${error}`);
+
       throw new Error(
         `Error checking input for flagged categories from OpenAI moderation ${error}`
       );

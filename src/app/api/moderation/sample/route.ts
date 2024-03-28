@@ -4,6 +4,7 @@ import { ModerationService } from '@/backend/services/moderation-service';
 import { ConversationModelOptions } from '@/shared/types/common';
 import { StreamingTextResponse } from 'ai';
 import { NextResponse } from 'next/server';
+import { logger } from '../../../../../logger';
 
 const MIN_SCORE = 0.1;
 
@@ -12,6 +13,8 @@ export const POST = async (request: Request) => {
     const body = await request.json();
     const { messages } = body;
     const input = messages[messages.length - 1].content;
+
+    logger.info(`Sample moderation request with last message: ${input}`);
 
     const moderationService = new ModerationService({ minScore: MIN_SCORE });
 
@@ -33,6 +36,8 @@ export const POST = async (request: Request) => {
 
     return new StreamingTextResponse(stream);
   } catch (error) {
+    logger.error(`Error in main moderation request: ${error}`);
+
     return NextResponse.json({ error }, { status: 500 });
   }
 };
