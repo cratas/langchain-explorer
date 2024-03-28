@@ -7,6 +7,7 @@ import {
   GetLowStockProductsFunctionArgs,
   GetMostPopularProductsFunctionArgs,
 } from '../types/customer-support';
+import { logger } from '../../../logger';
 
 /**
  * Service class for interacting with the Prisma database.
@@ -40,6 +41,10 @@ export class PrismaDatabaseService {
     loggedUserName,
   }: GetLatestOrderInfoFunctionArgs): Promise<string> {
     if (role === 'guest' || (role === 'user' && username !== loggedUserName)) {
+      logger.info(
+        `CustomerSupportService - User ${loggedUserName} is not authorized to get latest order info for ${username}`
+      );
+
       return 'NOT_AUTHORIZED';
     }
 
@@ -63,8 +68,16 @@ export class PrismaDatabaseService {
         },
       });
 
+      logger.info(
+        `CustomerSupportService - Retrieved latest order info for customer ${username}: ${JSON.stringify(
+          order
+        )}`
+      );
+
       return JSON.stringify(order);
     } catch (error) {
+      logger.error(`CustomerSupportService - Failed to get latest order info: ${error}`);
+
       throw new Error('Failed to get latest order info');
     }
   }
@@ -86,8 +99,16 @@ export class PrismaDatabaseService {
         },
       });
 
+      logger.info(
+        `CustomerSupportService - Retrieved low stock products with limit ${limit}: ${JSON.stringify(
+          products
+        )}`
+      );
+
       return JSON.stringify(products);
     } catch (error) {
+      logger.error(`CustomerSupportService - Failed to get low stock products: ${error}`);
+
       throw new Error('Failed to get low stock products');
     }
   }
@@ -133,8 +154,16 @@ export class PrismaDatabaseService {
         .sort((a, b) => b.orders.length - a.orders.length)
         .slice(0, count);
 
+      logger.info(
+        `CustomerSupportService - Retrieved most popular products with count ${count}: ${JSON.stringify(
+          popularProducts
+        )}`
+      );
+
       return JSON.stringify(popularProducts);
     } catch (error) {
+      logger.error(`CustomerSupportService - Failed to get most popular products: ${error}`);
+
       throw new Error('Failed to get most popular products');
     }
   }
@@ -156,6 +185,10 @@ export class PrismaDatabaseService {
     orderId,
   }: FindOrderFunctionArgs): Promise<string> {
     if (role === 'guest' || (role === 'user' && username && username !== loggedUserName)) {
+      logger.info(
+        `CustomerSupportService - User ${loggedUserName} is not authorized to find orders for ${username}`
+      );
+
       return 'NOT_AUTHORIZED';
     }
 
@@ -167,6 +200,8 @@ export class PrismaDatabaseService {
       });
 
       if (!customer) {
+        logger.info(`Customer with name ${customerName} not found`);
+
         throw new Error('User not found');
       }
 
@@ -181,8 +216,16 @@ export class PrismaDatabaseService {
 
       const orders = await this._prismaClient.order.findMany({ where: orderConditions });
 
+      logger.info(
+        `CustomerSupportService - Found orders for customer ${customerName}: ${JSON.stringify(
+          orders
+        )}`
+      );
+
       return orders.length > 0 ? JSON.stringify(orders) : 'No orders found';
     } catch (error) {
+      logger.error(`CustomerSupportService - Failed to find orders: ${error}`);
+
       throw new Error('Failed to find orders');
     }
   }
@@ -200,6 +243,10 @@ export class PrismaDatabaseService {
     year,
   }: GetCustomerOfMonthFunctionArgs): Promise<string> {
     if (role === 'guest') {
+      logger.info(
+        'CustomerSupportService - Guest user is not authorized to get customer of the month'
+      );
+
       return 'NOT_AUTHORIZED';
     }
 
@@ -219,6 +266,8 @@ export class PrismaDatabaseService {
     ]).get(month);
 
     if (monthNumber === undefined) {
+      logger.error(`Invalid month: ${month}`);
+
       throw new Error('Invalid month');
     }
 
@@ -266,10 +315,18 @@ export class PrismaDatabaseService {
         }
       });
 
+      logger.info(
+        `CustomerSupportService - Retrieved customer of the month for ${month} ${currentYear}: ${JSON.stringify(
+          customerOfTheMonth
+        )}`
+      );
+
       return customerOfTheMonth
         ? (customerOfTheMonth as Customer).name
         : 'No customer of the month found.';
     } catch (error) {
+      logger.error(`CustomerSupportService - Failed to get customer of the month: ${error}`);
+
       throw new Error(`Failed to get customer of the month ${error}`);
     }
   }

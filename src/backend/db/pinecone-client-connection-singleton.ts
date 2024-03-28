@@ -1,5 +1,6 @@
 import { PINECONE_API_KEY } from '@/config-global';
 import { Pinecone } from '@pinecone-database/pinecone';
+import { logger } from '../../../logger';
 
 /**
  * Singleton class for managing a connection to the Pinecone database.
@@ -28,6 +29,8 @@ export class PineconeClientConnectionSingleton {
    */
   public static getInstance(): Pinecone {
     if (!PineconeClientConnectionSingleton.instance) {
+      logger.info('PineconeClientConnectionSingleton - Creating Pinecone client instance');
+
       PineconeClientConnectionSingleton.instance = new Pinecone({ apiKey: PINECONE_API_KEY });
     }
 

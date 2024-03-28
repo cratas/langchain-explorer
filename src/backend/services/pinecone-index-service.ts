@@ -5,6 +5,7 @@ import { EmbeddingLLMProvider, EmbeddingModelOptions } from '@/shared/types/comm
 import { PineconeClientConnectionSingleton } from '../db/pinecone-client-connection-singleton';
 import { EmbeddingLLMFactory } from '../helpers/embedding-llm-factory';
 import { getProviderByModelName } from '../utils/get-provider-by-model';
+import { logger } from '../../../logger';
 
 /**
  * Service class for managing operations on a Pinecone index.
@@ -29,7 +30,11 @@ export class PineconeIndexService {
   constructor(indexName: string) {
     try {
       this._index = PineconeClientConnectionSingleton.getInstance().Index(indexName);
+
+      logger.info(`PineconeIndexService - Connected to Pinecone index ${indexName}`);
     } catch {
+      logger.error(`PineconeIndexService - Index ${indexName} not found`);
+
       throw new Error(`Index ${indexName} not found`);
     }
   }
@@ -53,8 +58,12 @@ export class PineconeIndexService {
           .forEach(async (namespace) => {
             await this._index.namespace(namespace).deleteAll();
           });
+
+        logger.info(`PineconeIndexService - Deleted all namespaces except ${providedNamespace}`);
       }
     } catch {
+      logger.error('PineconeIndexService - Failed to delete namespaces');
+
       throw new Error('Failed to delete documents from Pinecone index');
     }
   }
@@ -83,7 +92,11 @@ export class PineconeIndexService {
         pineconeIndex: this._index,
         namespace,
       });
+
+      logger.info('PineconeIndexService - Saved documents to vector store');
     } catch (error) {
+      logger.error(`PineconeIndexService - Failed to save documents to Pinecone index ${error}`);
+
       throw new Error(`Failed to save documents to Pinecone index ${error}`);
     }
   }

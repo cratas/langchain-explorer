@@ -3,12 +3,18 @@ import { ChatService } from '@/backend/services/chat-service';
 import { ModerationService } from '@/backend/services/moderation-service';
 import { StreamingTextResponse } from 'ai';
 import { NextResponse } from 'next/server';
+import { logger } from '../../../../../logger';
 
 export const POST = async (request: Request) => {
   try {
     const body = await request.json();
     const { messages, minScore, conversationModel, conversationTemperature, categories } = body;
     const input = messages[messages.length - 1].content;
+
+    logger.info(
+      `Main moderation request with last message: ${input}, min score: ${minScore}, conversation model: ${conversationModel}, 
+      conversation temperature: ${conversationTemperature}, categories: ${JSON.stringify(categories)}`
+    );
 
     // map object into array of selected categories
     const userSelectedCategories = Object.entries(categories)
@@ -38,6 +44,8 @@ export const POST = async (request: Request) => {
 
     return new StreamingTextResponse(stream);
   } catch (error) {
+    logger.error(`Error in main moderation request: ${error}`);
+
     return NextResponse.json({ error }, { status: 500 });
   }
 };
