@@ -6,7 +6,7 @@ import {
   ChatMessageWithComparison,
   ChatMessage,
 } from '@/frontend/components/chat';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useChat, Message } from 'ai/react';
 import { endpoints } from '@/app/api/endpoints';
 import { useMessagesScroll } from '@/frontend/hooks/use-message-scroll';
@@ -15,19 +15,34 @@ import { useAtom } from 'jotai';
 import { generateRandomId } from '@/shared/utils/generate-random-id';
 import { RoomHeader } from '@/frontend/components/common';
 import { toast } from 'react-toastify';
+import { useTokenUsage } from '@/frontend/hooks/use-token-usage';
 
 type Props = {
   fileName: string;
   systemMessage: string;
 };
 
+const USE_CASE_KEY = 'custom-chatbot-room';
+
 export const CustomChatBotRoom = ({ fileName, systemMessage }: Props) => {
   const [isStreaming, setIsStreaming] = useState(false);
+
+  const { getTokenUsage, currentTokenUsage, initTokenUsage } = useTokenUsage(USE_CASE_KEY);
+
+  console.log('currentTokenUsage', currentTokenUsage);
 
   const handleError = () => {
     setIsStreaming(false);
 
     toast.error('There was an error processing your last input. Please try again.');
+  };
+
+  const handleFinish = () => {
+    setIsStreaming(false);
+
+    setTimeout(() => {
+      getTokenUsage();
+    }, 1000);
   };
 
   const { messages, input, handleInputChange, isLoading, handleSubmit, error, stop, setMessages } =
@@ -40,15 +55,20 @@ export const CustomChatBotRoom = ({ fileName, systemMessage }: Props) => {
         },
       ],
       onResponse: () => setIsStreaming(true),
-      onFinish: () => setIsStreaming(false),
+      onFinish: handleFinish,
       onError: handleError,
-      body: { context: fileName },
+      body: { context: fileName, useCaseKey: USE_CASE_KEY },
       api: endpoints.customChatbot.sample,
     });
 
   const [newGptMessageSignal] = useAtom(gptMessageScrollHelper);
 
   const { messagesEndRef } = useMessagesScroll([messages, newGptMessageSignal]);
+
+  useEffect(() => {
+    initTokenUsage();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className="relative flex h-full w-full flex-col rounded-xl border border-browser-background bg-background-light p-3">

@@ -18,6 +18,7 @@ import { STANDALONE_QUESTION_TEMPLATE } from '../constants/prompt-templates';
 import { formatChatHistory } from '../utils/format-chat-history';
 import { EmbeddingLLMFactory } from '../helpers/embedding-llm-factory';
 import { logger } from '../../../logger';
+import { TokenUsageTrackerRegistry } from '../helpers/token-usage-tracker-registry';
 
 interface CustomChatbotServiceOptions {
   conversationModelName: ConversationModelOptions;
@@ -25,6 +26,7 @@ interface CustomChatbotServiceOptions {
   embeddingModel: EmbeddingModelOptions;
   pineconeNamespaceName: string;
   retrievalSize: number;
+  tokensUsageTrackerKey?: string;
 }
 
 /**
@@ -78,6 +80,7 @@ export class CustomChatbotService {
     embeddingModel,
     pineconeNamespaceName,
     retrievalSize = 3,
+    tokensUsageTrackerKey,
   }: CustomChatbotServiceOptions) {
     this._streamingModel = ChatLLMFactory.createObject(
       getProviderByModelName(conversationModelName),
@@ -85,6 +88,14 @@ export class CustomChatbotService {
       conversationModelTemperature,
       true
     );
+
+    this._streamingModel.callbacks = [
+      {
+        handleLLMEnd: (output) => {
+          console.log('output', JSON.stringify(output, null, 2));
+        },
+      },
+    ];
 
     this._nonStreamingModel = ChatLLMFactory.createObject(
       getProviderByModelName(conversationModelName),
@@ -97,6 +108,24 @@ export class CustomChatbotService {
       getProviderByModelName(embeddingModel) as EmbeddingLLMProvider,
       embeddingModel
     );
+
+    const supportedLLMModels: ChatOpenAI[] = [];
+
+    if (tokensUsageTrackerKey) {
+      if (this._streamingModel instanceof ChatOpenAI) {
+        supportedLLMModels.push(this._streamingModel);
+      }
+
+      if (this._nonStreamingModel instanceof ChatOpenAI) {
+        supportedLLMModels.push(this._nonStreamingModel);
+      }
+
+      if (this._embeddingModel instanceof ChatOpenAI) {
+        supportedLLMModels.push(this._embeddingModel);
+      }
+
+      TokenUsageTrackerRegistry.trackTockenUsage(tokensUsageTrackerKey, supportedLLMModels);
+    }
 
     this._pineconeNamespaceName = pineconeNamespaceName;
 

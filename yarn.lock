@@ -5368,6 +5368,11 @@ thenify-all@^1.0.0:
   dependencies:
     any-promise "^1.0.0"
 
+tiktoken@^1.0.13:
+  version "1.0.13"
+  resolved "https://registry.yarnpkg.com/tiktoken/-/tiktoken-1.0.13.tgz#39e3d10a1c134d8dd98d88b023a9963c0f061b21"
+  integrity sha512-JaL9ZnvTbGFMDIBeGdVkLt4qWTeCPw+n7Ock+wceAGRenuHA6nOOvMJFliNDyXsjg2osGKJWsXtO2xc74VxyDw==
+
 tiny-case@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/tiny-case/-/tiny-case-1.0.3.tgz#d980d66bc72b5d5a9ca86fb7c9ffdb9c898ddd03"
