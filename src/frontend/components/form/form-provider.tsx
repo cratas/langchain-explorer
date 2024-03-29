@@ -12,6 +12,4 @@ const FormProvider = ({ children, onSubmit, methods }: Props) => (
   </Form>
 );
 
-FormProvider.displayName = 'FormProvider';
-
 export default FormProvider;

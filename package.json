@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "test": "vitest",
     "dev-lan": "next dev -H",
     "build:prod": "prisma generate && prisma migrate deploy && next build",
     "build": "prisma generate && next build",
@@ -27,6 +28,7 @@
     "@material-tailwind/react": "^2.1.9",
     "@pinecone-database/pinecone": "^2.1.0",
     "@prisma/client": "^5.10.2",
+    "@testing-library/react-hooks": "^8.0.1",
     "@vercel/postgres": "^0.7.2",
     "ai": "^2.2.35",
     "cheerio": "^1.0.0-rc.12",
@@ -52,12 +54,16 @@
   },
   "devDependencies": {
     "@iconify/json": "^2.2.181",
+    "@testing-library/jest-dom": "^6.4.2",
+    "@testing-library/react": "^14.2.2",
+    "@testing-library/user-event": "^14.5.2",
     "@types/node": "^20",
     "@types/numeral": "^2.0.5",
     "@types/react": "18.2.42",
     "@types/react-dom": "^18",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
+    "@vitejs/plugin-react": "^4.2.1",
     "autoprefixer": "^10.0.1",
     "eslint": "^8.2.0",
     "eslint-config-airbnb": "19.0.4",
@@ -70,13 +76,15 @@
     "eslint-plugin-react-hooks": "^4.3.0",
     "eslint-plugin-unused-imports": "^2.0.0",
     "husky": "^9.0.10",
+    "jsdom": "^24.0.0",
     "lint-staged": "^15.2.2",
     "postcss": "^8",
     "prettier": "^3.2.5",
     "prettier-plugin-tailwindcss": "^0.5.11",
     "prisma": "^5.10.2",
     "tailwindcss": "^3.3.0",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vitest": "^1.4.0"
   },
   "prisma": {
     "seed": "ts-node prisma/seed.ts"

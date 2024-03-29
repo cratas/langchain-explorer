@@ -18,7 +18,7 @@ type Props = {
 };
 
 export const ChatInput = ({ handleSubmit, stop, isLoading, input, handleInputChange }: Props) => (
-  <form onSubmit={handleSubmit}>
+  <form onSubmit={handleSubmit} data-testid="chat-input">
     <div className="relative">
       <Input
         type="text"
