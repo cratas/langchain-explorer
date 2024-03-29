@@ -49,7 +49,7 @@ export const ChatMessage = ({
             className={`${isError ? 'inline-block rounded-md border border-red-700 p-2 text-red-700' : 'text-text-light'}`}
           >
             {isLoading ? (
-              <Spinner className="mt-2" />
+              <Spinner className="mt-2" data-testid="test-loading-spinner" />
             ) : (
               content.split('\n').map((text, index) => (
                 <p key={index} className="my-4">
