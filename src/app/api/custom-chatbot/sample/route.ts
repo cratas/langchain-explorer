@@ -7,7 +7,7 @@ import { endpoints } from '../../endpoints';
 export const POST = async (request: Request) => {
   try {
     const body = await request.json();
-    const { messages, context } = body;
+    const { messages, context, useCaseKey } = body;
 
     logger.info(`POST ${endpoints.customChatbot.sample} with data: ${JSON.stringify(body)}`);
 
@@ -17,6 +17,7 @@ export const POST = async (request: Request) => {
       embeddingModel: 'text-embedding-3-small',
       pineconeNamespaceName: context,
       retrievalSize: 3,
+      tokensUsageTrackerKey: useCaseKey,
     });
 
     const stream = await customChatbotService.getLLMResponseStream(messages);

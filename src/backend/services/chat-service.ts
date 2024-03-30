@@ -11,12 +11,14 @@ import { formatChatHistory } from '../utils/format-chat-history';
 import { getProviderByModelName } from '../utils/get-provider-by-model';
 import { ChatLLMFactory } from '../helpers/chat-llm-factory';
 import { logger } from '../../../logger';
+import { TokenUsageTrackerRegistry } from '../helpers/token-usage-tracker-registry';
 
 interface ChatServiceOptions {
   modelName: ConversationModelOptions;
   modelTemperature?: number;
   promptTemplate: string;
   functionCallsDefinition?: Partial<ChatOpenAICallOptions>;
+  tokensUsageTrackerKey?: string;
 }
 
 /**
@@ -48,6 +50,7 @@ export class ChatService {
     modelTemperature = 0.2,
     promptTemplate,
     functionCallsDefinition,
+    tokensUsageTrackerKey,
   }: ChatServiceOptions) {
     const baseModel = ChatLLMFactory.createObject(
       getProviderByModelName(modelName),
@@ -60,6 +63,10 @@ export class ChatService {
       this._model = baseModel.bind(functionCallsDefinition) as ChatOpenAI;
     } else {
       this._model = baseModel;
+    }
+
+    if (tokensUsageTrackerKey) {
+      TokenUsageTrackerRegistry.trackTockenUsage(tokensUsageTrackerKey, [this._model]);
     }
 
     this._promptTemplate = promptTemplate;

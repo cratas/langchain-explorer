@@ -21,6 +21,8 @@ type Props = CustomChatbotPageSettingsType & {
   sourceName: string;
 };
 
+const USE_CASE_KEY = 'custom-chatbot-page-room';
+
 export const CustomChatbotPageRoom = ({ sourceName, systemMessage, ...otherSettings }: Props) => {
   const [isStreaming, setIsStreaming] = useState(false);
 
@@ -41,7 +43,7 @@ export const CustomChatbotPageRoom = ({ sourceName, systemMessage, ...otherSetti
     onResponse: () => setIsStreaming(true),
     onFinish: () => setIsStreaming(false),
     onError: handleError,
-    body: { context: sourceName, ...otherSettings },
+    body: { context: sourceName, useCaseKey: USE_CASE_KEY, ...otherSettings },
     api: endpoints.customChatbot.main,
   });
 

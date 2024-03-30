@@ -11,4 +11,5 @@ export const endpoints = {
   openAI: `${ROOT}/openai`,
   moderation: { sample: `${ROOT}/moderation/sample`, main: `${ROOT}/moderation/main` },
   customerSupport: `${ROOT}/customer-support`,
+  tokenUsage: `${ROOT}/token-usage`,
 };

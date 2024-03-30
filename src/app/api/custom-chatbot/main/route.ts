@@ -14,6 +14,7 @@ export const POST = async (request: Request) => {
       conversationTemperature,
       retrievalSize,
       embeddingModel,
+      useCaseKey,
     } = body;
 
     logger.info(`POST ${endpoints.customChatbot.main} with data: ${JSON.stringify(body)}`);
@@ -24,6 +25,7 @@ export const POST = async (request: Request) => {
       embeddingModel,
       pineconeNamespaceName: context,
       retrievalSize,
+      tokensUsageTrackerKey: useCaseKey,
     });
 
     const stream = await customChatbotService.getLLMResponseStream(messages);

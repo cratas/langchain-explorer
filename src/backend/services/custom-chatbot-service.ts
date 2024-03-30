@@ -18,6 +18,8 @@ import { STANDALONE_QUESTION_TEMPLATE } from '../constants/prompt-templates';
 import { formatChatHistory } from '../utils/format-chat-history';
 import { EmbeddingLLMFactory } from '../helpers/embedding-llm-factory';
 import { logger } from '../../../logger';
+import { TokenUsageTrackerRegistry } from '../helpers/token-usage-tracker-registry';
+import { ModelOptions } from '../types/token-usage';
 
 interface CustomChatbotServiceOptions {
   conversationModelName: ConversationModelOptions;
@@ -25,6 +27,7 @@ interface CustomChatbotServiceOptions {
   embeddingModel: EmbeddingModelOptions;
   pineconeNamespaceName: string;
   retrievalSize: number;
+  tokensUsageTrackerKey?: string;
 }
 
 /**
@@ -69,6 +72,7 @@ export class CustomChatbotService {
    * Constructs a CustomChatbotService object.
    * Initializes language model instances for streaming and non-streaming scenarios,
    * an embedding model for vector store retrievals, and sets retrieval parameters.
+   * Also initializes token usage tracking for the configured language models.
    *
    * @param {CustomChatbotServiceOptions} options - Configuration options for the chatbot service.
    */
@@ -78,6 +82,7 @@ export class CustomChatbotService {
     embeddingModel,
     pineconeNamespaceName,
     retrievalSize = 3,
+    tokensUsageTrackerKey,
   }: CustomChatbotServiceOptions) {
     this._streamingModel = ChatLLMFactory.createObject(
       getProviderByModelName(conversationModelName),
@@ -97,6 +102,18 @@ export class CustomChatbotService {
       getProviderByModelName(embeddingModel) as EmbeddingLLMProvider,
       embeddingModel
     );
+
+    const supportedLLMModels: ModelOptions[] = [];
+
+    if (tokensUsageTrackerKey) {
+      supportedLLMModels.push(this._streamingModel);
+
+      supportedLLMModels.push(this._nonStreamingModel);
+
+      TokenUsageTrackerRegistry.trackTockenUsage(tokensUsageTrackerKey, supportedLLMModels);
+
+      logger.info(`CustomChatbotService - Tracking token usage for key: ${tokensUsageTrackerKey}`);
+    }
 
     this._pineconeNamespaceName = pineconeNamespaceName;
 

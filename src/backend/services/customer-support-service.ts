@@ -16,6 +16,10 @@ import {
 } from '../types/customer-support';
 import { logger } from '../../../logger';
 
+interface CustomerSupportServiceOptions {
+  tokensUsageTrackerKey?: string;
+}
+
 /**
  * Service class for handling customer support interactions using a language model.
  * Manages the logic for generating responses based on customer support queries,
@@ -38,12 +42,13 @@ export class CustomerSupportService {
    * Constructs a CustomerSupportService object.
    * Initializes the ChatService instance and the PrismaDatabaseService instance.
    */
-  constructor() {
+  constructor({ tokensUsageTrackerKey }: CustomerSupportServiceOptions) {
     this._functionCallChatService = new ChatService({
       modelName: 'gpt-3.5-turbo-0125',
       modelTemperature: 0,
       promptTemplate: COMMON_TEMPLATE_WITH_CHAT_HISTORY,
       functionCallsDefinition,
+      tokensUsageTrackerKey,
     });
 
     this._prismaDatabaseService = new PrismaDatabaseService();
