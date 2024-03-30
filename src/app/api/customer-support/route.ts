@@ -7,11 +7,13 @@ import { endpoints } from '../endpoints';
 export const POST = async (request: Request) => {
   try {
     const body = await request.json();
-    const { messages } = body;
+    const { messages, useCaseKey } = body;
 
     logger.info(`POST ${endpoints.customerSupport} with data: ${JSON.stringify(body)}`);
 
-    const customerSupportService = new CustomerSupportService();
+    const customerSupportService = new CustomerSupportService({
+      tokensUsageTrackerKey: useCaseKey,
+    });
 
     const stream = await customerSupportService.getLLMResponseStream(messages);
 

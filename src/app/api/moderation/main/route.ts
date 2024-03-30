@@ -9,7 +9,14 @@ import { endpoints } from '../../endpoints';
 export const POST = async (request: Request) => {
   try {
     const body = await request.json();
-    const { messages, minScore, conversationModel, conversationTemperature, categories } = body;
+    const {
+      messages,
+      minScore,
+      conversationModel,
+      conversationTemperature,
+      categories,
+      useCaseKey,
+    } = body;
     const input = messages[messages.length - 1].content;
 
     logger.info(`POST ${endpoints.moderation.main} with data: ${JSON.stringify(body)}`);
@@ -36,6 +43,7 @@ export const POST = async (request: Request) => {
       modelName: conversationModel,
       modelTemperature: conversationTemperature,
       promptTemplate: COMMON_TEMPLATE_WITH_CHAT_HISTORY,
+      tokensUsageTrackerKey: useCaseKey,
     });
 
     const stream = await chatService.getLLMResponseStream(messages);

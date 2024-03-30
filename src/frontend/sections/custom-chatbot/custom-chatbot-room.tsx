@@ -29,7 +29,7 @@ export const CustomChatBotRoom = ({ fileName, systemMessage }: Props) => {
 
   const { getTokenUsage, currentTokenUsage, initTokenUsage } = useTokenUsage(USE_CASE_KEY);
 
-  console.log('currentTokenUsage', currentTokenUsage);
+  console.log('TODO: currentTokenUsage', currentTokenUsage);
 
   const handleError = () => {
     setIsStreaming(false);
@@ -40,9 +40,7 @@ export const CustomChatBotRoom = ({ fileName, systemMessage }: Props) => {
   const handleFinish = () => {
     setIsStreaming(false);
 
-    setTimeout(() => {
-      getTokenUsage();
-    }, 1000);
+    getTokenUsage();
   };
 
   const { messages, input, handleInputChange, isLoading, handleSubmit, error, stop, setMessages } =

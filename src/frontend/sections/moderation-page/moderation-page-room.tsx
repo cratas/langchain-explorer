@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { endpoints } from '@/app/api/endpoints';
 import { Message } from 'ai';
 import { useChat } from 'ai/react';
@@ -9,17 +9,30 @@ import { ChatInput, NoMessages } from '@/frontend/components/chat';
 import { useMessagesScroll } from '@/frontend/hooks/use-message-scroll';
 import { ModerationPageSettingsType } from '@/frontend/types/moderation';
 import { toast } from 'react-toastify';
+import { useTokenUsage } from '@/frontend/hooks/use-token-usage';
 import { FlaggedMessage } from '../moderation/flagged-message';
 
 type Props = ModerationPageSettingsType;
 
+const USE_CASE_KEY = 'moderation-page-room';
+
 export const ModerationPageRoom = ({ systemMessage, ...otherSettings }: Props) => {
   const [isStreaming, setIsStreaming] = useState(false);
+
+  const { getTokenUsage, currentTokenUsage, initTokenUsage } = useTokenUsage(USE_CASE_KEY);
+
+  console.log('TODO: currentTokenUsage', currentTokenUsage);
 
   const handleError = () => {
     setIsStreaming(false);
 
     toast.error('There was an error processing your last input. Please try again.');
+  };
+
+  const handleFinish = () => {
+    setIsStreaming(false);
+
+    getTokenUsage();
   };
 
   const { messages, input, handleInputChange, isLoading, handleSubmit, stop } = useChat({
@@ -32,14 +45,20 @@ export const ModerationPageRoom = ({ systemMessage, ...otherSettings }: Props) =
       },
     ],
     body: {
+      useCaseKey: USE_CASE_KEY,
       ...otherSettings,
     },
     onResponse: () => setIsStreaming(true),
-    onFinish: () => setIsStreaming(false),
+    onFinish: handleFinish,
     onError: handleError,
   });
 
   const { messagesEndRef } = useMessagesScroll(messages);
+
+  useEffect(() => {
+    initTokenUsage();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className="flex h-full w-full flex-col overflow-hidden p-3">

@@ -12,7 +12,7 @@ const MIN_SCORE = 0.1;
 export const POST = async (request: Request) => {
   try {
     const body = await request.json();
-    const { messages } = body;
+    const { messages, useCaseKey } = body;
     const input = messages[messages.length - 1].content;
 
     logger.info(`POST ${endpoints.moderation.sample} with data: ${JSON.stringify(body)}`);
@@ -27,10 +27,12 @@ export const POST = async (request: Request) => {
 
       return NextResponse.json({ flagged: true, matches });
     }
+
     const chatService = new ChatService({
       modelName: 'gpt-3.5-turbo' as ConversationModelOptions,
       modelTemperature: 0.2,
       promptTemplate: COMMON_TEMPLATE_WITH_CHAT_HISTORY,
+      tokensUsageTrackerKey: useCaseKey,
     });
 
     const stream = await chatService.getLLMResponseStream(messages);
