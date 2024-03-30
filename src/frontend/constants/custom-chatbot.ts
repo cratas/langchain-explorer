@@ -128,7 +128,7 @@ export const CustomChatbotSettingsSchema = Yup.object().shape({
   }),
 });
 
-export const defaultValues: CustomChatbotPageSettingsType = {
+export const defaultValuesWithoutDefaultFile: CustomChatbotPageSettingsType = {
   conversationModel: 'gpt-3.5-turbo',
   conversationTemperature: 0.5,
   embeddingModel: 'text-embedding-3-small' as EmbeddingModelOptions,

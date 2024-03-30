@@ -1,26 +1,54 @@
 'use client';
 
 import { UseCaseSettingsDrawer } from '@/frontend/layouts';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Spinner, Typography } from '@/frontend/components/tailwind-components';
 import { useEmbedContext } from '@/frontend/hooks/use-embed-context';
 import { toast } from 'react-toastify';
 import { MainUseCaseViewHeader } from '@/frontend/components/common';
 import { CustomChatbotPageSettingsType } from '@/frontend/types/custom-chatbot';
-import { defaultValues } from '@/frontend/constants/custom-chatbot';
+import { defaultValuesWithoutDefaultFile } from '@/frontend/constants/custom-chatbot';
+import { CUSTOM_CHATBOT_DEFAULT_FILE_NAME } from '@/shared/constants/common';
 import { CustomChatbotPageSettings } from '../custom-chatbot-page-settings';
 import { CustomChatbotPageRoom } from '../custom-chatbot-page-room';
 import { getSourceName } from '../utils/get-source-name';
 
 export const CustomChatbotPageView = () => {
+  const [defaultFileLoaded, setDefaultFileLoaded] = useState(false);
+
   const { embedContext, isLoading } = useEmbedContext();
 
-  const [currentSettings, setCurrentSettings] =
-    useState<CustomChatbotPageSettingsType>(defaultValues);
+  const [currentSettings, setCurrentSettings] = useState<CustomChatbotPageSettingsType>(
+    defaultValuesWithoutDefaultFile
+  );
 
   const [settingsOpen, setSettingsOpen] = useState(false);
 
   const settingsFormRef = useRef<HTMLFormElement>();
+
+  useEffect(() => {
+    const loadPdfFile = async () => {
+      try {
+        const response = await fetch('/pdf/The-Almanack-Of-Naval-Ravikant.pdf');
+
+        const blob = await response.blob();
+
+        const file = new File([blob], CUSTOM_CHATBOT_DEFAULT_FILE_NAME, {
+          type: 'application/pdf',
+        });
+
+        setCurrentSettings({ ...defaultValuesWithoutDefaultFile, sourceFilePdf: file });
+
+        setDefaultFileLoaded(true);
+      } catch (error) {
+        throw new Error('Error loading default PDF file');
+      }
+    };
+
+    loadPdfFile();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const onSubmitButtonClick = () => settingsFormRef.current?.submit();
 
@@ -55,11 +83,15 @@ export const CustomChatbotPageView = () => {
         setOpen={setSettingsOpen}
         onSubmitButtonClick={onSubmitButtonClick}
       >
-        <CustomChatbotPageSettings
-          formRef={settingsFormRef}
-          defaultSettings={currentSettings}
-          changeSettings={handleChangeSettings}
-        />
+        {defaultFileLoaded ? (
+          <CustomChatbotPageSettings
+            formRef={settingsFormRef}
+            defaultSettings={currentSettings}
+            changeSettings={handleChangeSettings}
+          />
+        ) : (
+          <Spinner className="h-12 w-12 text-lighter-purple" />
+        )}
       </UseCaseSettingsDrawer>
 
       <div className="flex h-screen w-full flex-col">

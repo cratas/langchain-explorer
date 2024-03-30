@@ -89,14 +89,6 @@ export class CustomChatbotService {
       true
     );
 
-    this._streamingModel.callbacks = [
-      {
-        handleLLMEnd: (output) => {
-          console.log('output', JSON.stringify(output, null, 2));
-        },
-      },
-    ];
-
     this._nonStreamingModel = ChatLLMFactory.createObject(
       getProviderByModelName(conversationModelName),
       conversationModelName,
