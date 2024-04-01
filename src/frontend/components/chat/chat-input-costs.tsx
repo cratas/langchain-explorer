@@ -24,7 +24,7 @@ export const ChatInputCosts = ({ modelName, input }: Props) => {
         <div className="flex max-w-[20rem] flex-col">
           <div>
             <span className="font-bold">Input only costs:</span>{' '}
-            {calcModelCostByTokens(inputTokensCount, modelName, 'input').toFixed(DECIMAL_PLACES)} $
+            {calcModelCostByTokens(inputTokensCount, modelName, 'input')} $
           </div>
           <div>
             <span className="font-bold">Number of tokens:</span> {inputTokensCount}
@@ -40,7 +40,7 @@ export const ChatInputCosts = ({ modelName, input }: Props) => {
         unmount: { scale: 0, y: 25 },
       }}
     >
-      <div className="flex cursor-help items-center justify-center gap-1 rounded-md bg-browser-light p-2 font-bold text-white">
+      <div className="flex cursor-help items-center justify-center gap-1 rounded-md bg-browser-light p-2 text-sm font-normal text-white">
         <span className="icon-[ri--money-dollar-circle-fill] bg-white text-2xl" />
         <span className="text-nowrap text-sm">{inputOnlyPrice.toFixed(DECIMAL_PLACES)}</span>
       </div>

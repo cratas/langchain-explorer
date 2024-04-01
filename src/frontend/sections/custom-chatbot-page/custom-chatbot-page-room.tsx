@@ -6,7 +6,7 @@ import {
   ChatMessageWithComparison,
   ChatMessage,
 } from '@/frontend/components/chat';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useChat } from 'ai/react';
 import { endpoints } from '@/app/api/endpoints';
 import { useMessagesScroll } from '@/frontend/hooks/use-message-scroll';
@@ -16,6 +16,8 @@ import { useAtom } from 'jotai';
 import { generateRandomId } from '@/shared/utils/generate-random-id';
 import { CustomChatbotPageSettingsType } from '@/frontend/types/custom-chatbot';
 import { toast } from 'react-toastify';
+import { ChatTotalCosts } from '@/frontend/components/chat/chat-total-costs';
+import { useTokenUsage } from '@/frontend/hooks/use-token-usage';
 
 type Props = CustomChatbotPageSettingsType & {
   sourceName: string;
@@ -26,10 +28,18 @@ const USE_CASE_KEY = 'custom-chatbot-page-room';
 export const CustomChatbotPageRoom = ({ sourceName, systemMessage, ...otherSettings }: Props) => {
   const [isStreaming, setIsStreaming] = useState(false);
 
+  const { getTokenUsage, currentTokenUsage, initTokenUsage } = useTokenUsage(USE_CASE_KEY);
+
   const handleError = () => {
     setIsStreaming(false);
 
     toast.error('There was an error processing your last input. Please try again.');
+  };
+
+  const handleFinish = () => {
+    setIsStreaming(false);
+
+    getTokenUsage();
   };
 
   const { messages, input, handleInputChange, isLoading, handleSubmit, error, stop } = useChat({
@@ -41,7 +51,7 @@ export const CustomChatbotPageRoom = ({ sourceName, systemMessage, ...otherSetti
       },
     ],
     onResponse: () => setIsStreaming(true),
-    onFinish: () => setIsStreaming(false),
+    onFinish: handleFinish,
     onError: handleError,
     body: { context: sourceName, useCaseKey: USE_CASE_KEY, ...otherSettings },
     api: endpoints.customChatbot.main,
@@ -51,9 +61,22 @@ export const CustomChatbotPageRoom = ({ sourceName, systemMessage, ...otherSetti
 
   const { messagesEndRef } = useMessagesScroll([messages, newGptMessageSignal]);
 
+  useEffect(() => {
+    initTokenUsage();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
-    <div className="flex h-full w-full flex-col overflow-hidden p-3">
-      <div className="flex h-full w-full flex-col gap-8 overflow-y-auto p-3" ref={messagesEndRef}>
+    <div className="flex h-full w-full flex-col overflow-hidden p-3 pt-0">
+      <div
+        className="relative flex h-full w-full flex-col gap-8 overflow-y-auto p-3"
+        ref={messagesEndRef}
+      >
+        <ChatTotalCosts
+          currentTokenUsage={currentTokenUsage}
+          modelName={otherSettings.conversationModel}
+        />
+
         {!messages.filter((m: Message) => m.role !== 'system').length && <NoMessages />}
 
         {messages.map((message, idx) =>

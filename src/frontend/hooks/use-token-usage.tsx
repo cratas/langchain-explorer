@@ -2,10 +2,16 @@
 import { endpoints } from '@/app/api/endpoints';
 import { useCallback, useState } from 'react';
 
+export type TokenUsage = {
+  totalPromptTokens: number;
+  totalCompletionTokens: number;
+  totalTokens: number;
+};
+
 export const useTokenUsage = (useCaseKey: string) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
-  const [currentTokenUsage, setCurrentTokenUsage] = useState(null);
+  const [currentTokenUsage, setCurrentTokenUsage] = useState<TokenUsage | null>(null);
 
   const initTokenUsage = useCallback(async () => {
     try {
@@ -33,7 +39,9 @@ export const useTokenUsage = (useCaseKey: string) => {
       });
       const data = await response.json();
 
-      setCurrentTokenUsage(data);
+      if (data.tokenUsage) {
+        setCurrentTokenUsage(data.tokenUsage as TokenUsage);
+      }
 
       setIsLoading(false);
     } catch (error) {

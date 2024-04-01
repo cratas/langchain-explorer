@@ -17,7 +17,6 @@
     "fill-db": "ts-node prisma/seed.ts"
   },
   "dependencies": {
-    "@anthropic-ai/tokenizer": "^0.0.4",
     "@faker-js/faker": "^8.4.1",
     "@hookform/resolvers": "^3.3.4",
     "@iconify/tailwind": "^0.1.4",
@@ -37,6 +36,7 @@
     "fs": "^0.0.1-security",
     "gpt-tokenizer": "^2.1.2",
     "jotai": "^2.6.5",
+    "js-tiktoken": "^1.0.10",
     "langchain": "^0.1.28",
     "mistral-tokenizer-ts": "^1.2.0",
     "next": "14.1.0",

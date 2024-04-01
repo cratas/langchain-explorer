@@ -11,6 +11,7 @@ import { RoomHeader } from '@/frontend/components/common';
 import { ModerationUseCase } from '@/frontend/types/moderation';
 import { toast } from 'react-toastify';
 import { useTokenUsage } from '@/frontend/hooks/use-token-usage';
+import { ChatTotalCosts } from '@/frontend/components/chat/chat-total-costs';
 import { FlaggedMessage } from './flagged-message';
 
 const createModerationSystemMessageOject = (systemMessage: string): Message => ({
@@ -30,8 +31,6 @@ export const ModerationRoom = ({ onBack, selectedUseCase }: Props) => {
   const [isStreaming, setIsStreaming] = useState(false);
 
   const { getTokenUsage, currentTokenUsage, initTokenUsage } = useTokenUsage(USE_CASE_KEY);
-
-  console.log('TODO: currentTokenUsage', currentTokenUsage);
 
   const handleError = () => {
     setIsStreaming(false);
@@ -71,7 +70,16 @@ export const ModerationRoom = ({ onBack, selectedUseCase }: Props) => {
         title={selectedUseCase.label}
       />
 
-      <div className="flex h-full w-full flex-col gap-8 overflow-y-auto p-3" ref={messagesEndRef}>
+      <div
+        className="relative flex h-full w-full flex-col gap-8 overflow-y-auto p-3"
+        ref={messagesEndRef}
+      >
+        <ChatTotalCosts
+          withMarginTop
+          currentTokenUsage={currentTokenUsage}
+          modelName="gpt-3.5-turbo"
+        />
+
         {!messages.filter((m: Message) => m.role !== 'system').length && <NoMessages />}
 
         {messages.map((message) =>
