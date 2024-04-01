@@ -13,6 +13,7 @@ import { CustomerSupportUseCase } from '@/frontend/types/customer-support';
 import { EXAMPLE_INPUTS } from '@/frontend/constants/customer-support';
 import { toast } from 'react-toastify';
 import { useTokenUsage } from '@/frontend/hooks/use-token-usage';
+import { ChatTotalCosts } from '@/frontend/components/chat/chat-total-costs';
 
 const createCustomerSupportSystemMessageOject = (systemMessage: string): Message => ({
   content: systemMessage,
@@ -31,8 +32,6 @@ export const CustomerSupportRoom = ({ onBack, selectedUseCase }: Props) => {
   const [isStreaming, setIsStreaming] = useState(false);
 
   const { getTokenUsage, currentTokenUsage, initTokenUsage } = useTokenUsage(USE_CASE_KEY);
-
-  console.log('TODO: currentTokenUsage', currentTokenUsage);
 
   const handleError = () => {
     setIsStreaming(false);
@@ -77,7 +76,16 @@ export const CustomerSupportRoom = ({ onBack, selectedUseCase }: Props) => {
         }
       />
 
-      <div className="flex h-full w-full flex-col gap-8 overflow-y-auto p-3" ref={messagesEndRef}>
+      <div
+        className="relative flex h-full w-full flex-col gap-8 overflow-y-auto p-3"
+        ref={messagesEndRef}
+      >
+        <ChatTotalCosts
+          withMarginTop
+          currentTokenUsage={currentTokenUsage}
+          modelName="gpt-3.5-turbo"
+        />
+
         {!messages.filter((m: Message) => m.role !== 'system').length && <NoMessages />}
 
         {messages.map((message) => (

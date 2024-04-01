@@ -10,6 +10,7 @@ import { useMessagesScroll } from '@/frontend/hooks/use-message-scroll';
 import { ModerationPageSettingsType } from '@/frontend/types/moderation';
 import { toast } from 'react-toastify';
 import { useTokenUsage } from '@/frontend/hooks/use-token-usage';
+import { ChatTotalCosts } from '@/frontend/components/chat/chat-total-costs';
 import { FlaggedMessage } from '../moderation/flagged-message';
 
 type Props = ModerationPageSettingsType;
@@ -20,8 +21,6 @@ export const ModerationPageRoom = ({ systemMessage, ...otherSettings }: Props) =
   const [isStreaming, setIsStreaming] = useState(false);
 
   const { getTokenUsage, currentTokenUsage, initTokenUsage } = useTokenUsage(USE_CASE_KEY);
-
-  console.log('TODO: currentTokenUsage', currentTokenUsage);
 
   const handleError = () => {
     setIsStreaming(false);
@@ -61,8 +60,16 @@ export const ModerationPageRoom = ({ systemMessage, ...otherSettings }: Props) =
   }, []);
 
   return (
-    <div className="flex h-full w-full flex-col overflow-hidden p-3">
-      <div className="flex h-full w-full flex-col gap-8 overflow-y-auto p-3" ref={messagesEndRef}>
+    <div className="flex h-full w-full flex-col overflow-hidden p-3 pt-0">
+      <div
+        className="relative flex h-full w-full flex-col gap-8 overflow-y-auto p-3"
+        ref={messagesEndRef}
+      >
+        <ChatTotalCosts
+          currentTokenUsage={currentTokenUsage}
+          modelName={otherSettings.conversationModel}
+        />
+
         {!messages.filter((m: Message) => m.role !== 'system').length && <NoMessages />}
 
         {messages.map((message) =>
