@@ -69,41 +69,44 @@ export const CustomChatBotRoom = ({ fileName, systemMessage }: Props) => {
   }, []);
 
   return (
-    <div className="relative flex h-full w-full flex-col rounded-xl border border-browser-background bg-background-light p-3">
-      <RoomHeader onClear={() => setMessages([])} title={fileName} />
+    <div className="flex h-full w-full flex-col overflow-hidden rounded-xl border border-browser-background bg-background-light">
+      <div className="relative flex h-full flex-col p-1.5 md:p-3">
+        <RoomHeader onClear={() => setMessages([])} title={fileName} />
 
-      <div className="flex h-full w-full flex-col gap-8 overflow-y-auto p-3" ref={messagesEndRef}>
-        {!messages.filter((m: Message) => m.role !== 'system').length && <NoMessages />}
+        <div className="flex h-full w-full flex-col gap-8 overflow-y-auto p-3" ref={messagesEndRef}>
+          {!messages.filter((m: Message) => m.role !== 'system').length && <NoMessages />}
 
-        {messages.map((message, idx) =>
-          message.role === 'assistant' ? (
+          {messages.map((message, idx) =>
+            message.role === 'assistant' ? (
+              <ChatMessageWithComparison
+                isLoading={false}
+                key={message.id}
+                isError={!!error}
+                message={message}
+                question={messages?.[idx - 1]}
+              />
+            ) : (
+              <ChatMessage key={message.id} message={message} />
+            )
+          )}
+
+          {isLoading && !isStreaming && (
             <ChatMessageWithComparison
-              isLoading={false}
-              key={message.id}
-              isError={!!error}
-              message={message}
-              question={messages?.[idx - 1]}
+              isLoading={isLoading}
+              message={{ content: '', id: '', role: 'assistant' }}
             />
-          ) : (
-            <ChatMessage key={message.id} message={message} />
-          )
-        )}
+          )}
+        </div>
 
-        {isLoading && !isStreaming && (
-          <ChatMessageWithComparison
-            isLoading={isLoading}
-            message={{ content: '', id: '', role: 'assistant' }}
-          />
-        )}
+        <ChatInput
+          modelName="gpt-3.5-turbo"
+          stop={stop}
+          input={input}
+          handleInputChange={handleInputChange}
+          handleSubmit={handleSubmit}
+          isLoading={isLoading}
+        />
       </div>
-
-      <ChatInput
-        stop={stop}
-        input={input}
-        handleInputChange={handleInputChange}
-        handleSubmit={handleSubmit}
-        isLoading={isLoading}
-      />
     </div>
   );
 };

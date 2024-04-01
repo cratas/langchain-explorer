@@ -79,6 +79,7 @@ export const ModerationPageRoom = ({ systemMessage, ...otherSettings }: Props) =
       </div>
 
       <ChatInput
+        modelName={otherSettings.conversationModel}
         stop={stop}
         input={input}
         handleInputChange={handleInputChange}

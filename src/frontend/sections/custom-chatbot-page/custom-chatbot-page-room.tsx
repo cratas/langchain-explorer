@@ -79,6 +79,7 @@ export const CustomChatbotPageRoom = ({ sourceName, systemMessage, ...otherSetti
       </div>
 
       <ChatInput
+        modelName={otherSettings.conversationModel}
         stop={stop}
         input={input}
         handleInputChange={handleInputChange}

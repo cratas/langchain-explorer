@@ -88,6 +88,7 @@ export const ModerationRoom = ({ onBack, selectedUseCase }: Props) => {
       </div>
 
       <ChatInput
+        modelName="gpt-3.5-turbo"
         stop={stop}
         input={input}
         handleInputChange={handleInputChange}

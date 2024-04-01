@@ -1,8 +1,10 @@
 'use client';
 
 import { Button, Input } from '@/frontend/components/tailwind-components';
+import { ConversationModelOptions } from '@/shared/types/common';
 import { ChatRequestOptions } from 'ai';
 import React, { FormEvent } from 'react';
+import { ChatInputCosts } from './chat-input-costs';
 
 type Props = {
   isLoading: boolean;
@@ -15,11 +17,21 @@ type Props = {
   handleInputChange: (
     e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>
   ) => void;
+  modelName?: ConversationModelOptions;
 };
 
-export const ChatInput = ({ handleSubmit, stop, isLoading, input, handleInputChange }: Props) => (
+export const ChatInput = ({
+  handleSubmit,
+  stop,
+  isLoading,
+  input,
+  handleInputChange,
+  modelName,
+}: Props) => (
   <form onSubmit={handleSubmit} data-testid="chat-input">
-    <div className="relative">
+    <div className="relative flex flex-row gap-1">
+      {modelName && <ChatInputCosts input={input} modelName={modelName} />}
+
       <Input
         type="text"
         labelProps={{
