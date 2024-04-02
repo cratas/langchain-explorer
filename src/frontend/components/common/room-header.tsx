@@ -9,7 +9,7 @@ type Props = {
 };
 
 export const RoomHeader = ({ onBack, onClear, title, onBackText }: Props) => (
-  <div className="flex w-full flex-col items-center justify-between gap-2 border-b-2 border-browser-light pb-2 md:gap-0">
+  <div className="flex w-full flex-col items-center justify-between gap-2 pb-2 md:gap-0">
     <div className="flex w-full flex-row items-center justify-between">
       {onBackText ? (
         <Button

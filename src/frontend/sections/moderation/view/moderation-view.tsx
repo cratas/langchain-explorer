@@ -20,7 +20,7 @@ export const ModerationView = () => {
       <ModerationViewHeader />
 
       <BrowserLayout>
-        <div className="flex h-[40rem] flex-col items-center justify-center overflow-auto bg-background-dark p-3">
+        <div className="flex h-[50rem] flex-col items-center justify-center overflow-auto bg-background-dark p-3">
           {selectedUseCase ? (
             <ModerationRoom
               onBack={() => setSelectedUseCase(null)}

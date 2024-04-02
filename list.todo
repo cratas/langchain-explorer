@@ -1,0 +1,7 @@
+- custom chatbot 
+    - calc input base on history + const string
+    - calc embedding from inputs
+- custom chatbot page
+    - calc embedding from inputs
+    - calc source embedding
+    

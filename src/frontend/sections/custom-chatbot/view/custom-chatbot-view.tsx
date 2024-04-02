@@ -16,7 +16,7 @@ export const CustomChatBotView = () => {
       <CustomChatBotViewHeader />
 
       <BrowserLayout>
-        <div className="flex h-[40rem] flex-col items-center justify-center bg-background-dark p-3">
+        <div className="flex h-[50rem] flex-col items-center justify-center bg-background-dark p-3">
           {initialized ? (
             <CustomChatBotRoom
               fileName={CUSTOM_CHATBOT_DEFAULT_FILE_NAME}

@@ -36,7 +36,6 @@ interface CustomChatbotServiceOptions {
  * combining language model responses with vector store retrieval capabilities
  * for enhanced conversational experiences.
  */
-
 export class CustomChatbotService {
   /**
    * The streaming language model instance used for real-time chat responses.

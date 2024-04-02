@@ -13,7 +13,7 @@ export const MainUseCaseViewHeader = ({ openMenu, sourceName }: Props) => {
   const isSmallDevice = useResponsive('down', 'lg');
 
   return (
-    <div className="m-3 flex items-center justify-between border-b-2 border-browser-light pb-3">
+    <div className="m-3 flex items-center justify-between">
       {isSmallDevice && (
         <IconButton className="mr-2 bg-lighter-purple" size="sm" onClick={openMenu}>
           <div className="flex items-center justify-center">

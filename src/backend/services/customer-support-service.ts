@@ -15,6 +15,7 @@ import {
   GetMostPopularProductsFunctionArgs,
 } from '../types/customer-support';
 import { logger } from '../../../logger';
+import { TokenUsageTrackerRegistry } from '../helpers/token-usage-tracker-registry';
 
 interface CustomerSupportServiceOptions {
   tokensUsageTrackerKey?: string;
@@ -26,6 +27,12 @@ interface CustomerSupportServiceOptions {
  * involving conditional processing and execution of function calls as needed.
  */
 export class CustomerSupportService {
+  /**
+   * The key for tracking token usage in the language model.
+   * @private
+   */
+  private readonly _tokensUsageTrackerKey: string;
+
   /**
    * A ChatService instance configured for handling function calls in customer support scenarios.
    * @private
@@ -44,12 +51,15 @@ export class CustomerSupportService {
    */
   constructor({ tokensUsageTrackerKey }: CustomerSupportServiceOptions) {
     this._functionCallChatService = new ChatService({
-      modelName: 'gpt-3.5-turbo-0125',
+      modelName: 'gpt-3.5-turbo',
       modelTemperature: 0,
       promptTemplate: COMMON_TEMPLATE_WITH_CHAT_HISTORY,
       functionCallsDefinition,
       tokensUsageTrackerKey,
+      streaming: false,
     });
+
+    this._tokensUsageTrackerKey = tokensUsageTrackerKey || '';
 
     this._prismaDatabaseService = new PrismaDatabaseService();
   }
@@ -77,9 +87,9 @@ export class CustomerSupportService {
 
     switch (name) {
       case FunctionCallsNames.getCustomerOfMonth:
-        return this._prismaDatabaseService.getCustomerOfMonth({
-          ...(args as GetCustomerOfMonthFunctionArgs),
-        });
+        return this._prismaDatabaseService.getCustomerOfMonth(
+          args as GetCustomerOfMonthFunctionArgs
+        );
       case FunctionCallsNames.getLatestOrderInfo:
         return this._prismaDatabaseService.getLatestOrderInfo(
           args as GetLatestOrderInfoFunctionArgs
@@ -93,7 +103,7 @@ export class CustomerSupportService {
           args as GetLowStockProductsFunctionArgs
         );
       case FunctionCallsNames.findOrder:
-        return this._prismaDatabaseService.findOrder({ ...(args as FindOrderFunctionArgs) });
+        return this._prismaDatabaseService.findOrder(args as FindOrderFunctionArgs);
       default:
         logger.error(`CustomerSupportService - Error while calling function with name: ${name}`);
 
@@ -113,6 +123,10 @@ export class CustomerSupportService {
   public getLLMResponseStream = async (messages: Message[]) => {
     try {
       const response = await this._functionCallChatService.getLLMResponse(messages);
+
+      TokenUsageTrackerRegistry.getTokenUsageTracker(
+        this._tokensUsageTrackerKey
+      )?.countTokensFromFunctionCallingResponse(response);
 
       let finalInput;
 
@@ -149,11 +163,12 @@ export class CustomerSupportService {
 
       // Create a new ChatService instance for getting final result based on function calls or previous response
       const chatServiceWithoutFunctionCalling = new ChatService({
-        modelName: 'gpt-3.5-turbo-0125',
+        modelName: 'gpt-3.5-turbo',
         modelTemperature: 0,
         promptTemplate: response.content
           ? REPEATE_MESSAGE_TEMPLATE
           : CREATE_ANSWER_FROM_FUNCTION_CALLS_TEMPLATE,
+        tokensUsageTrackerKey: this._tokensUsageTrackerKey,
       });
 
       const stream = await chatServiceWithoutFunctionCalling.getLLMResponseStreamWithoutChatHistory(
