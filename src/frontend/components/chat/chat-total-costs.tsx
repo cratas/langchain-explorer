@@ -34,7 +34,7 @@ export const ChatTotalCosts = ({
 
   return (
     <div
-      className={`absolute right-0 ${withMarginTop ? 'top-2' : 'top-0'} flex items-center ${opened ? 'w-auto' : ''}`}
+      className={`ml-auto ${withMarginTop ? 'mt-2' : ''} flex items-center ${opened ? 'w-auto' : ''}`}
     >
       <IconButton onClick={() => setOpened(!opened)} variant="text" className="text-white">
         {opened ? (

@@ -75,17 +75,14 @@ export const ModerationRoom = ({ onBack, selectedUseCase }: Props) => {
         title={selectedUseCase.label}
       />
 
-      <div
-        className="relative flex h-full w-full flex-col gap-8 overflow-y-auto p-3"
-        ref={messagesEndRef}
-      >
-        <ChatTotalCosts
-          withMarginTop
-          isLoading={isLoadingUsage}
-          currentTokenUsage={currentTokenUsage}
-          modelName="gpt-3.5-turbo"
-        />
+      <ChatTotalCosts
+        withMarginTop
+        isLoading={isLoadingUsage}
+        currentTokenUsage={currentTokenUsage}
+        modelName="gpt-3.5-turbo"
+      />
 
+      <div className="flex h-full w-full flex-col gap-8 overflow-y-auto p-3" ref={messagesEndRef}>
         {!messages.filter((m: Message) => m.role !== 'system').length && <NoMessages />}
 
         {messages.map((message) =>

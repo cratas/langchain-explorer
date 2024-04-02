@@ -73,16 +73,16 @@ export const CustomChatbotPageRoom = ({ sourceName, systemMessage, ...otherSetti
 
   return (
     <div className="flex h-full w-full flex-col overflow-hidden p-3 pt-0">
+      <ChatTotalCosts
+        isLoading={isLoadingUsage}
+        currentTokenUsage={currentTokenUsage}
+        modelName={otherSettings.conversationModel}
+      />
+
       <div
-        className="relative flex h-full w-full flex-col gap-8 overflow-y-auto p-3"
+        className="mt-2 flex h-full w-full flex-col gap-8 overflow-y-auto p-3"
         ref={messagesEndRef}
       >
-        <ChatTotalCosts
-          isLoading={isLoadingUsage}
-          currentTokenUsage={currentTokenUsage}
-          modelName={otherSettings.conversationModel}
-        />
-
         {!messages.filter((m: Message) => m.role !== 'system').length && <NoMessages />}
 
         {messages.map((message, idx) =>
@@ -106,7 +106,6 @@ export const CustomChatbotPageRoom = ({ sourceName, systemMessage, ...otherSetti
           />
         )}
       </div>
-
       <ChatInput
         modelName={otherSettings.conversationModel}
         stop={stop}

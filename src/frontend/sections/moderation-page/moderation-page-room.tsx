@@ -66,16 +66,13 @@ export const ModerationPageRoom = ({ systemMessage, ...otherSettings }: Props) =
 
   return (
     <div className="flex h-full w-full flex-col overflow-hidden p-3 pt-0">
-      <div
-        className="relative flex h-full w-full flex-col gap-8 overflow-y-auto p-3"
-        ref={messagesEndRef}
-      >
-        <ChatTotalCosts
-          currentTokenUsage={currentTokenUsage}
-          isLoading={isLoadingUsage}
-          modelName={otherSettings.conversationModel}
-        />
+      <ChatTotalCosts
+        currentTokenUsage={currentTokenUsage}
+        isLoading={isLoadingUsage}
+        modelName={otherSettings.conversationModel}
+      />
 
+      <div className="flex h-full w-full flex-col gap-8 overflow-y-auto p-3" ref={messagesEndRef}>
         {!messages.filter((m: Message) => m.role !== 'system').length && <NoMessages />}
 
         {messages.map((message) =>

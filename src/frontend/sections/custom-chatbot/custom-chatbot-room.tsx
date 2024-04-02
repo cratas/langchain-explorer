@@ -77,17 +77,17 @@ export const CustomChatBotRoom = ({ fileName, systemMessage }: Props) => {
       <div className="relative flex h-full flex-col p-1.5 md:p-3">
         <RoomHeader onClear={() => setMessages([])} title={fileName} />
 
+        <ChatTotalCosts
+          isLoading={isLoadingUsage}
+          withMarginTop
+          currentTokenUsage={currentTokenUsage}
+          modelName="gpt-3.5-turbo"
+        />
+
         <div
-          className="relative flex h-full w-full flex-col gap-8 overflow-y-auto p-3"
+          className="mt-2 flex h-full w-full flex-col gap-8 overflow-y-auto p-3"
           ref={messagesEndRef}
         >
-          <ChatTotalCosts
-            isLoading={isLoadingUsage}
-            withMarginTop
-            currentTokenUsage={currentTokenUsage}
-            modelName="gpt-3.5-turbo"
-          />
-
           {!messages.filter((m: Message) => m.role !== 'system').length && <NoMessages />}
 
           {messages.map((message, idx) =>
