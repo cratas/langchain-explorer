@@ -20,7 +20,12 @@ const USE_CASE_KEY = 'moderation-page-room';
 export const ModerationPageRoom = ({ systemMessage, ...otherSettings }: Props) => {
   const [isStreaming, setIsStreaming] = useState(false);
 
-  const { getTokenUsage, currentTokenUsage, initTokenUsage } = useTokenUsage(USE_CASE_KEY);
+  const {
+    getTokenUsage,
+    currentTokenUsage,
+    initTokenUsage,
+    isLoading: isLoadingUsage,
+  } = useTokenUsage(USE_CASE_KEY);
 
   const handleError = () => {
     setIsStreaming(false);
@@ -67,6 +72,7 @@ export const ModerationPageRoom = ({ systemMessage, ...otherSettings }: Props) =
       >
         <ChatTotalCosts
           currentTokenUsage={currentTokenUsage}
+          isLoading={isLoadingUsage}
           modelName={otherSettings.conversationModel}
         />
 

@@ -11,7 +11,6 @@ export function countTokens(text: string): number {
   const encoded = tokenizer.encode(text.normalize('NFKC'), 'all');
   return encoded.length;
 }
-
 const getTokenizer = (): Tiktoken => {
   const ranks: TiktokenBPE = {
     bpe_ranks: claude.bpe_ranks,
