@@ -17,7 +17,6 @@ const getTokenizer = (): Tiktoken => {
     special_tokens: claude.special_tokens,
     pat_str: claude.pat_str,
   };
-
   return new Tiktoken(ranks);
 };
 
