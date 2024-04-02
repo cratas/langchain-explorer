@@ -1,9 +1,10 @@
 import { getProviderByModelName } from '@/backend/utils/get-provider-by-model';
+import { useDebounce } from '@/frontend/hooks/use-debounce';
 import { ConversationModelOptions } from '@/shared/types/common';
 import { calcModelCostByTokens } from '@/shared/utils/calc-model-cost-by-tokens';
 import { getTokensCountByLLMProvider } from '@/shared/utils/get-tokens-count-by-llm';
 import { Tooltip } from '@material-tailwind/react';
-import React from 'react';
+import React, { memo, useMemo } from 'react';
 
 type Props = {
   modelName: ConversationModelOptions;
@@ -12,10 +13,18 @@ type Props = {
 
 const DECIMAL_PLACES = 8;
 
-export const ChatInputCosts = ({ modelName, input }: Props) => {
-  const inputTokensCount = getTokensCountByLLMProvider(getProviderByModelName(modelName), input);
+export const ChatInputCosts = memo(({ modelName, input }: Props) => {
+  const { debouncedValue } = useDebounce(input, 100);
 
-  const inputOnlyPrice = calcModelCostByTokens(inputTokensCount, modelName, 'input');
+  const inputTokensCount = useMemo(
+    () => getTokensCountByLLMProvider(getProviderByModelName(modelName), debouncedValue),
+    [debouncedValue, modelName]
+  );
+
+  const inputOnlyPrice = useMemo(
+    () => calcModelCostByTokens(inputTokensCount, modelName, 'input'),
+    [inputTokensCount, modelName]
+  );
 
   return (
     <Tooltip
@@ -40,10 +49,12 @@ export const ChatInputCosts = ({ modelName, input }: Props) => {
         unmount: { scale: 0, y: 25 },
       }}
     >
-      <div className="flex cursor-help items-center justify-center gap-1 rounded-md bg-browser-light p-2 text-sm font-normal text-white">
+      <div className="flex w-36 cursor-help items-center justify-center gap-1 rounded-md bg-browser-light p-2 text-sm font-normal text-white">
         <span className="icon-[ri--money-dollar-circle-fill] bg-white text-2xl" />
         <span className="text-nowrap text-sm">{inputOnlyPrice.toFixed(DECIMAL_PLACES)}</span>
       </div>
     </Tooltip>
   );
-};
+});
+
+ChatInputCosts.displayName = 'ChatInputCosts';
