@@ -28,7 +28,12 @@ const USE_CASE_KEY = 'custom-chatbot-page-room';
 export const CustomChatbotPageRoom = ({ sourceName, systemMessage, ...otherSettings }: Props) => {
   const [isStreaming, setIsStreaming] = useState(false);
 
-  const { getTokenUsage, currentTokenUsage, initTokenUsage } = useTokenUsage(USE_CASE_KEY);
+  const {
+    getTokenUsage,
+    currentTokenUsage,
+    initTokenUsage,
+    isLoading: isLoadingUsage,
+  } = useTokenUsage(USE_CASE_KEY);
 
   const handleError = () => {
     setIsStreaming(false);
@@ -73,6 +78,7 @@ export const CustomChatbotPageRoom = ({ sourceName, systemMessage, ...otherSetti
         ref={messagesEndRef}
       >
         <ChatTotalCosts
+          isLoading={isLoadingUsage}
           currentTokenUsage={currentTokenUsage}
           modelName={otherSettings.conversationModel}
         />

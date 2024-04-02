@@ -28,7 +28,12 @@ const USE_CASE_KEY = 'custom-chatbot-room';
 export const CustomChatBotRoom = ({ fileName, systemMessage }: Props) => {
   const [isStreaming, setIsStreaming] = useState(false);
 
-  const { getTokenUsage, currentTokenUsage, initTokenUsage } = useTokenUsage(USE_CASE_KEY);
+  const {
+    getTokenUsage,
+    currentTokenUsage,
+    initTokenUsage,
+    isLoading: isLoadingUsage,
+  } = useTokenUsage(USE_CASE_KEY);
 
   const handleError = () => {
     setIsStreaming(false);
@@ -77,6 +82,7 @@ export const CustomChatBotRoom = ({ fileName, systemMessage }: Props) => {
           ref={messagesEndRef}
         >
           <ChatTotalCosts
+            isLoading={isLoadingUsage}
             withMarginTop
             currentTokenUsage={currentTokenUsage}
             modelName="gpt-3.5-turbo"

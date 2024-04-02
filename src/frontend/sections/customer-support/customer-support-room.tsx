@@ -31,7 +31,12 @@ const USE_CASE_KEY = 'customer-support-room';
 export const CustomerSupportRoom = ({ onBack, selectedUseCase }: Props) => {
   const [isStreaming, setIsStreaming] = useState(false);
 
-  const { getTokenUsage, currentTokenUsage, initTokenUsage } = useTokenUsage(USE_CASE_KEY);
+  const {
+    getTokenUsage,
+    currentTokenUsage,
+    initTokenUsage,
+    isLoading: isLoadingUsage,
+  } = useTokenUsage(USE_CASE_KEY);
 
   const handleError = () => {
     setIsStreaming(false);
@@ -82,6 +87,7 @@ export const CustomerSupportRoom = ({ onBack, selectedUseCase }: Props) => {
       >
         <ChatTotalCosts
           withMarginTop
+          isLoading={isLoadingUsage}
           currentTokenUsage={currentTokenUsage}
           modelName="gpt-3.5-turbo"
         />
