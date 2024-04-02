@@ -40,7 +40,7 @@ export const ChatTotalCosts = ({
           )}
 
           <div className="flex flex-col">
-            <p className="text-xs">Total costs</p>
+            <p className="text-xs font-bold text-text-primary">Total costs</p>
             <p className="font-bold">{`${overallCosts.toFixed(DECIMAL_PLACES)} $`}</p>
           </div>
         </div>
@@ -53,7 +53,7 @@ export const ChatTotalCosts = ({
           )}
 
           <div className="flex flex-col">
-            <p className="text-xs">Inputs costs</p>
+            <p className="text-xs font-bold text-text-primary">Inputs costs</p>
             <p className="font-bold">{`${inputCosts.toFixed(DECIMAL_PLACES)} $`}</p>
           </div>
         </div>
@@ -66,7 +66,7 @@ export const ChatTotalCosts = ({
           )}
 
           <div className="flex flex-col">
-            <p className="text-xs">Outputs costs</p>
+            <p className="text-xs font-bold text-text-primary">Outputs costs</p>
             <p className="font-bold">{`${outputCosts.toFixed(DECIMAL_PLACES)} $`}</p>
           </div>
         </div>

@@ -13,6 +13,7 @@ type Props = {
     chatRequestOptions?: ChatRequestOptions | undefined
   ) => void;
   stop: VoidFunction;
+  templateTokensCount: number;
   input: string;
   handleInputChange: (
     e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>
@@ -25,6 +26,7 @@ export const ChatInput = ({
   stop,
   isLoading,
   input,
+  templateTokensCount,
   handleInputChange,
   modelName,
 }: Props) => {
@@ -38,7 +40,13 @@ export const ChatInput = ({
   return (
     <form onSubmit={handleSubmit} data-testid="chat-input">
       <div className="relative flex flex-row gap-1">
-        {modelName && <ChatInputCosts input={input} modelName={modelName} />}
+        {modelName && (
+          <ChatInputCosts
+            input={input}
+            modelName={modelName}
+            templateTokensCount={templateTokensCount}
+          />
+        )}
 
         <Textarea
           resize

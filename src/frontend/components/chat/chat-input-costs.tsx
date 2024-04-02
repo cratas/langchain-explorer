@@ -9,11 +9,12 @@ import React, { memo, useMemo } from 'react';
 type Props = {
   modelName: ConversationModelOptions;
   input: string;
+  templateTokensCount: number;
 };
 
 const DECIMAL_PLACES = 8;
 
-export const ChatInputCosts = memo(({ modelName, input }: Props) => {
+export const ChatInputCosts = memo(({ modelName, input, templateTokensCount }: Props) => {
   const { debouncedValue } = useDebounce(input, 100);
 
   const inputTokensCount = useMemo(
@@ -26,21 +27,37 @@ export const ChatInputCosts = memo(({ modelName, input }: Props) => {
     [inputTokensCount, modelName]
   );
 
+  const totalPrice = useMemo(
+    () => calcModelCostByTokens(templateTokensCount, modelName, 'input') + inputOnlyPrice,
+    [inputOnlyPrice, templateTokensCount, modelName]
+  );
+
   return (
     <Tooltip
       className="bg-white text-background-dark"
       content={
         <div className="flex max-w-[20rem] flex-col">
           <div>
-            <span className="font-bold">Input only costs:</span>{' '}
-            {calcModelCostByTokens(inputTokensCount, modelName, 'input')} $
+            <span className="font-bold">Input only costs:</span> {inputOnlyPrice} $
           </div>
           <div>
-            <span className="font-bold">Number of tokens:</span> {inputTokensCount}
+            <span className="font-bold">Input only tokens:</span> {inputTokensCount}
+          </div>
+          <div className="my-1 h-[1px] w-full bg-black" />
+          <div>
+            <span className="font-bold">Prompt template costs:</span>{' '}
+            {calcModelCostByTokens(templateTokensCount, modelName, 'input')} $
           </div>
           <div>
-            <span className="font-bold">Note:</span>Total costs for this message will be higher due
-            to the template for model to generate the better response and providing chat history.
+            <span className="font-bold">Prompt template tokens:</span> {templateTokensCount}
+          </div>
+          <div className="my-1 h-[1px] w-full bg-black" />
+          <div>
+            <span className="font-bold">Total costs:</span> {totalPrice} $
+          </div>
+          <div>
+            <span className="font-bold">Total tokens:</span>{' '}
+            {inputTokensCount + templateTokensCount}
           </div>
         </div>
       }
@@ -51,7 +68,7 @@ export const ChatInputCosts = memo(({ modelName, input }: Props) => {
     >
       <div className="flex w-36 cursor-help items-center justify-center gap-1 rounded-md bg-browser-light p-2 text-sm font-normal text-white">
         <span className="icon-[ri--money-dollar-circle-fill] bg-white text-2xl" />
-        <span className="text-nowrap text-sm">{inputOnlyPrice.toFixed(DECIMAL_PLACES)}</span>
+        <span className="text-nowrap text-sm">{totalPrice.toFixed(DECIMAL_PLACES)}</span>
       </div>
     </Tooltip>
   );

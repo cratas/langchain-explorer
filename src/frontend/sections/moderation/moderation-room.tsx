@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { endpoints } from '@/app/api/endpoints';
 import { NoMessages, ChatInput } from '@/frontend/components/chat';
 import { useMessagesScroll } from '@/frontend/hooks/use-message-scroll';
@@ -12,6 +12,10 @@ import { ModerationUseCase } from '@/frontend/types/moderation';
 import { toast } from 'react-toastify';
 import { useTokenUsage } from '@/frontend/hooks/use-token-usage';
 import { ChatTotalCosts } from '@/frontend/components/chat/chat-total-costs';
+import { COMMON_TEMPLATE_WITH_CHAT_HISTORY } from '@/backend/constants/prompt-templates';
+import { getTokensCountByLLMProvider } from '@/shared/utils/get-tokens-count-by-llm';
+import { getProviderByModelName } from '@/backend/utils/get-provider-by-model';
+import { formatChatHistory } from '@/backend/utils/format-chat-history';
 import { FlaggedMessage } from './flagged-message';
 
 const createModerationSystemMessageOject = (systemMessage: string): Message => ({
@@ -66,6 +70,15 @@ export const ModerationRoom = ({ onBack, selectedUseCase }: Props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const inputTokensCountIncludingPrompTemplate = useMemo(() => {
+    const promptTemplate = COMMON_TEMPLATE_WITH_CHAT_HISTORY.replace(
+      '{chat_history}',
+      formatChatHistory(messages)
+    ).replace('{input}', '');
+
+    return getTokensCountByLLMProvider(getProviderByModelName('gpt-3.5-turbo'), promptTemplate);
+  }, [messages]);
+
   return (
     <div className="relative flex h-full w-full flex-col rounded-xl border border-browser-light bg-background-light p-3">
       <RoomHeader
@@ -99,6 +112,7 @@ export const ModerationRoom = ({ onBack, selectedUseCase }: Props) => {
       </div>
 
       <ChatInput
+        templateTokensCount={inputTokensCountIncludingPrompTemplate}
         modelName="gpt-3.5-turbo"
         stop={stop}
         input={input}

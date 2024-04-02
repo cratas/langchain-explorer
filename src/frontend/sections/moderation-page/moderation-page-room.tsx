@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { endpoints } from '@/app/api/endpoints';
 import { Message } from 'ai';
 import { useChat } from 'ai/react';
@@ -11,6 +11,11 @@ import { ModerationPageSettingsType } from '@/frontend/types/moderation';
 import { toast } from 'react-toastify';
 import { useTokenUsage } from '@/frontend/hooks/use-token-usage';
 import { ChatTotalCosts } from '@/frontend/components/chat/chat-total-costs';
+import { COMMON_TEMPLATE_WITH_CHAT_HISTORY } from '@/backend/constants/prompt-templates';
+import { formatChatHistory } from '@/backend/utils/format-chat-history';
+import { getTokensCountByLLMProvider } from '@/shared/utils/get-tokens-count-by-llm';
+import { getProviderByModelName } from '@/backend/utils/get-provider-by-model';
+import { useDebounce } from '@/frontend/hooks/use-debounce';
 import { FlaggedMessage } from '../moderation/flagged-message';
 
 type Props = ModerationPageSettingsType;
@@ -64,6 +69,20 @@ export const ModerationPageRoom = ({ systemMessage, ...otherSettings }: Props) =
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const { debouncedValue } = useDebounce(messages, 500);
+
+  const inputTokensCountIncludingPrompTemplate = useMemo(() => {
+    const promptTemplate = COMMON_TEMPLATE_WITH_CHAT_HISTORY.replace(
+      '{chat_history}',
+      formatChatHistory(debouncedValue)
+    ).replace('{input}', '');
+
+    return getTokensCountByLLMProvider(
+      getProviderByModelName(otherSettings.conversationModel),
+      promptTemplate
+    );
+  }, [debouncedValue, otherSettings.conversationModel]);
+
   return (
     <div className="flex h-full w-full flex-col overflow-hidden p-3 pt-0">
       <ChatTotalCosts
@@ -89,6 +108,7 @@ export const ModerationPageRoom = ({ systemMessage, ...otherSettings }: Props) =
       </div>
 
       <ChatInput
+        templateTokensCount={inputTokensCountIncludingPrompTemplate}
         modelName={otherSettings.conversationModel}
         stop={stop}
         input={input}
