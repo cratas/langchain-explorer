@@ -6,7 +6,7 @@ import {
   ChatMessageWithComparison,
   ChatMessage,
 } from '@/frontend/components/chat';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useChat } from 'ai/react';
 import { endpoints } from '@/app/api/endpoints';
 import { useMessagesScroll } from '@/frontend/hooks/use-message-scroll';
@@ -18,6 +18,11 @@ import { CustomChatbotPageSettingsType } from '@/frontend/types/custom-chatbot';
 import { toast } from 'react-toastify';
 import { ChatTotalCosts } from '@/frontend/components/chat/chat-total-costs';
 import { useTokenUsage } from '@/frontend/hooks/use-token-usage';
+import { formatChatHistory } from '@/backend/utils/format-chat-history';
+import { STANDALONE_QUESTION_TEMPLATE } from '@/backend/constants/prompt-templates';
+import { EXAMPLE_CONTEXT, QA_TEMPLATE } from '@/constants/custom-chatbot';
+import { getTokensCountByLLMProvider } from '@/shared/utils/get-tokens-count-by-llm';
+import { getProviderByModelName } from '@/backend/utils/get-provider-by-model';
 
 type Props = CustomChatbotPageSettingsType & {
   sourceName: string;
@@ -71,9 +76,27 @@ export const CustomChatbotPageRoom = ({ sourceName, systemMessage, ...otherSetti
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const inputTokensCountIncludingPrompTemplate = useMemo(() => {
+    const standaloneQuestionPromptTemplate = STANDALONE_QUESTION_TEMPLATE.replace(
+      '{chat_history}',
+      formatChatHistory(messages)
+    ).replace('{question}', input);
+
+    const qaPromptTemplate = QA_TEMPLATE.replace('{context}', EXAMPLE_CONTEXT).replace(
+      '{question}',
+      ''
+    );
+
+    return getTokensCountByLLMProvider(
+      getProviderByModelName(otherSettings.conversationModel),
+      standaloneQuestionPromptTemplate.concat(qaPromptTemplate)
+    );
+  }, [input, messages, otherSettings.conversationModel]);
+
   return (
     <div className="flex h-full w-full flex-col overflow-hidden p-3 pt-0">
       <ChatTotalCosts
+        embeddingModelName={otherSettings.embeddingModel}
         isLoading={isLoadingUsage}
         currentTokenUsage={currentTokenUsage}
         modelName={otherSettings.conversationModel}
@@ -107,6 +130,8 @@ export const CustomChatbotPageRoom = ({ sourceName, systemMessage, ...otherSetti
         )}
       </div>
       <ChatInput
+        templateTokensCount={inputTokensCountIncludingPrompTemplate}
+        inputCostsNote="Real cost of the input will be higher due to LLM output inside chain, which is not predictable."
         modelName={otherSettings.conversationModel}
         stop={stop}
         input={input}

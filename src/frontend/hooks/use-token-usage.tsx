@@ -6,6 +6,7 @@ export type TokenUsage = {
   totalPromptTokens: number;
   totalCompletionTokens: number;
   totalTokens: number;
+  embeddingTokens: number;
 };
 
 export const useTokenUsage = (useCaseKey: string) => {

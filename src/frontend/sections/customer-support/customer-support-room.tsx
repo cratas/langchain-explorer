@@ -6,7 +6,7 @@ import { useMessagesScroll } from '@/frontend/hooks/use-message-scroll';
 import { Typography } from '@/frontend/components/tailwind-components';
 import { Message } from 'ai';
 import { useChat } from 'ai/react';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { ChatMessage } from '@/frontend/components/chat/chat-message';
 import { generateRandomId } from '@/shared/utils/generate-random-id';
 import { CustomerSupportUseCase } from '@/frontend/types/customer-support';
@@ -14,6 +14,10 @@ import { EXAMPLE_INPUTS } from '@/frontend/constants/customer-support';
 import { toast } from 'react-toastify';
 import { useTokenUsage } from '@/frontend/hooks/use-token-usage';
 import { ChatTotalCosts } from '@/frontend/components/chat/chat-total-costs';
+import { formatChatHistory } from '@/backend/utils/format-chat-history';
+import { COMMON_TEMPLATE_WITH_CHAT_HISTORY } from '@/backend/constants/prompt-templates';
+import { getTokensCountByLLMProvider } from '@/shared/utils/get-tokens-count-by-llm';
+import { getProviderByModelName } from '@/backend/utils/get-provider-by-model';
 
 const createCustomerSupportSystemMessageOject = (systemMessage: string): Message => ({
   content: systemMessage,
@@ -67,6 +71,21 @@ export const CustomerSupportRoom = ({ onBack, selectedUseCase }: Props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const inputTokensCountIncludingPrompTemplate = useMemo(() => {
+    const promptTemplate = COMMON_TEMPLATE_WITH_CHAT_HISTORY.replace(
+      '{chat_history}',
+      formatChatHistory(messages)
+    ).replace('{input}', '');
+
+    // Calculated from OpenAI prompt token usage
+    const FUNCTION_CALLS_TOKENS = 390;
+
+    return (
+      getTokensCountByLLMProvider(getProviderByModelName('gpt-3.5-turbo'), promptTemplate) +
+      FUNCTION_CALLS_TOKENS
+    );
+  }, [messages]);
+
   return (
     <div className="relative flex h-full w-full flex-col rounded-xl border border-browser-light bg-background-light p-3">
       <RoomHeader
@@ -106,7 +125,9 @@ export const CustomerSupportRoom = ({ onBack, selectedUseCase }: Props) => {
       <InputWhisperer proposals={EXAMPLE_INPUTS} />
 
       <ChatInput
+        templateTokensCount={inputTokensCountIncludingPrompTemplate}
         modelName="gpt-3.5-turbo-0125"
+        inputCostsNote="Real cost of the input will be higher due to LLM output inside chain, which is not predictable."
         stop={stop}
         input={input}
         handleInputChange={handleInputChange}

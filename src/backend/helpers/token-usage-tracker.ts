@@ -16,6 +16,11 @@ import { logger } from '../../../logger';
  */
 export class TokenUsageTracker {
   /**
+   * Holds the total number of tokens used for input embeddings.
+   */
+  private _embeddingTokens = 0;
+
+  /**
    * Holds the total number of prompt tokens used across all LLMs.
    */
   private _totalPromptTokens = 0;
@@ -152,6 +157,7 @@ export class TokenUsageTracker {
       totalPromptTokens: this.totalPromptTokens,
       totalCompletionTokens: this.totalCompletionTokens,
       totalTokens: this.totalTokens,
+      embeddingTokens: this._embeddingTokens,
     };
   }
 
@@ -169,5 +175,23 @@ export class TokenUsageTracker {
     this._totalCompletionTokens += completionTokens;
 
     logger.info('TokenUsageTracker - Counted tokens from function calling response');
+  }
+
+  /**
+   * Counts and accumulates the number of tokens from an embedding input string based on the provider.
+   * @param {string} input - The input string to count tokens from.
+   * @param {'mistral' | 'openai'} embeddingProvider - The embedding provider to determine the token counting method.
+   */
+  public countTokensFromEmbedding(input: string, embeddingProvider: 'mistral' | 'openai') {
+    switch (embeddingProvider) {
+      case 'mistral':
+        this._embeddingTokens += getTokensCountMistral(input);
+        break;
+      case 'openai':
+        this._embeddingTokens += getTokensCountOpenAI(input);
+        break;
+      default:
+        throw new Error('Invalid embedding provider');
+    }
   }
 }

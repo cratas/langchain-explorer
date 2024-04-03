@@ -37,6 +37,8 @@ interface CustomChatbotServiceOptions {
  * for enhanced conversational experiences.
  */
 export class CustomChatbotService {
+  private readonly _tokensUsageTrackerKey: string;
+
   /**
    * The streaming language model instance used for real-time chat responses.
    * @private
@@ -114,6 +116,8 @@ export class CustomChatbotService {
       logger.info(`CustomChatbotService - Tracking token usage for key: ${tokensUsageTrackerKey}`);
     }
 
+    this._tokensUsageTrackerKey = tokensUsageTrackerKey || '';
+
     this._pineconeNamespaceName = pineconeNamespaceName;
 
     this._retrievalSize = retrievalSize;
@@ -169,6 +173,7 @@ export class CustomChatbotService {
         this._streamingModel,
         vectorStoreRetrieval,
         {
+          returnGeneratedQuestion: true,
           qaTemplate: QA_TEMPLATE,
           questionGeneratorTemplate: STANDALONE_QUESTION_TEMPLATE,
           questionGeneratorChainOptions: {
@@ -190,7 +195,25 @@ export class CustomChatbotService {
           question: sanitizedQuestion,
           chat_history: formatChatHistory(messages),
         },
-        { callbacks: [handlers] }
+        {
+          callbacks: [
+            {
+              ...handlers,
+              handleRetrieverStart: (_, query) => {
+                TokenUsageTrackerRegistry.getTokenUsageTracker(
+                  this._tokensUsageTrackerKey
+                )?.countTokensFromEmbedding(
+                  query,
+                  this._embeddingModel instanceof OpenAIEmbeddings ? 'openai' : 'mistral'
+                );
+
+                logger.info(
+                  `CustomChatbotService - Calculating embedding tokens for model: ${this._embeddingModel.modelName}`
+                );
+              },
+            },
+          ],
+        }
       );
 
       logger.info(`CustomChatbotService - Generated streaming response for question: ${question}`);

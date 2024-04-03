@@ -15,6 +15,7 @@ type Props = {
   stop: VoidFunction;
   templateTokensCount: number;
   input: string;
+  inputCostsNote?: string;
   handleInputChange: (
     e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>
   ) => void;
@@ -29,6 +30,7 @@ export const ChatInput = ({
   templateTokensCount,
   handleInputChange,
   modelName,
+  inputCostsNote,
 }: Props) => {
   const handleKeyPress = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === 'Enter' && !e.shiftKey) {
@@ -43,6 +45,7 @@ export const ChatInput = ({
         {modelName && (
           <ChatInputCosts
             input={input}
+            inputCostsNote={inputCostsNote}
             modelName={modelName}
             templateTokensCount={templateTokensCount}
           />
