@@ -6,6 +6,7 @@ import { PineconeClientConnectionSingleton } from '../db/pinecone-client-connect
 import { EmbeddingLLMFactory } from '../helpers/embedding-llm-factory';
 import { getProviderByModelName } from '../utils/get-provider-by-model';
 import { logger } from '../../../logger';
+import { TokenUsageTrackerRegistry } from '../helpers/token-usage-tracker-registry';
 
 /**
  * Service class for managing operations on a Pinecone index.
@@ -80,9 +81,17 @@ export class PineconeIndexService {
   public async saveDocumentsToVectorStore(
     documents: Document<Record<string, any>>[],
     embeddingModel: EmbeddingModelOptions,
-    namespace: string
+    namespace: string,
+    useCaseKey: string
   ): Promise<void> {
     try {
+      TokenUsageTrackerRegistry.addTockenUsageTracker(useCaseKey);
+
+      TokenUsageTrackerRegistry.getTokenUsageTracker(useCaseKey)?.countTokensFromEmbedding(
+        JSON.stringify(documents),
+        getProviderByModelName(embeddingModel) as 'openai' | 'mistral'
+      );
+
       const embedder = EmbeddingLLMFactory.createObject(
         getProviderByModelName(embeddingModel) as EmbeddingLLMProvider,
         embeddingModel

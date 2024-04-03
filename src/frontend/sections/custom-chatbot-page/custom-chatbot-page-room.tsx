@@ -6,7 +6,7 @@ import {
   ChatMessageWithComparison,
   ChatMessage,
 } from '@/frontend/components/chat';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useChat } from 'ai/react';
 import { endpoints } from '@/app/api/endpoints';
 import { useMessagesScroll } from '@/frontend/hooks/use-message-scroll';
@@ -23,12 +23,11 @@ import { STANDALONE_QUESTION_TEMPLATE } from '@/backend/constants/prompt-templat
 import { EXAMPLE_CONTEXT, QA_TEMPLATE } from '@/constants/custom-chatbot';
 import { getTokensCountByLLMProvider } from '@/shared/utils/get-tokens-count-by-llm';
 import { getProviderByModelName } from '@/backend/utils/get-provider-by-model';
+import { CUSTOM_CHATBOT_MAIN_UC_KEY } from '@/shared/constants/use-case-keys';
 
 type Props = CustomChatbotPageSettingsType & {
   sourceName: string;
 };
-
-const USE_CASE_KEY = 'custom-chatbot-page-room';
 
 export const CustomChatbotPageRoom = ({ sourceName, systemMessage, ...otherSettings }: Props) => {
   const [isStreaming, setIsStreaming] = useState(false);
@@ -36,9 +35,8 @@ export const CustomChatbotPageRoom = ({ sourceName, systemMessage, ...otherSetti
   const {
     getTokenUsage,
     currentTokenUsage,
-    initTokenUsage,
     isLoading: isLoadingUsage,
-  } = useTokenUsage(USE_CASE_KEY);
+  } = useTokenUsage(CUSTOM_CHATBOT_MAIN_UC_KEY);
 
   const handleError = () => {
     setIsStreaming(false);
@@ -63,18 +61,13 @@ export const CustomChatbotPageRoom = ({ sourceName, systemMessage, ...otherSetti
     onResponse: () => setIsStreaming(true),
     onFinish: handleFinish,
     onError: handleError,
-    body: { context: sourceName, useCaseKey: USE_CASE_KEY, ...otherSettings },
+    body: { context: sourceName, useCaseKey: CUSTOM_CHATBOT_MAIN_UC_KEY, ...otherSettings },
     api: endpoints.customChatbot.main,
   });
 
   const [newGptMessageSignal] = useAtom(gptMessageScrollHelper);
 
   const { messagesEndRef } = useMessagesScroll([messages, newGptMessageSignal]);
-
-  useEffect(() => {
-    initTokenUsage();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   const inputTokensCountIncludingPrompTemplate = useMemo(() => {
     const standaloneQuestionPromptTemplate = STANDALONE_QUESTION_TEMPLATE.replace(
@@ -131,7 +124,7 @@ export const CustomChatbotPageRoom = ({ sourceName, systemMessage, ...otherSetti
       </div>
       <ChatInput
         templateTokensCount={inputTokensCountIncludingPrompTemplate}
-        inputCostsNote="Real cost of the input will be higher due to LLM output inside chain, which is not predictable."
+        inputCostsNote="Real cost of the input will be possibly higher or lower due to LLM output inside chain, which is not predictable."
         modelName={otherSettings.conversationModel}
         stop={stop}
         input={input}

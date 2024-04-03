@@ -16,6 +16,7 @@ import { COMMON_TEMPLATE_WITH_CHAT_HISTORY } from '@/backend/constants/prompt-te
 import { getTokensCountByLLMProvider } from '@/shared/utils/get-tokens-count-by-llm';
 import { getProviderByModelName } from '@/backend/utils/get-provider-by-model';
 import { formatChatHistory } from '@/backend/utils/format-chat-history';
+import { MODERATION_SAMPLE_UC_KEY } from '@/shared/constants/use-case-keys';
 import { FlaggedMessage } from './flagged-message';
 
 const createModerationSystemMessageOject = (systemMessage: string): Message => ({
@@ -23,8 +24,6 @@ const createModerationSystemMessageOject = (systemMessage: string): Message => (
   role: 'system',
   id: generateRandomId(),
 });
-
-const USE_CASE_KEY = 'moderation-room';
 
 type Props = {
   onBack: () => void;
@@ -39,7 +38,7 @@ export const ModerationRoom = ({ onBack, selectedUseCase }: Props) => {
     currentTokenUsage,
     initTokenUsage,
     isLoading: isLoadingUsage,
-  } = useTokenUsage(USE_CASE_KEY);
+  } = useTokenUsage(MODERATION_SAMPLE_UC_KEY);
 
   const handleError = () => {
     setIsStreaming(false);
@@ -58,7 +57,7 @@ export const ModerationRoom = ({ onBack, selectedUseCase }: Props) => {
       api: endpoints.moderation.sample,
       onResponse: () => setIsStreaming(true),
       initialMessages: [createModerationSystemMessageOject(selectedUseCase.systemMessage)],
-      body: { useCaseKey: USE_CASE_KEY },
+      body: { useCaseKey: MODERATION_SAMPLE_UC_KEY },
       onFinish: handleFinish,
       onError: handleError,
     });

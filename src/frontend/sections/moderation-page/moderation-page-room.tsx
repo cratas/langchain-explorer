@@ -16,11 +16,10 @@ import { formatChatHistory } from '@/backend/utils/format-chat-history';
 import { getTokensCountByLLMProvider } from '@/shared/utils/get-tokens-count-by-llm';
 import { getProviderByModelName } from '@/backend/utils/get-provider-by-model';
 import { useDebounce } from '@/frontend/hooks/use-debounce';
+import { MODERATION_MAIN_UC_KEY } from '@/shared/constants/use-case-keys';
 import { FlaggedMessage } from '../moderation/flagged-message';
 
 type Props = ModerationPageSettingsType;
-
-const USE_CASE_KEY = 'moderation-page-room';
 
 export const ModerationPageRoom = ({ systemMessage, ...otherSettings }: Props) => {
   const [isStreaming, setIsStreaming] = useState(false);
@@ -30,7 +29,7 @@ export const ModerationPageRoom = ({ systemMessage, ...otherSettings }: Props) =
     currentTokenUsage,
     initTokenUsage,
     isLoading: isLoadingUsage,
-  } = useTokenUsage(USE_CASE_KEY);
+  } = useTokenUsage(MODERATION_MAIN_UC_KEY);
 
   const handleError = () => {
     setIsStreaming(false);
@@ -54,7 +53,7 @@ export const ModerationPageRoom = ({ systemMessage, ...otherSettings }: Props) =
       },
     ],
     body: {
-      useCaseKey: USE_CASE_KEY,
+      useCaseKey: MODERATION_MAIN_UC_KEY,
       ...otherSettings,
     },
     onResponse: () => setIsStreaming(true),

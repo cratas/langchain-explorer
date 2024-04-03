@@ -9,6 +9,8 @@ import { MainUseCaseViewHeader } from '@/frontend/components/common';
 import { CustomChatbotPageSettingsType } from '@/frontend/types/custom-chatbot';
 import { defaultValuesWithoutDefaultFile } from '@/frontend/constants/custom-chatbot';
 import { CUSTOM_CHATBOT_DEFAULT_FILE_NAME } from '@/shared/constants/common';
+import { CUSTOM_CHATBOT_MAIN_UC_KEY } from '@/shared/constants/use-case-keys';
+import { useTokenUsage } from '@/frontend/hooks/use-token-usage';
 import { CustomChatbotPageSettings } from '../custom-chatbot-page-settings';
 import { CustomChatbotPageRoom } from '../custom-chatbot-page-room';
 import { getSourceName } from '../utils/get-source-name';
@@ -17,6 +19,8 @@ export const CustomChatbotPageView = () => {
   const [defaultFileLoaded, setDefaultFileLoaded] = useState(false);
 
   const { embedContext, isLoading } = useEmbedContext();
+
+  const { initTokenUsage } = useTokenUsage(CUSTOM_CHATBOT_MAIN_UC_KEY);
 
   const [currentSettings, setCurrentSettings] = useState<CustomChatbotPageSettingsType>(
     defaultValuesWithoutDefaultFile
@@ -59,12 +63,15 @@ export const CustomChatbotPageView = () => {
       (data.sourceType === 'text' && data.sourceFileTxt) ||
       data.sourceFilePdf!;
 
+    await initTokenUsage();
+
     const saved = await embedContext(
       context,
       data.sourceType,
       data.chunkOverlap,
       data.chunkSize,
-      data.embeddingModel
+      data.embeddingModel,
+      CUSTOM_CHATBOT_MAIN_UC_KEY
     );
 
     if (saved) {

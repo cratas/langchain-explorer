@@ -22,13 +22,12 @@ import { getTokensCountByLLMProvider } from '@/shared/utils/get-tokens-count-by-
 import { getProviderByModelName } from '@/backend/utils/get-provider-by-model';
 import { EXAMPLE_CONTEXT, QA_TEMPLATE } from '@/constants/custom-chatbot';
 import { STANDALONE_QUESTION_TEMPLATE } from '@/backend/constants/prompt-templates';
+import { CUSTOM_CHATBOT_SAMPLE_UC_KEY } from '@/shared/constants/use-case-keys';
 
 type Props = {
   fileName: string;
   systemMessage: string;
 };
-
-const USE_CASE_KEY = 'custom-chatbot-room';
 
 export const CustomChatBotRoom = ({ fileName, systemMessage }: Props) => {
   const [isStreaming, setIsStreaming] = useState(false);
@@ -38,7 +37,7 @@ export const CustomChatBotRoom = ({ fileName, systemMessage }: Props) => {
     currentTokenUsage,
     initTokenUsage,
     isLoading: isLoadingUsage,
-  } = useTokenUsage(USE_CASE_KEY);
+  } = useTokenUsage(CUSTOM_CHATBOT_SAMPLE_UC_KEY);
 
   const handleError = () => {
     setIsStreaming(false);
@@ -64,7 +63,7 @@ export const CustomChatBotRoom = ({ fileName, systemMessage }: Props) => {
       onResponse: () => setIsStreaming(true),
       onFinish: handleFinish,
       onError: handleError,
-      body: { context: fileName, useCaseKey: USE_CASE_KEY },
+      body: { context: fileName, useCaseKey: CUSTOM_CHATBOT_SAMPLE_UC_KEY },
       api: endpoints.customChatbot.sample,
     });
 

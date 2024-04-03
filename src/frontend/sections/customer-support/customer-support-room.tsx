@@ -18,6 +18,7 @@ import { formatChatHistory } from '@/backend/utils/format-chat-history';
 import { COMMON_TEMPLATE_WITH_CHAT_HISTORY } from '@/backend/constants/prompt-templates';
 import { getTokensCountByLLMProvider } from '@/shared/utils/get-tokens-count-by-llm';
 import { getProviderByModelName } from '@/backend/utils/get-provider-by-model';
+import { CUSTOMER_SUPPORT_UC_KEY } from '@/shared/constants/use-case-keys';
 
 const createCustomerSupportSystemMessageOject = (systemMessage: string): Message => ({
   content: systemMessage,
@@ -30,8 +31,6 @@ type Props = {
   selectedUseCase: CustomerSupportUseCase;
 };
 
-const USE_CASE_KEY = 'customer-support-room';
-
 export const CustomerSupportRoom = ({ onBack, selectedUseCase }: Props) => {
   const [isStreaming, setIsStreaming] = useState(false);
 
@@ -40,7 +39,7 @@ export const CustomerSupportRoom = ({ onBack, selectedUseCase }: Props) => {
     currentTokenUsage,
     initTokenUsage,
     isLoading: isLoadingUsage,
-  } = useTokenUsage(USE_CASE_KEY);
+  } = useTokenUsage(CUSTOMER_SUPPORT_UC_KEY);
 
   const handleError = () => {
     setIsStreaming(false);
@@ -59,7 +58,7 @@ export const CustomerSupportRoom = ({ onBack, selectedUseCase }: Props) => {
       api: endpoints.customerSupport,
       onResponse: () => setIsStreaming(true),
       initialMessages: [createCustomerSupportSystemMessageOject(selectedUseCase.systemMessage)],
-      body: { useCaseKey: USE_CASE_KEY },
+      body: { useCaseKey: CUSTOMER_SUPPORT_UC_KEY },
       onFinish: handleFinish,
       onError: handleError,
     });

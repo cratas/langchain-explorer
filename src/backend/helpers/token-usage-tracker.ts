@@ -122,6 +122,8 @@ export class TokenUsageTracker {
       default:
         throw new Error('Invalid LLM type');
     }
+
+    logger.info('TokenUsageTracker - Counted tokens from LLM input');
   }
 
   /**
@@ -146,6 +148,8 @@ export class TokenUsageTracker {
       default:
         throw new Error('Invalid LLM type');
     }
+
+    logger.info('TokenUsageTracker - Counted tokens from LLM output');
   }
 
   /**
@@ -193,5 +197,7 @@ export class TokenUsageTracker {
       default:
         throw new Error('Invalid embedding provider');
     }
+
+    logger.info('TokenUsageTracker - Counted tokens from embedding');
   }
 }
