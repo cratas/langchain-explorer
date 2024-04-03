@@ -1,87 +1,94 @@
 import { TokenUsage } from '@/frontend/hooks/use-token-usage';
-import { ConversationModelOptions } from '@/shared/types/common';
+import { ConversationModelOptions, EmbeddingModelOptions } from '@/shared/types/common';
 import { calcModelCostByTokens } from '@/shared/utils/calc-model-cost-by-tokens';
-import { IconButton } from '@material-tailwind/react';
-import React, { useState } from 'react';
+import React from 'react';
 
 type Props = {
   withMarginTop?: boolean;
-  currentTokenUsage: TokenUsage | null;
+  currentTokenUsage: TokenUsage;
   modelName: ConversationModelOptions;
+  embeddingModelName?: EmbeddingModelOptions;
   isLoading?: boolean;
+  defaultEmbeddingTokens?: number;
 };
 
 const DECIMAL_PLACES = 8;
 
 export const ChatTotalCosts = ({
+  defaultEmbeddingTokens,
   currentTokenUsage,
   modelName,
+  embeddingModelName,
   withMarginTop,
   isLoading,
 }: Props) => {
-  const [opened, setOpened] = useState(false);
-
-  const { totalPromptTokens, totalCompletionTokens } = currentTokenUsage ?? {
-    totalPromptTokens: 0,
-    totalCompletionTokens: 0,
-  };
+  const { totalPromptTokens, totalCompletionTokens, embeddingTokens } = currentTokenUsage;
 
   const inputCosts = calcModelCostByTokens(totalPromptTokens, modelName, 'input');
 
   const outputCosts = calcModelCostByTokens(totalCompletionTokens, modelName, 'output');
 
-  const overallCosts = inputCosts + outputCosts;
+  const embeddingCosts = embeddingModelName
+    ? calcModelCostByTokens(
+        embeddingTokens + (defaultEmbeddingTokens ?? 0),
+        embeddingModelName,
+        'input'
+      )
+    : 0;
+
+  const overallCosts = inputCosts + outputCosts + embeddingCosts;
 
   return (
-    <div
-      className={`ml-auto ${withMarginTop ? 'mt-2' : ''} flex items-center ${opened ? 'w-auto' : ''}`}
-    >
-      <IconButton onClick={() => setOpened(!opened)} variant="text" className="text-white">
-        {opened ? (
-          <span className="icon-[ri--arrow-right-s-line] animate-pulse cursor-pointer text-4xl" />
-        ) : (
-          <span className="icon-[ri--arrow-left-s-line] animate-pulse cursor-pointer text-4xl" />
+    <div className={`ml-auto ${withMarginTop ? 'mt-2' : ''} flex w-full items-center`}>
+      <div className="flex w-full flex-wrap items-center justify-between gap-2 rounded-md border-2 border-lighter-purple p-1.5 text-sm font-normal text-white md:gap-10">
+        {renderItem(
+          'Total costs',
+          totalPromptTokens + totalCompletionTokens,
+          overallCosts.toFixed(DECIMAL_PLACES),
+          isLoading
         )}
-      </IconButton>
 
-      <div
-        className={`flex ${opened ? 'w-auto' : ''} flex-wrap items-center justify-between gap-2 rounded-md border-2 border-lighter-purple p-1.5 text-sm font-normal text-white md:gap-10`}
-      >
-        <div className="flex gap-1">
-          {isLoading ? (
-            <span className="icon-[eos-icons--loading] text-4xl" />
-          ) : (
-            <span className="icon-[ri--money-dollar-circle-fill] bg-white text-4xl" />
+        {renderItem(
+          'Input costs',
+          totalPromptTokens,
+          inputCosts.toFixed(DECIMAL_PLACES),
+          isLoading
+        )}
+
+        {renderItem(
+          'Output costs',
+          totalCompletionTokens,
+          outputCosts.toFixed(DECIMAL_PLACES),
+          isLoading
+        )}
+
+        {embeddingModelName &&
+          renderItem(
+            'Embedding costs',
+            embeddingTokens + (defaultEmbeddingTokens ?? 0),
+            embeddingCosts.toFixed(DECIMAL_PLACES),
+            isLoading
           )}
-
-          <div className="flex flex-col">
-            <p className="text-xs">Total costs</p>
-            <p className="font-bold">{`${overallCosts.toFixed(DECIMAL_PLACES)} $`}</p>
-          </div>
-        </div>
-
-        {opened && (
-          <div className="flex gap-1">
-            <span className="icon-[ri--money-dollar-circle-fill] bg-browser-finder text-4xl" />
-
-            <div className="flex flex-col">
-              <p className="text-xs">Inputs costs</p>
-              <p className="font-bold">{`${inputCosts.toFixed(DECIMAL_PLACES)} $`}</p>
-            </div>
-          </div>
-        )}
-
-        {opened && (
-          <div className="flex gap-1">
-            <span className="icon-[ri--money-dollar-circle-fill] bg-lighter-purple text-4xl" />
-
-            <div className="flex flex-col">
-              <p className="text-xs">Outputs costs</p>
-              <p className="font-bold">{`${outputCosts.toFixed(DECIMAL_PLACES)} $`}</p>
-            </div>
-          </div>
-        )}
       </div>
     </div>
   );
 };
+
+const renderItem = (label: string, tokens: number, costs: string, isLoading = false) => (
+  <div className="flex gap-2">
+    {isLoading ? (
+      <span className="icon-[eos-icons--loading] animate-spin bg-white text-5xl" />
+    ) : (
+      <span className="icon-[ri--money-dollar-circle-fill] bg-white text-5xl" />
+    )}
+
+    <div className="flex flex-col">
+      <p className="text-xs font-bold text-text-primary">{label}</p>
+      <p className="font-bold">
+        {tokens}
+        <span> tokens</span>
+      </p>
+      <p className="font-bold text-lighter-purple">{`${costs} $`}</p>
+    </div>
+  </div>
+);

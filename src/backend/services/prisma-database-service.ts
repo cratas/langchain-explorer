@@ -242,9 +242,9 @@ export class PrismaDatabaseService {
     month,
     year,
   }: GetCustomerOfMonthFunctionArgs): Promise<string> {
-    if (role === 'guest') {
+    if (role === 'guest' || role === 'user') {
       logger.info(
-        'CustomerSupportService - Guest user is not authorized to get customer of the month'
+        'CustomerSupportService - Guest or regular user is not authorized to get customer of the month'
       );
 
       return 'NOT_AUTHORIZED';

@@ -1,5 +1,5 @@
 import { endpoints } from '@/app/api/endpoints';
-import { EmbeddingModelOptions, SourceOptions } from '@/shared/types/common';
+import { EmbeddingModelOptions, SourceOptions, UseCaseKey } from '@/shared/types/common';
 import { useState } from 'react';
 
 /**
@@ -16,7 +16,8 @@ export const useEmbedContext = () => {
     sourceType: SourceOptions,
     chunkOverlap: number,
     chunkSize: number,
-    model: EmbeddingModelOptions
+    model: EmbeddingModelOptions,
+    useCaseKey: UseCaseKey
   ): Promise<boolean> => {
     setIsLoading(true);
 
@@ -26,6 +27,7 @@ export const useEmbedContext = () => {
     formData.append('chunkSize', String(chunkSize));
     formData.append('chunkOverlap', String(chunkOverlap));
     formData.append('embeddingModel', model);
+    formData.append('useCaseKey', useCaseKey);
 
     if (sourceType === 'pdf' || sourceType === 'text') {
       formData.append('file', context);

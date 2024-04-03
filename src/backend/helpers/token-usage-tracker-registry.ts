@@ -38,6 +38,12 @@ export class TokenUsageTrackerRegistry {
     }
   }
 
+  static addTockenUsageTracker(key: string) {
+    if (!TokenUsageTrackerRegistry.tokenUsageTrackers.has(key)) {
+      TokenUsageTrackerRegistry.tokenUsageTrackers.set(key, new TokenUsageTracker());
+    }
+  }
+
   /**
    * Retrieves a `TokenUsageTracker` instance by its key.
    * @param {string} key - The key of the token usage tracker to retrieve.

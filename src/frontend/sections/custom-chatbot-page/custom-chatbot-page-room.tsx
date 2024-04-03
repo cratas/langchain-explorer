@@ -6,7 +6,7 @@ import {
   ChatMessageWithComparison,
   ChatMessage,
 } from '@/frontend/components/chat';
-import React, { useEffect, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useChat } from 'ai/react';
 import { endpoints } from '@/app/api/endpoints';
 import { useMessagesScroll } from '@/frontend/hooks/use-message-scroll';
@@ -17,23 +17,32 @@ import { generateRandomId } from '@/shared/utils/generate-random-id';
 import { CustomChatbotPageSettingsType } from '@/frontend/types/custom-chatbot';
 import { toast } from 'react-toastify';
 import { ChatTotalCosts } from '@/frontend/components/chat/chat-total-costs';
-import { useTokenUsage } from '@/frontend/hooks/use-token-usage';
+import { formatChatHistory } from '@/backend/utils/format-chat-history';
+import { STANDALONE_QUESTION_TEMPLATE } from '@/backend/constants/prompt-templates';
+import { EXAMPLE_CONTEXT, QA_TEMPLATE } from '@/constants/custom-chatbot';
+import { getTokensCountByLLMProvider } from '@/shared/utils/get-tokens-count-by-llm';
+import { getProviderByModelName } from '@/backend/utils/get-provider-by-model';
+import { CUSTOM_CHATBOT_MAIN_UC_KEY } from '@/shared/constants/use-case-keys';
+import { TokenUsage } from '@/frontend/hooks/use-token-usage';
 
 type Props = CustomChatbotPageSettingsType & {
   sourceName: string;
+  getTokenUsage: () => Promise<void>;
+  currentTokenUsage: TokenUsage;
+  isLoadingUsage: boolean;
+  defaultEmbeddingTokens?: number;
 };
 
-const USE_CASE_KEY = 'custom-chatbot-page-room';
-
-export const CustomChatbotPageRoom = ({ sourceName, systemMessage, ...otherSettings }: Props) => {
+export const CustomChatbotPageRoom = ({
+  sourceName,
+  systemMessage,
+  getTokenUsage,
+  currentTokenUsage,
+  isLoadingUsage,
+  defaultEmbeddingTokens,
+  ...otherSettings
+}: Props) => {
   const [isStreaming, setIsStreaming] = useState(false);
-
-  const {
-    getTokenUsage,
-    currentTokenUsage,
-    initTokenUsage,
-    isLoading: isLoadingUsage,
-  } = useTokenUsage(USE_CASE_KEY);
 
   const handleError = () => {
     setIsStreaming(false);
@@ -58,7 +67,7 @@ export const CustomChatbotPageRoom = ({ sourceName, systemMessage, ...otherSetti
     onResponse: () => setIsStreaming(true),
     onFinish: handleFinish,
     onError: handleError,
-    body: { context: sourceName, useCaseKey: USE_CASE_KEY, ...otherSettings },
+    body: { ...otherSettings, context: sourceName, useCaseKey: CUSTOM_CHATBOT_MAIN_UC_KEY },
     api: endpoints.customChatbot.main,
   });
 
@@ -66,17 +75,31 @@ export const CustomChatbotPageRoom = ({ sourceName, systemMessage, ...otherSetti
 
   const { messagesEndRef } = useMessagesScroll([messages, newGptMessageSignal]);
 
-  useEffect(() => {
-    initTokenUsage();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const inputTokensCountIncludingPrompTemplate = useMemo(() => {
+    const standaloneQuestionPromptTemplate = STANDALONE_QUESTION_TEMPLATE.replace(
+      '{chat_history}',
+      formatChatHistory(messages)
+    ).replace('{question}', input);
+
+    const qaPromptTemplate = QA_TEMPLATE.replace('{context}', EXAMPLE_CONTEXT).replace(
+      '{question}',
+      ''
+    );
+
+    return getTokensCountByLLMProvider(
+      getProviderByModelName(otherSettings.conversationModel),
+      standaloneQuestionPromptTemplate.concat(qaPromptTemplate)
+    );
+  }, [input, messages, otherSettings.conversationModel]);
 
   return (
     <div className="flex h-full w-full flex-col overflow-hidden p-3 pt-0">
       <ChatTotalCosts
+        embeddingModelName={otherSettings.embeddingModel}
         isLoading={isLoadingUsage}
         currentTokenUsage={currentTokenUsage}
         modelName={otherSettings.conversationModel}
+        defaultEmbeddingTokens={defaultEmbeddingTokens}
       />
 
       <div
@@ -107,6 +130,8 @@ export const CustomChatbotPageRoom = ({ sourceName, systemMessage, ...otherSetti
         )}
       </div>
       <ChatInput
+        templateTokensCount={inputTokensCountIncludingPrompTemplate}
+        inputCostsNote="Real cost of the input will be possibly higher or lower due to LLM output inside chain, which is not predictable."
         modelName={otherSettings.conversationModel}
         stop={stop}
         input={input}

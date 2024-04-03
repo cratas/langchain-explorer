@@ -19,6 +19,7 @@ interface ChatServiceOptions {
   promptTemplate: string;
   functionCallsDefinition?: Partial<ChatOpenAICallOptions>;
   tokensUsageTrackerKey?: string;
+  streaming?: boolean;
 }
 
 /**
@@ -51,12 +52,13 @@ export class ChatService {
     promptTemplate,
     functionCallsDefinition,
     tokensUsageTrackerKey,
+    streaming = true,
   }: ChatServiceOptions) {
     const baseModel = ChatLLMFactory.createObject(
       getProviderByModelName(modelName),
       modelName,
       modelTemperature,
-      true
+      streaming
     );
 
     if (baseModel instanceof ChatOpenAI && functionCallsDefinition) {
@@ -67,6 +69,8 @@ export class ChatService {
 
     if (tokensUsageTrackerKey) {
       TokenUsageTrackerRegistry.trackTockenUsage(tokensUsageTrackerKey, [this._model]);
+
+      logger.info(`ChatService - Tracking token usage for key: ${tokensUsageTrackerKey}`);
     }
 
     this._promptTemplate = promptTemplate;

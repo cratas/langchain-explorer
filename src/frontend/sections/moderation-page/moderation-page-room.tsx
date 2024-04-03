@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { endpoints } from '@/app/api/endpoints';
 import { Message } from 'ai';
 import { useChat } from 'ai/react';
@@ -11,11 +11,15 @@ import { ModerationPageSettingsType } from '@/frontend/types/moderation';
 import { toast } from 'react-toastify';
 import { useTokenUsage } from '@/frontend/hooks/use-token-usage';
 import { ChatTotalCosts } from '@/frontend/components/chat/chat-total-costs';
+import { COMMON_TEMPLATE_WITH_CHAT_HISTORY } from '@/backend/constants/prompt-templates';
+import { formatChatHistory } from '@/backend/utils/format-chat-history';
+import { getTokensCountByLLMProvider } from '@/shared/utils/get-tokens-count-by-llm';
+import { getProviderByModelName } from '@/backend/utils/get-provider-by-model';
+import { useDebounce } from '@/frontend/hooks/use-debounce';
+import { MODERATION_MAIN_UC_KEY } from '@/shared/constants/use-case-keys';
 import { FlaggedMessage } from '../moderation/flagged-message';
 
 type Props = ModerationPageSettingsType;
-
-const USE_CASE_KEY = 'moderation-page-room';
 
 export const ModerationPageRoom = ({ systemMessage, ...otherSettings }: Props) => {
   const [isStreaming, setIsStreaming] = useState(false);
@@ -25,7 +29,7 @@ export const ModerationPageRoom = ({ systemMessage, ...otherSettings }: Props) =
     currentTokenUsage,
     initTokenUsage,
     isLoading: isLoadingUsage,
-  } = useTokenUsage(USE_CASE_KEY);
+  } = useTokenUsage(MODERATION_MAIN_UC_KEY);
 
   const handleError = () => {
     setIsStreaming(false);
@@ -49,7 +53,7 @@ export const ModerationPageRoom = ({ systemMessage, ...otherSettings }: Props) =
       },
     ],
     body: {
-      useCaseKey: USE_CASE_KEY,
+      useCaseKey: MODERATION_MAIN_UC_KEY,
       ...otherSettings,
     },
     onResponse: () => setIsStreaming(true),
@@ -63,6 +67,20 @@ export const ModerationPageRoom = ({ systemMessage, ...otherSettings }: Props) =
     initTokenUsage();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const { debouncedValue } = useDebounce(messages, 500);
+
+  const inputTokensCountIncludingPrompTemplate = useMemo(() => {
+    const promptTemplate = COMMON_TEMPLATE_WITH_CHAT_HISTORY.replace(
+      '{chat_history}',
+      formatChatHistory(debouncedValue)
+    ).replace('{input}', '');
+
+    return getTokensCountByLLMProvider(
+      getProviderByModelName(otherSettings.conversationModel),
+      promptTemplate
+    );
+  }, [debouncedValue, otherSettings.conversationModel]);
 
   return (
     <div className="flex h-full w-full flex-col overflow-hidden p-3 pt-0">
@@ -89,6 +107,7 @@ export const ModerationPageRoom = ({ systemMessage, ...otherSettings }: Props) =
       </div>
 
       <ChatInput
+        templateTokensCount={inputTokensCountIncludingPrompTemplate}
         modelName={otherSettings.conversationModel}
         stop={stop}
         input={input}

@@ -20,7 +20,7 @@ export const CustomerSupportView = () => {
       <CustomerSupportViewHeader />
 
       <BrowserLayout>
-        <div className="flex h-[40rem] flex-col items-center justify-center bg-background-dark p-3">
+        <div className="flex h-[50rem] flex-col items-center justify-center bg-background-dark p-3">
           {selectedUseCase ? (
             <CustomerSupportRoom
               onBack={() => setSelectedUseCase(null)}

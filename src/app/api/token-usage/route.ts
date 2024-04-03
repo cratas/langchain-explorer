@@ -27,6 +27,8 @@ export const POST = async (request: Request) => {
 
     TokenUsageTrackerRegistry.deleteTokenUsageTracker(useCaseKey);
 
+    TokenUsageTrackerRegistry.addTockenUsageTracker(useCaseKey);
+
     return NextResponse.json({ message: 'Token usage saved' }, { status: 200 });
   } catch (error) {
     return NextResponse.json({ message: 'Failed to save token usage' }, { status: 500 });

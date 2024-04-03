@@ -8,6 +8,11 @@ export const validateRequestAndGetFormData = (formData: FormData) => {
   const fileName = formData.get('fileName');
   const url = formData.get('url');
   const file = formData.get('file') as Blob;
+  const useCaseKey = formData.get('useCaseKey') as string;
+
+  if (!useCaseKey) {
+    throw new Error('Missing Use Case Key');
+  }
 
   if (!chunkSize || !chunkOverlap) {
     throw new Error('Missing Chunk size or Chunk overlap');
@@ -33,5 +38,6 @@ export const validateRequestAndGetFormData = (formData: FormData) => {
     fileName,
     url,
     file,
+    useCaseKey,
   };
 };

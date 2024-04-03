@@ -6,7 +6,7 @@ import {
   ChatMessageWithComparison,
   ChatMessage,
 } from '@/frontend/components/chat';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useChat, Message } from 'ai/react';
 import { endpoints } from '@/app/api/endpoints';
 import { useMessagesScroll } from '@/frontend/hooks/use-message-scroll';
@@ -17,13 +17,19 @@ import { RoomHeader } from '@/frontend/components/common';
 import { toast } from 'react-toastify';
 import { useTokenUsage } from '@/frontend/hooks/use-token-usage';
 import { ChatTotalCosts } from '@/frontend/components/chat/chat-total-costs';
+import { formatChatHistory } from '@/backend/utils/format-chat-history';
+import { getTokensCountByLLMProvider } from '@/shared/utils/get-tokens-count-by-llm';
+import { getProviderByModelName } from '@/backend/utils/get-provider-by-model';
+import { EXAMPLE_CONTEXT, QA_TEMPLATE } from '@/constants/custom-chatbot';
+import { STANDALONE_QUESTION_TEMPLATE } from '@/backend/constants/prompt-templates';
+import { CUSTOM_CHATBOT_SAMPLE_UC_KEY } from '@/shared/constants/use-case-keys';
+
+const DEFAULT_NAVAL_EMBEDDING_TOKENS = 142394;
 
 type Props = {
   fileName: string;
   systemMessage: string;
 };
-
-const USE_CASE_KEY = 'custom-chatbot-room';
 
 export const CustomChatBotRoom = ({ fileName, systemMessage }: Props) => {
   const [isStreaming, setIsStreaming] = useState(false);
@@ -33,7 +39,7 @@ export const CustomChatBotRoom = ({ fileName, systemMessage }: Props) => {
     currentTokenUsage,
     initTokenUsage,
     isLoading: isLoadingUsage,
-  } = useTokenUsage(USE_CASE_KEY);
+  } = useTokenUsage(CUSTOM_CHATBOT_SAMPLE_UC_KEY);
 
   const handleError = () => {
     setIsStreaming(false);
@@ -59,7 +65,7 @@ export const CustomChatBotRoom = ({ fileName, systemMessage }: Props) => {
       onResponse: () => setIsStreaming(true),
       onFinish: handleFinish,
       onError: handleError,
-      body: { context: fileName, useCaseKey: USE_CASE_KEY },
+      body: { context: fileName, useCaseKey: CUSTOM_CHATBOT_SAMPLE_UC_KEY },
       api: endpoints.customChatbot.sample,
     });
 
@@ -68,9 +74,32 @@ export const CustomChatBotRoom = ({ fileName, systemMessage }: Props) => {
   const { messagesEndRef } = useMessagesScroll([messages, newGptMessageSignal]);
 
   useEffect(() => {
-    initTokenUsage();
+    const initTokenUsageAndRefetch = async () => {
+      await initTokenUsage();
+
+      await getTokenUsage();
+    };
+
+    initTokenUsageAndRefetch();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const inputTokensCountIncludingPrompTemplate = useMemo(() => {
+    const standaloneQuestionPromptTemplate = STANDALONE_QUESTION_TEMPLATE.replace(
+      '{chat_history}',
+      formatChatHistory(messages)
+    ).replace('{question}', input);
+
+    const qaPromptTemplate = QA_TEMPLATE.replace('{context}', EXAMPLE_CONTEXT).replace(
+      '{question}',
+      ''
+    );
+
+    return getTokensCountByLLMProvider(
+      getProviderByModelName('gpt-3.5-turbo'),
+      standaloneQuestionPromptTemplate.concat(qaPromptTemplate)
+    );
+  }, [input, messages]);
 
   return (
     <div className="flex h-full w-full flex-col overflow-hidden rounded-xl border border-browser-background bg-background-light">
@@ -78,6 +107,8 @@ export const CustomChatBotRoom = ({ fileName, systemMessage }: Props) => {
         <RoomHeader onClear={() => setMessages([])} title={fileName} />
 
         <ChatTotalCosts
+          defaultEmbeddingTokens={DEFAULT_NAVAL_EMBEDDING_TOKENS}
+          embeddingModelName="text-embedding-3-small"
           isLoading={isLoadingUsage}
           withMarginTop
           currentTokenUsage={currentTokenUsage}
@@ -113,6 +144,8 @@ export const CustomChatBotRoom = ({ fileName, systemMessage }: Props) => {
         </div>
 
         <ChatInput
+          inputCostsNote="Real cost of the input will be higher due to LLM output inside chain, which is not predictable."
+          templateTokensCount={inputTokensCountIncludingPrompTemplate}
           modelName="gpt-3.5-turbo"
           stop={stop}
           input={input}

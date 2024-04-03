@@ -9,52 +9,79 @@ import React, { memo, useMemo } from 'react';
 type Props = {
   modelName: ConversationModelOptions;
   input: string;
+  templateTokensCount: number;
+  inputCostsNote?: string;
 };
 
 const DECIMAL_PLACES = 8;
 
-export const ChatInputCosts = memo(({ modelName, input }: Props) => {
-  const { debouncedValue } = useDebounce(input, 100);
+export const ChatInputCosts = memo(
+  ({ modelName, input, inputCostsNote, templateTokensCount }: Props) => {
+    const { debouncedValue } = useDebounce(input, 100);
 
-  const inputTokensCount = useMemo(
-    () => getTokensCountByLLMProvider(getProviderByModelName(modelName), debouncedValue),
-    [debouncedValue, modelName]
-  );
+    const inputTokensCount = useMemo(
+      () => getTokensCountByLLMProvider(getProviderByModelName(modelName), debouncedValue),
+      [debouncedValue, modelName]
+    );
 
-  const inputOnlyPrice = useMemo(
-    () => calcModelCostByTokens(inputTokensCount, modelName, 'input'),
-    [inputTokensCount, modelName]
-  );
+    const inputOnlyPrice = useMemo(
+      () => calcModelCostByTokens(inputTokensCount, modelName, 'input'),
+      [inputTokensCount, modelName]
+    );
 
-  return (
-    <Tooltip
-      className="bg-white text-background-dark"
-      content={
-        <div className="flex max-w-[20rem] flex-col">
-          <div>
-            <span className="font-bold">Input only costs:</span>{' '}
-            {calcModelCostByTokens(inputTokensCount, modelName, 'input')} $
+    const totalPrice = useMemo(
+      () => calcModelCostByTokens(templateTokensCount, modelName, 'input') + inputOnlyPrice,
+      [inputOnlyPrice, templateTokensCount, modelName]
+    );
+
+    return (
+      <Tooltip
+        className="bg-white text-background-dark"
+        content={
+          <div className="flex max-w-[22rem] flex-col">
+            <div>
+              <span className="font-bold">Input only costs:</span> {inputOnlyPrice} $
+            </div>
+            <div>
+              <span className="font-bold">Input only tokens:</span> {inputTokensCount}
+            </div>
+            <div className="my-1 h-[1px] w-full bg-black" />
+            <div>
+              <span className="font-bold">Prompt template costs:</span>{' '}
+              {calcModelCostByTokens(templateTokensCount, modelName, 'input')} $
+            </div>
+            <div>
+              <span className="font-bold">Prompt template tokens:</span> {templateTokensCount}
+            </div>
+            <div className="my-1 h-[1px] w-full bg-black" />
+            <div>
+              <span className="font-bold">Total costs:</span> {totalPrice} $
+            </div>
+            <div>
+              <span className="font-bold">Total tokens:</span>{' '}
+              {inputTokensCount + templateTokensCount}
+            </div>
+
+            {inputCostsNote && (
+              <>
+                <div className="my-1 h-[1px] w-full bg-black" />
+                <p className="text-red-500">{inputCostsNote}</p>
+              </>
+            )}
           </div>
-          <div>
-            <span className="font-bold">Number of tokens:</span> {inputTokensCount}
-          </div>
-          <div>
-            <span className="font-bold">Note:</span>Total costs for this message will be higher due
-            to the template for model to generate the better response and providing chat history.
-          </div>
+        }
+        animate={{
+          mount: { scale: 1, y: 0 },
+          unmount: { scale: 0, y: 25 },
+        }}
+      >
+        <div className="flex w-36 cursor-help items-center justify-center gap-1 rounded-md bg-browser-light p-2 text-sm font-normal text-white">
+          <span className="icon-[ri--money-dollar-circle-fill] bg-white text-2xl" />
+          <span className="text-nowrap text-sm">{totalPrice.toFixed(DECIMAL_PLACES)}</span>
         </div>
-      }
-      animate={{
-        mount: { scale: 1, y: 0 },
-        unmount: { scale: 0, y: 25 },
-      }}
-    >
-      <div className="flex w-36 cursor-help items-center justify-center gap-1 rounded-md bg-browser-light p-2 text-sm font-normal text-white">
-        <span className="icon-[ri--money-dollar-circle-fill] bg-white text-2xl" />
-        <span className="text-nowrap text-sm">{inputOnlyPrice.toFixed(DECIMAL_PLACES)}</span>
-      </div>
-    </Tooltip>
-  );
-});
+      </Tooltip>
+    );
+  }
+);
 
 ChatInputCosts.displayName = 'ChatInputCosts';

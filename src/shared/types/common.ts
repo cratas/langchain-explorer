@@ -21,3 +21,10 @@ export type EmbeddingModelOptions =
 export type ChatLLMProvider = 'openai' | 'anthropic' | 'mistral';
 
 export type EmbeddingLLMProvider = 'openai' | 'mistral';
+
+export type UseCaseKey =
+  | 'custom-chatbot-sample'
+  | 'custom-chatbot-main'
+  | 'customer-support'
+  | 'moderation-sample'
+  | 'moderation-main';

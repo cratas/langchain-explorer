@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { endpoints } from '@/app/api/endpoints';
 import { NoMessages, ChatInput } from '@/frontend/components/chat';
 import { useMessagesScroll } from '@/frontend/hooks/use-message-scroll';
@@ -12,6 +12,11 @@ import { ModerationUseCase } from '@/frontend/types/moderation';
 import { toast } from 'react-toastify';
 import { useTokenUsage } from '@/frontend/hooks/use-token-usage';
 import { ChatTotalCosts } from '@/frontend/components/chat/chat-total-costs';
+import { COMMON_TEMPLATE_WITH_CHAT_HISTORY } from '@/backend/constants/prompt-templates';
+import { getTokensCountByLLMProvider } from '@/shared/utils/get-tokens-count-by-llm';
+import { getProviderByModelName } from '@/backend/utils/get-provider-by-model';
+import { formatChatHistory } from '@/backend/utils/format-chat-history';
+import { MODERATION_SAMPLE_UC_KEY } from '@/shared/constants/use-case-keys';
 import { FlaggedMessage } from './flagged-message';
 
 const createModerationSystemMessageOject = (systemMessage: string): Message => ({
@@ -19,8 +24,6 @@ const createModerationSystemMessageOject = (systemMessage: string): Message => (
   role: 'system',
   id: generateRandomId(),
 });
-
-const USE_CASE_KEY = 'moderation-room';
 
 type Props = {
   onBack: () => void;
@@ -35,7 +38,7 @@ export const ModerationRoom = ({ onBack, selectedUseCase }: Props) => {
     currentTokenUsage,
     initTokenUsage,
     isLoading: isLoadingUsage,
-  } = useTokenUsage(USE_CASE_KEY);
+  } = useTokenUsage(MODERATION_SAMPLE_UC_KEY);
 
   const handleError = () => {
     setIsStreaming(false);
@@ -54,7 +57,7 @@ export const ModerationRoom = ({ onBack, selectedUseCase }: Props) => {
       api: endpoints.moderation.sample,
       onResponse: () => setIsStreaming(true),
       initialMessages: [createModerationSystemMessageOject(selectedUseCase.systemMessage)],
-      body: { useCaseKey: USE_CASE_KEY },
+      body: { useCaseKey: MODERATION_SAMPLE_UC_KEY },
       onFinish: handleFinish,
       onError: handleError,
     });
@@ -65,6 +68,15 @@ export const ModerationRoom = ({ onBack, selectedUseCase }: Props) => {
     initTokenUsage();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const inputTokensCountIncludingPrompTemplate = useMemo(() => {
+    const promptTemplate = COMMON_TEMPLATE_WITH_CHAT_HISTORY.replace(
+      '{chat_history}',
+      formatChatHistory(messages)
+    ).replace('{input}', '');
+
+    return getTokensCountByLLMProvider(getProviderByModelName('gpt-3.5-turbo'), promptTemplate);
+  }, [messages]);
 
   return (
     <div className="relative flex h-full w-full flex-col rounded-xl border border-browser-light bg-background-light p-3">
@@ -99,6 +111,7 @@ export const ModerationRoom = ({ onBack, selectedUseCase }: Props) => {
       </div>
 
       <ChatInput
+        templateTokensCount={inputTokensCountIncludingPrompTemplate}
         modelName="gpt-3.5-turbo"
         stop={stop}
         input={input}

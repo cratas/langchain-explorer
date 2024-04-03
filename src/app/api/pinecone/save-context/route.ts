@@ -13,7 +13,7 @@ export const POST = async (request: Request) => {
   try {
     const formData = await request.formData();
 
-    const { chunkOverlap, chunkSize, sourceType, file, url, embeddingModel, fileName } =
+    const { chunkOverlap, chunkSize, sourceType, file, url, embeddingModel, fileName, useCaseKey } =
       validateRequestAndGetFormData(formData);
 
     logger.info(
@@ -38,7 +38,12 @@ export const POST = async (request: Request) => {
 
     const splitDocs = await splitter.splitDocuments(documents);
 
-    await pineconeService.saveDocumentsToVectorStore(splitDocs, embeddingModel, fileName as string);
+    await pineconeService.saveDocumentsToVectorStore(
+      splitDocs,
+      embeddingModel,
+      fileName as string,
+      useCaseKey
+    );
 
     return NextResponse.json({ message: 'Pinecone index created' }, { status: 201 });
   } catch (error) {

@@ -9,14 +9,27 @@ import { MainUseCaseViewHeader } from '@/frontend/components/common';
 import { CustomChatbotPageSettingsType } from '@/frontend/types/custom-chatbot';
 import { defaultValuesWithoutDefaultFile } from '@/frontend/constants/custom-chatbot';
 import { CUSTOM_CHATBOT_DEFAULT_FILE_NAME } from '@/shared/constants/common';
+import { CUSTOM_CHATBOT_MAIN_UC_KEY } from '@/shared/constants/use-case-keys';
+import { useTokenUsage } from '@/frontend/hooks/use-token-usage';
 import { CustomChatbotPageSettings } from '../custom-chatbot-page-settings';
 import { CustomChatbotPageRoom } from '../custom-chatbot-page-room';
 import { getSourceName } from '../utils/get-source-name';
 
+const DEFAULT_NAVAL_EMBEDDING_TOKENS = 142394;
+
 export const CustomChatbotPageView = () => {
+  const [settingsChanged, setSettingsChanged] = useState(false);
+
   const [defaultFileLoaded, setDefaultFileLoaded] = useState(false);
 
   const { embedContext, isLoading } = useEmbedContext();
+
+  const {
+    initTokenUsage,
+    getTokenUsage,
+    currentTokenUsage,
+    isLoading: isLoadingUsage,
+  } = useTokenUsage(CUSTOM_CHATBOT_MAIN_UC_KEY);
 
   const [currentSettings, setCurrentSettings] = useState<CustomChatbotPageSettingsType>(
     defaultValuesWithoutDefaultFile
@@ -27,7 +40,7 @@ export const CustomChatbotPageView = () => {
   const settingsFormRef = useRef<HTMLFormElement>();
 
   useEffect(() => {
-    const loadPdfFile = async () => {
+    const loadPdfFileAndInitTokenUsage = async () => {
       try {
         const response = await fetch('/pdf/The-Almanack-Of-Naval-Ravikant.pdf');
 
@@ -43,9 +56,13 @@ export const CustomChatbotPageView = () => {
       } catch (error) {
         throw new Error('Error loading default PDF file');
       }
+
+      await initTokenUsage();
+
+      await getTokenUsage();
     };
 
-    loadPdfFile();
+    loadPdfFileAndInitTokenUsage();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -59,18 +76,25 @@ export const CustomChatbotPageView = () => {
       (data.sourceType === 'text' && data.sourceFileTxt) ||
       data.sourceFilePdf!;
 
+    await initTokenUsage();
+
     const saved = await embedContext(
       context,
       data.sourceType,
       data.chunkOverlap,
       data.chunkSize,
-      data.embeddingModel
+      data.embeddingModel,
+      CUSTOM_CHATBOT_MAIN_UC_KEY
     );
 
     if (saved) {
+      await getTokenUsage();
+
       setCurrentSettings(data);
 
       toast.success('Chat set successfully.');
+
+      setSettingsChanged(true);
     } else {
       toast.error('Something went wrong, try set chat again.');
     }
@@ -106,7 +130,14 @@ export const CustomChatbotPageView = () => {
             <Typography className="font-bold text-text-primary">Embedding ...</Typography>
           </div>
         ) : (
-          <CustomChatbotPageRoom {...currentSettings} sourceName={getSourceName(currentSettings)} />
+          <CustomChatbotPageRoom
+            {...currentSettings}
+            sourceName={getSourceName(currentSettings)}
+            getTokenUsage={getTokenUsage}
+            currentTokenUsage={currentTokenUsage}
+            isLoadingUsage={isLoadingUsage}
+            defaultEmbeddingTokens={!settingsChanged ? DEFAULT_NAVAL_EMBEDDING_TOKENS : 0}
+          />
         )}
       </div>
     </div>

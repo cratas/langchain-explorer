@@ -1,6 +1,6 @@
-import { ConversationModelOptions } from '../types/common';
+import { ConversationModelOptions, EmbeddingModelOptions } from '../types/common';
 
-type TokenPrice = { [key in ConversationModelOptions]: number };
+type TokenPrice = { [key in ConversationModelOptions | EmbeddingModelOptions]: number };
 
 // price sources:
 // https://www.anthropic.com/api
@@ -19,6 +19,11 @@ const PRICE_BY_TOKEN: {
     'claude-3-opus-20240229': 0.000015,
     'claude-3-sonnet-20240229': 0.000003,
     'claude-3-haiku-20240307': 0.00000025,
+    // -------------------------------------
+    'mistral-embed': 0.0000001,
+    'text-embedding-3-large': 0.00000013,
+    'text-embedding-3-small': 0.00000002,
+    'text-embedding-ada-002': 0.0000001,
   },
   output: {
     'gpt-3.5-turbo': 0.0000015,
@@ -29,6 +34,10 @@ const PRICE_BY_TOKEN: {
     'claude-3-opus-20240229': 0.000075,
     'claude-3-sonnet-20240229': 0.000015,
     'claude-3-haiku-20240307': 0.00000125,
+    'mistral-embed': 0.0000001,
+    'text-embedding-3-large': 0.00000013,
+    'text-embedding-3-small': 0.00000002,
+    'text-embedding-ada-002': 0.0000001,
   },
 };
 
@@ -41,6 +50,6 @@ const PRICE_BY_TOKEN: {
  */
 export const calcModelCostByTokens = (
   tokensCount: number,
-  model: ConversationModelOptions,
+  model: ConversationModelOptions | EmbeddingModelOptions,
   type: 'input' | 'output'
 ): number => tokensCount * PRICE_BY_TOKEN[type][model];
