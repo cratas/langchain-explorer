@@ -896,3 +896,555 @@
 {"level":"info","message":"TokenUsageTracker - Counted tokens from embedding","timestamp":"2024-04-03T10:49:59.800Z"}
 {"level":"error","message":"PineconeIndexService - Failed to save documents to Pinecone index PineconeBadRequestError: Vector dimension 3072 does not match the dimension of the index 1536","timestamp":"2024-04-03T10:52:33.342Z"}
 {"level":"error","message":"Error in data validation: Failed to save documents to Pinecone index PineconeBadRequestError: Vector dimension 3072 does not match the dimension of the index 1536","timestamp":"2024-04-03T10:52:33.344Z"}
+{"level":"info","message":"POST /api/custom-chatbot/main with data: {\"messages\":[{\"role\":\"system\",\"content\":\"I will provide you code snippets from the book \\\"The Almanack of Naval Ravikant\\\" from the vector database to help you answer the user's questions. \\nAnswer me on the questions based on provided context. If you don't know the answer, just say \\\"I don't know\\\" and I will try to help you.\"},{\"role\":\"user\",\"content\":\"hello\"}],\"context\":\"The-Almanack-Of-Naval-Ravikant.pdf\",\"useCaseKey\":\"custom-chatbot-main\",\"conversationModel\":\"gpt-3.5-turbo\",\"conversationTemperature\":0.5,\"embeddingModel\":\"text-embedding-3-small\",\"chunkSize\":1024,\"chunkOverlap\":200,\"retrievalSize\":3,\"sourceType\":\"pdf\",\"sourceFilePdf\":{},\"sourceFileTxt\":{},\"sourceUrl\":\"\"}","timestamp":"2024-04-03T11:00:44.389Z"}
+{"level":"info","message":"CustomChatbotService - Tracking token usage for key: custom-chatbot-main","timestamp":"2024-04-03T11:00:44.391Z"}
+{"level":"info","message":"CustomChatbotService - Retrieved Pinecone store for namespace: The-Almanack-Of-Naval-Ravikant.pdf","timestamp":"2024-04-03T11:00:44.531Z"}
+{"level":"info","message":"CustomChatbotService - Generated streaming response for question: hello","timestamp":"2024-04-03T11:00:44.532Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM input","timestamp":"2024-04-03T11:00:44.536Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM output","timestamp":"2024-04-03T11:00:45.299Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from embedding","timestamp":"2024-04-03T11:00:45.303Z"}
+{"level":"info","message":"CustomChatbotService - Calculating embedding tokens for model: text-embedding-3-small","timestamp":"2024-04-03T11:00:45.303Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM input","timestamp":"2024-04-03T11:00:46.825Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM output","timestamp":"2024-04-03T11:00:48.286Z"}
+{"level":"info","message":"POST /api/custom-chatbot/main with data: {\"messages\":[{\"role\":\"system\",\"content\":\"I will provide you code snippets from the book \\\"The Almanack of Naval Ravikant\\\" from the vector database to help you answer the user's questions. \\nAnswer me on the questions based on provided context. If you don't know the answer, just say \\\"I don't know\\\" and I will try to help you.\"},{\"role\":\"user\",\"content\":\"hello\"},{\"role\":\"assistant\",\"content\":\"I can help you with learning happiness hacks, building wealth tips, or any other related questions you may have. Just let me know how I can assist you today!\"},{\"role\":\"user\",\"content\":\"thanks\"}],\"context\":\"The-Almanack-Of-Naval-Ravikant.pdf\",\"useCaseKey\":\"custom-chatbot-main\",\"conversationModel\":\"gpt-3.5-turbo\",\"conversationTemperature\":0.5,\"embeddingModel\":\"text-embedding-3-small\",\"chunkSize\":1024,\"chunkOverlap\":200,\"retrievalSize\":3,\"sourceType\":\"pdf\",\"sourceFilePdf\":{},\"sourceFileTxt\":{},\"sourceUrl\":\"\"}","timestamp":"2024-04-03T11:00:52.217Z"}
+{"level":"info","message":"CustomChatbotService - Tracking token usage for key: custom-chatbot-main","timestamp":"2024-04-03T11:00:52.217Z"}
+{"level":"info","message":"CustomChatbotService - Retrieved Pinecone store for namespace: The-Almanack-Of-Naval-Ravikant.pdf","timestamp":"2024-04-03T11:00:52.292Z"}
+{"level":"info","message":"CustomChatbotService - Generated streaming response for question: thanks","timestamp":"2024-04-03T11:00:52.293Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM input","timestamp":"2024-04-03T11:00:52.294Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM output","timestamp":"2024-04-03T11:00:52.978Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from embedding","timestamp":"2024-04-03T11:00:52.980Z"}
+{"level":"info","message":"CustomChatbotService - Calculating embedding tokens for model: text-embedding-3-small","timestamp":"2024-04-03T11:00:52.980Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM input","timestamp":"2024-04-03T11:00:55.650Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM output","timestamp":"2024-04-03T11:00:56.534Z"}
+{"level":"info","message":"POST /api/custom-chatbot/main with data: {\"messages\":[{\"role\":\"system\",\"content\":\"I will provide you code snippets from the book \\\"The Almanack of Naval Ravikant\\\" from the vector database to help you answer the user's questions. \\nAnswer me on the questions based on provided context. If you don't know the answer, just say \\\"I don't know\\\" and I will try to help you.\"},{\"role\":\"user\",\"content\":\"hello\"}],\"context\":\"The-Almanack-Of-Naval-Ravikant.pdf\",\"useCaseKey\":\"custom-chatbot-main\",\"conversationModel\":\"gpt-3.5-turbo\",\"conversationTemperature\":0.5,\"embeddingModel\":\"text-embedding-3-small\",\"chunkSize\":1024,\"chunkOverlap\":200,\"retrievalSize\":3,\"sourceType\":\"pdf\",\"sourceFilePdf\":{},\"sourceFileTxt\":{},\"sourceUrl\":\"\"}","timestamp":"2024-04-03T11:01:15.143Z"}
+{"level":"info","message":"CustomChatbotService - Tracking token usage for key: custom-chatbot-main","timestamp":"2024-04-03T11:01:15.144Z"}
+{"level":"info","message":"CustomChatbotService - Retrieved Pinecone store for namespace: The-Almanack-Of-Naval-Ravikant.pdf","timestamp":"2024-04-03T11:01:15.236Z"}
+{"level":"info","message":"CustomChatbotService - Generated streaming response for question: hello","timestamp":"2024-04-03T11:01:15.236Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM input","timestamp":"2024-04-03T11:01:15.238Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM output","timestamp":"2024-04-03T11:01:16.310Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from embedding","timestamp":"2024-04-03T11:01:16.311Z"}
+{"level":"info","message":"CustomChatbotService - Calculating embedding tokens for model: text-embedding-3-small","timestamp":"2024-04-03T11:01:16.311Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM input","timestamp":"2024-04-03T11:01:17.051Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM output","timestamp":"2024-04-03T11:01:17.984Z"}
+{"level":"info","message":"POST /api/custom-chatbot/main with data: {\"messages\":[{\"role\":\"system\",\"content\":\"I will provide you code snippets from the book \\\"The Almanack of Naval Ravikant\\\" from the vector database to help you answer the user's questions. \\nAnswer me on the questions based on provided context. If you don't know the answer, just say \\\"I don't know\\\" and I will try to help you.\"},{\"role\":\"user\",\"content\":\"heollo\"}],\"context\":\"The-Almanack-Of-Naval-Ravikant.pdf\",\"useCaseKey\":\"custom-chatbot-main\",\"conversationModel\":\"gpt-3.5-turbo\",\"conversationTemperature\":0.5,\"embeddingModel\":\"text-embedding-3-small\",\"chunkSize\":1024,\"chunkOverlap\":200,\"retrievalSize\":3,\"sourceType\":\"pdf\",\"sourceFilePdf\":{},\"sourceFileTxt\":{},\"sourceUrl\":\"\"}","timestamp":"2024-04-03T11:03:22.495Z"}
+{"level":"info","message":"CustomChatbotService - Tracking token usage for key: custom-chatbot-main","timestamp":"2024-04-03T11:03:22.496Z"}
+{"level":"info","message":"CustomChatbotService - Retrieved Pinecone store for namespace: The-Almanack-Of-Naval-Ravikant.pdf","timestamp":"2024-04-03T11:03:22.599Z"}
+{"level":"info","message":"CustomChatbotService - Generated streaming response for question: heollo","timestamp":"2024-04-03T11:03:22.600Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM input","timestamp":"2024-04-03T11:03:22.604Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM output","timestamp":"2024-04-03T11:03:23.370Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from embedding","timestamp":"2024-04-03T11:03:23.373Z"}
+{"level":"info","message":"CustomChatbotService - Calculating embedding tokens for model: text-embedding-3-small","timestamp":"2024-04-03T11:03:23.373Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM input","timestamp":"2024-04-03T11:03:24.580Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM output","timestamp":"2024-04-03T11:03:26.066Z"}
+{"level":"info","message":"POST /api/pinecone/save-context with data: {\"embeddingModel\":\"text-embedding-3-small\",\"sourceType\":\"text\",\"chunkSize\":\"1024\",\"chunkOverlap\":\"200\",\"fileName\":\"README.md\",\"url\":null,\"file\":{},\"useCaseKey\":\"custom-chatbot-main\"}","timestamp":"2024-04-03T11:07:55.078Z"}
+{"level":"info","message":"PineconeClientConnectionSingleton - Creating Pinecone client instance","timestamp":"2024-04-03T11:07:55.079Z"}
+{"level":"info","message":"PineconeIndexService - Connected to Pinecone index langchain-explorer","timestamp":"2024-04-03T11:07:55.181Z"}
+{"level":"info","message":"PineconeIndexService - Deleted all namespaces except The-Almanack-Of-Naval-Ravikant.pdf","timestamp":"2024-04-03T11:07:56.145Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from embedding","timestamp":"2024-04-03T11:07:56.156Z"}
+{"level":"info","message":"PineconeIndexService - Saved documents to vector store","timestamp":"2024-04-03T11:07:57.481Z"}
+{"level":"info","message":"POST /api/pinecone/save-context with data: {\"embeddingModel\":\"text-embedding-3-small\",\"sourceType\":\"text\",\"chunkSize\":\"1024\",\"chunkOverlap\":\"200\",\"fileName\":\"vite.config.js\",\"url\":null,\"file\":{},\"useCaseKey\":\"custom-chatbot-main\"}","timestamp":"2024-04-03T11:08:51.774Z"}
+{"level":"info","message":"PineconeClientConnectionSingleton - Creating Pinecone client instance","timestamp":"2024-04-03T11:08:51.774Z"}
+{"level":"info","message":"PineconeIndexService - Connected to Pinecone index langchain-explorer","timestamp":"2024-04-03T11:08:51.889Z"}
+{"level":"info","message":"PineconeIndexService - Deleted all namespaces except The-Almanack-Of-Naval-Ravikant.pdf","timestamp":"2024-04-03T11:08:53.041Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from embedding","timestamp":"2024-04-03T11:08:53.044Z"}
+{"level":"info","message":"PineconeIndexService - Saved documents to vector store","timestamp":"2024-04-03T11:08:53.858Z"}
+{"level":"info","message":"POST /api/pinecone/save-context with data: {\"embeddingModel\":\"text-embedding-3-small\",\"sourceType\":\"text\",\"chunkSize\":\"1024\",\"chunkOverlap\":\"200\",\"fileName\":\"tailwind.config.js\",\"url\":null,\"file\":{},\"useCaseKey\":\"custom-chatbot-main\"}","timestamp":"2024-04-03T11:14:46.595Z"}
+{"level":"info","message":"PineconeClientConnectionSingleton - Creating Pinecone client instance","timestamp":"2024-04-03T11:14:46.596Z"}
+{"level":"info","message":"PineconeIndexService - Connected to Pinecone index langchain-explorer","timestamp":"2024-04-03T11:14:46.688Z"}
+{"level":"info","message":"PineconeIndexService - Deleted all namespaces except The-Almanack-Of-Naval-Ravikant.pdf","timestamp":"2024-04-03T11:14:47.877Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from embedding","timestamp":"2024-04-03T11:14:47.884Z"}
+{"level":"info","message":"PineconeIndexService - Saved documents to vector store","timestamp":"2024-04-03T11:14:50.778Z"}
+{"level":"info","message":"POST /api/pinecone/save-context with data: {\"embeddingModel\":\"text-embedding-3-small\",\"sourceType\":\"text\",\"chunkSize\":\"1024\",\"chunkOverlap\":\"200\",\"fileName\":\"vite.config.js\",\"url\":null,\"file\":{},\"useCaseKey\":\"custom-chatbot-main\"}","timestamp":"2024-04-03T11:16:56.187Z"}
+{"level":"info","message":"PineconeClientConnectionSingleton - Creating Pinecone client instance","timestamp":"2024-04-03T11:16:56.188Z"}
+{"level":"info","message":"PineconeIndexService - Connected to Pinecone index langchain-explorer","timestamp":"2024-04-03T11:16:56.327Z"}
+{"level":"info","message":"PineconeIndexService - Deleted all namespaces except The-Almanack-Of-Naval-Ravikant.pdf","timestamp":"2024-04-03T11:16:56.992Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from embedding","timestamp":"2024-04-03T11:16:56.995Z"}
+{"level":"info","message":"PineconeIndexService - Saved documents to vector store","timestamp":"2024-04-03T11:16:59.564Z"}
+{"level":"info","message":"POST /api/pinecone/save-context with data: {\"embeddingModel\":\"text-embedding-3-small\",\"sourceType\":\"text\",\"chunkSize\":\"1024\",\"chunkOverlap\":\"200\",\"fileName\":\"vite.config.js\",\"url\":null,\"file\":{},\"useCaseKey\":\"custom-chatbot-main\"}","timestamp":"2024-04-03T11:17:53.766Z"}
+{"level":"info","message":"PineconeClientConnectionSingleton - Creating Pinecone client instance","timestamp":"2024-04-03T11:17:53.766Z"}
+{"level":"info","message":"PineconeIndexService - Connected to Pinecone index langchain-explorer","timestamp":"2024-04-03T11:17:53.862Z"}
+{"level":"info","message":"PineconeIndexService - Deleted all namespaces except The-Almanack-Of-Naval-Ravikant.pdf","timestamp":"2024-04-03T11:17:54.553Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from embedding","timestamp":"2024-04-03T11:17:54.555Z"}
+{"level":"info","message":"PineconeIndexService - Saved documents to vector store","timestamp":"2024-04-03T11:17:55.332Z"}
+{"level":"info","message":"POST /api/custom-chatbot/main with data: {\"messages\":[{\"role\":\"system\",\"content\":\"I will provide you code snippets from the book \\\"The Almanack of Naval Ravikant\\\" from the vector database to help you answer the user's questions. \\nAnswer me on the questions based on provided context. If you don't know the answer, just say \\\"I don't know\\\" and I will try to help you.\"},{\"role\":\"user\",\"content\":\"sdfsdf\"}],\"conversationModel\":\"gpt-3.5-turbo\",\"conversationTemperature\":0.5,\"embeddingModel\":\"text-embedding-3-small\",\"chunkSize\":1024,\"chunkOverlap\":200,\"retrievalSize\":3,\"sourceType\":\"text\",\"sourceFilePdf\":{},\"sourceFileTxt\":{},\"sourceUrl\":\"\",\"context\":\"vite.config.js\",\"useCaseKey\":\"custom-chatbot-main\"}","timestamp":"2024-04-03T11:18:02.855Z"}
+{"level":"info","message":"CustomChatbotService - Tracking token usage for key: custom-chatbot-main","timestamp":"2024-04-03T11:18:02.856Z"}
+{"level":"info","message":"CustomChatbotService - Retrieved Pinecone store for namespace: vite.config.js","timestamp":"2024-04-03T11:18:03.086Z"}
+{"level":"info","message":"CustomChatbotService - Generated streaming response for question: sdfsdf","timestamp":"2024-04-03T11:18:03.087Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM input","timestamp":"2024-04-03T11:18:03.091Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM output","timestamp":"2024-04-03T11:18:03.969Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from embedding","timestamp":"2024-04-03T11:18:03.975Z"}
+{"level":"info","message":"CustomChatbotService - Calculating embedding tokens for model: text-embedding-3-small","timestamp":"2024-04-03T11:18:03.976Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM input","timestamp":"2024-04-03T11:18:07.211Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM output","timestamp":"2024-04-03T11:18:09.039Z"}
+{"level":"info","message":"POST /api/pinecone/save-context with data: {\"embeddingModel\":\"text-embedding-3-small\",\"sourceType\":\"text\",\"chunkSize\":\"1024\",\"chunkOverlap\":\"200\",\"fileName\":\"tailwind.config.js\",\"url\":null,\"file\":{},\"useCaseKey\":\"custom-chatbot-main\"}","timestamp":"2024-04-03T11:21:29.309Z"}
+{"level":"info","message":"PineconeClientConnectionSingleton - Creating Pinecone client instance","timestamp":"2024-04-03T11:21:29.310Z"}
+{"level":"info","message":"PineconeIndexService - Connected to Pinecone index langchain-explorer","timestamp":"2024-04-03T11:21:29.444Z"}
+{"level":"info","message":"PineconeIndexService - Deleted all namespaces except The-Almanack-Of-Naval-Ravikant.pdf","timestamp":"2024-04-03T11:21:30.343Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from embedding","timestamp":"2024-04-03T11:21:30.349Z"}
+{"level":"info","message":"PineconeIndexService - Saved documents to vector store","timestamp":"2024-04-03T11:21:33.296Z"}
+{"level":"info","message":"POST /api/pinecone/save-context with data: {\"embeddingModel\":\"text-embedding-3-small\",\"sourceType\":\"text\",\"chunkSize\":\"1024\",\"chunkOverlap\":\"200\",\"fileName\":\"tailwind.config.js\",\"url\":null,\"file\":{},\"useCaseKey\":\"custom-chatbot-main\"}","timestamp":"2024-04-03T11:22:54.849Z"}
+{"level":"info","message":"PineconeClientConnectionSingleton - Creating Pinecone client instance","timestamp":"2024-04-03T11:22:54.850Z"}
+{"level":"info","message":"PineconeIndexService - Connected to Pinecone index langchain-explorer","timestamp":"2024-04-03T11:22:54.972Z"}
+{"level":"info","message":"PineconeIndexService - Deleted all namespaces except The-Almanack-Of-Naval-Ravikant.pdf","timestamp":"2024-04-03T11:22:55.798Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from embedding","timestamp":"2024-04-03T11:22:55.803Z"}
+{"level":"info","message":"PineconeIndexService - Saved documents to vector store","timestamp":"2024-04-03T11:22:58.917Z"}
+{"level":"info","message":"POST /api/custom-chatbot/main with data: {\"messages\":[{\"role\":\"system\",\"content\":\"I will provide you code snippets from the book \\\"The Almanack of Naval Ravikant\\\" from the vector database to help you answer the user's questions. \\nAnswer me on the questions based on provided context. If you don't know the answer, just say \\\"I don't know\\\" and I will try to help you.\"},{\"role\":\"user\",\"content\":\"ahoj\"}],\"conversationModel\":\"gpt-3.5-turbo\",\"conversationTemperature\":0.5,\"embeddingModel\":\"text-embedding-3-small\",\"chunkSize\":1024,\"chunkOverlap\":200,\"retrievalSize\":3,\"sourceType\":\"text\",\"sourceFilePdf\":{},\"sourceFileTxt\":{},\"sourceUrl\":\"\",\"context\":\"tailwind.config.js\",\"useCaseKey\":\"custom-chatbot-main\"}","timestamp":"2024-04-03T11:23:10.620Z"}
+{"level":"info","message":"CustomChatbotService - Tracking token usage for key: custom-chatbot-main","timestamp":"2024-04-03T11:23:10.621Z"}
+{"level":"info","message":"CustomChatbotService - Retrieved Pinecone store for namespace: tailwind.config.js","timestamp":"2024-04-03T11:23:10.746Z"}
+{"level":"info","message":"CustomChatbotService - Generated streaming response for question: ahoj","timestamp":"2024-04-03T11:23:10.748Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM input","timestamp":"2024-04-03T11:23:10.757Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM output","timestamp":"2024-04-03T11:23:11.419Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from embedding","timestamp":"2024-04-03T11:23:11.421Z"}
+{"level":"info","message":"CustomChatbotService - Calculating embedding tokens for model: text-embedding-3-small","timestamp":"2024-04-03T11:23:11.421Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM input","timestamp":"2024-04-03T11:23:12.947Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM output","timestamp":"2024-04-03T11:23:14.121Z"}
+{"level":"info","message":"POST /api/custom-chatbot/main with data: {\"messages\":[{\"role\":\"system\",\"content\":\"I will provide you code snippets from the book \\\"The Almanack of Naval Ravikant\\\" from the vector database to help you answer the user's questions. \\nAnswer me on the questions based on provided context. If you don't know the answer, just say \\\"I don't know\\\" and I will try to help you.\"},{\"role\":\"user\",\"content\":\"ahoj\"},{\"role\":\"assistant\",\"content\":\"I'm here and ready to assist you with any questions or tasks you have. Just let me know how I can help!\"},{\"role\":\"user\",\"content\":\"asdf\"}],\"conversationModel\":\"gpt-3.5-turbo\",\"conversationTemperature\":0.5,\"embeddingModel\":\"text-embedding-3-small\",\"chunkSize\":1024,\"chunkOverlap\":200,\"retrievalSize\":3,\"sourceType\":\"text\",\"sourceFilePdf\":{},\"sourceFileTxt\":{},\"sourceUrl\":\"\",\"context\":\"tailwind.config.js\",\"useCaseKey\":\"custom-chatbot-main\"}","timestamp":"2024-04-03T11:23:29.196Z"}
+{"level":"info","message":"CustomChatbotService - Tracking token usage for key: custom-chatbot-main","timestamp":"2024-04-03T11:23:29.197Z"}
+{"level":"info","message":"CustomChatbotService - Retrieved Pinecone store for namespace: tailwind.config.js","timestamp":"2024-04-03T11:23:29.270Z"}
+{"level":"info","message":"CustomChatbotService - Generated streaming response for question: asdf","timestamp":"2024-04-03T11:23:29.271Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM input","timestamp":"2024-04-03T11:23:29.275Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM output","timestamp":"2024-04-03T11:23:30.193Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from embedding","timestamp":"2024-04-03T11:23:30.195Z"}
+{"level":"info","message":"CustomChatbotService - Calculating embedding tokens for model: text-embedding-3-small","timestamp":"2024-04-03T11:23:30.195Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM input","timestamp":"2024-04-03T11:23:30.885Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM output","timestamp":"2024-04-03T11:23:31.878Z"}
+{"level":"info","message":"POST /api/pinecone/save-context with data: {\"embeddingModel\":\"text-embedding-3-small\",\"sourceType\":\"text\",\"chunkSize\":\"1024\",\"chunkOverlap\":\"200\",\"fileName\":\"vite.config.js\",\"url\":null,\"file\":{},\"useCaseKey\":\"custom-chatbot-main\"}","timestamp":"2024-04-03T11:24:27.526Z"}
+{"level":"info","message":"PineconeClientConnectionSingleton - Creating Pinecone client instance","timestamp":"2024-04-03T11:24:27.527Z"}
+{"level":"info","message":"PineconeIndexService - Connected to Pinecone index langchain-explorer","timestamp":"2024-04-03T11:24:27.624Z"}
+{"level":"info","message":"PineconeIndexService - Deleted all namespaces except The-Almanack-Of-Naval-Ravikant.pdf","timestamp":"2024-04-03T11:24:28.280Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from embedding","timestamp":"2024-04-03T11:24:28.281Z"}
+{"level":"info","message":"PineconeIndexService - Saved documents to vector store","timestamp":"2024-04-03T11:24:30.904Z"}
+{"level":"info","message":"POST /api/custom-chatbot/main with data: {\"messages\":[{\"role\":\"system\",\"content\":\"I will provide you code snippets from the book \\\"The Almanack of Naval Ravikant\\\" from the vector database to help you answer the user's questions. \\nAnswer me on the questions based on provided context. If you don't know the answer, just say \\\"I don't know\\\" and I will try to help you.\"},{\"role\":\"user\",\"content\":\"hello\"}],\"conversationModel\":\"gpt-3.5-turbo\",\"conversationTemperature\":0.5,\"embeddingModel\":\"text-embedding-3-small\",\"chunkSize\":1024,\"chunkOverlap\":200,\"retrievalSize\":3,\"sourceType\":\"pdf\",\"sourceFilePdf\":{},\"sourceFileTxt\":{},\"sourceUrl\":\"\",\"context\":\"The-Almanack-Of-Naval-Ravikant.pdf\",\"useCaseKey\":\"custom-chatbot-main\"}","timestamp":"2024-04-03T11:25:33.898Z"}
+{"level":"info","message":"CustomChatbotService - Tracking token usage for key: custom-chatbot-main","timestamp":"2024-04-03T11:25:33.900Z"}
+{"level":"info","message":"CustomChatbotService - Retrieved Pinecone store for namespace: The-Almanack-Of-Naval-Ravikant.pdf","timestamp":"2024-04-03T11:25:34.065Z"}
+{"level":"info","message":"CustomChatbotService - Generated streaming response for question: hello","timestamp":"2024-04-03T11:25:34.066Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM input","timestamp":"2024-04-03T11:25:34.072Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM output","timestamp":"2024-04-03T11:25:34.684Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from embedding","timestamp":"2024-04-03T11:25:34.686Z"}
+{"level":"info","message":"CustomChatbotService - Calculating embedding tokens for model: text-embedding-3-small","timestamp":"2024-04-03T11:25:34.686Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM input","timestamp":"2024-04-03T11:25:36.409Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM output","timestamp":"2024-04-03T11:25:37.849Z"}
+{"level":"info","message":"POST /api/pinecone/save-context with data: {\"embeddingModel\":\"text-embedding-3-small\",\"sourceType\":\"text\",\"chunkSize\":\"1024\",\"chunkOverlap\":\"200\",\"fileName\":\"tailwind.config.js\",\"url\":null,\"file\":{},\"useCaseKey\":\"custom-chatbot-main\"}","timestamp":"2024-04-03T11:25:45.258Z"}
+{"level":"info","message":"PineconeClientConnectionSingleton - Creating Pinecone client instance","timestamp":"2024-04-03T11:25:45.258Z"}
+{"level":"info","message":"PineconeIndexService - Connected to Pinecone index langchain-explorer","timestamp":"2024-04-03T11:25:45.378Z"}
+{"level":"info","message":"PineconeIndexService - Deleted all namespaces except The-Almanack-Of-Naval-Ravikant.pdf","timestamp":"2024-04-03T11:25:46.812Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from embedding","timestamp":"2024-04-03T11:25:46.816Z"}
+{"level":"info","message":"PineconeIndexService - Saved documents to vector store","timestamp":"2024-04-03T11:25:49.398Z"}
+{"level":"info","message":"POST /api/pinecone/save-context with data: {\"embeddingModel\":\"text-embedding-3-small\",\"sourceType\":\"text\",\"chunkSize\":\"1024\",\"chunkOverlap\":\"200\",\"fileName\":\"tailwind.config.js\",\"url\":null,\"file\":{},\"useCaseKey\":\"custom-chatbot-main\"}","timestamp":"2024-04-03T11:26:57.972Z"}
+{"level":"info","message":"PineconeClientConnectionSingleton - Creating Pinecone client instance","timestamp":"2024-04-03T11:26:57.972Z"}
+{"level":"info","message":"PineconeIndexService - Connected to Pinecone index langchain-explorer","timestamp":"2024-04-03T11:26:58.066Z"}
+{"level":"info","message":"PineconeIndexService - Deleted all namespaces except The-Almanack-Of-Naval-Ravikant.pdf","timestamp":"2024-04-03T11:26:58.800Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from embedding","timestamp":"2024-04-03T11:26:58.804Z"}
+{"level":"info","message":"PineconeIndexService - Saved documents to vector store","timestamp":"2024-04-03T11:27:00.742Z"}
+{"level":"info","message":"POST /api/custom-chatbot/main with data: {\"messages\":[{\"role\":\"system\",\"content\":\"I will provide you code snippets from the book \\\"The Almanack of Naval Ravikant\\\" from the vector database to help you answer the user's questions. \\nAnswer me on the questions based on provided context. If you don't know the answer, just say \\\"I don't know\\\" and I will try to help you.\"},{\"role\":\"user\",\"content\":\"test\"}],\"conversationModel\":\"gpt-3.5-turbo\",\"conversationTemperature\":0.5,\"embeddingModel\":\"text-embedding-3-small\",\"chunkSize\":1024,\"chunkOverlap\":200,\"retrievalSize\":3,\"sourceType\":\"text\",\"sourceFilePdf\":{},\"sourceFileTxt\":{},\"sourceUrl\":\"\",\"context\":\"tailwind.config.js\",\"useCaseKey\":\"custom-chatbot-main\"}","timestamp":"2024-04-03T11:27:08.334Z"}
+{"level":"info","message":"CustomChatbotService - Tracking token usage for key: custom-chatbot-main","timestamp":"2024-04-03T11:27:08.335Z"}
+{"level":"info","message":"CustomChatbotService - Retrieved Pinecone store for namespace: tailwind.config.js","timestamp":"2024-04-03T11:27:08.409Z"}
+{"level":"info","message":"CustomChatbotService - Generated streaming response for question: test","timestamp":"2024-04-03T11:27:08.410Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM input","timestamp":"2024-04-03T11:27:08.414Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM output","timestamp":"2024-04-03T11:27:09.037Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from embedding","timestamp":"2024-04-03T11:27:09.041Z"}
+{"level":"info","message":"CustomChatbotService - Calculating embedding tokens for model: text-embedding-3-small","timestamp":"2024-04-03T11:27:09.042Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM input","timestamp":"2024-04-03T11:27:10.973Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM output","timestamp":"2024-04-03T11:27:12.160Z"}
+{"level":"info","message":"POST /api/custom-chatbot/main with data: {\"messages\":[{\"role\":\"system\",\"content\":\"I will provide you code snippets from the book \\\"The Almanack of Naval Ravikant\\\" from the vector database to help you answer the user's questions. \\nAnswer me on the questions based on provided context. If you don't know the answer, just say \\\"I don't know\\\" and I will try to help you.\"},{\"role\":\"user\",\"content\":\"test\"},{\"role\":\"assistant\",\"content\":\"I'm sorry, I don't have enough information to clarify what is meant by \\\"test\\\" in this context.\"},{\"role\":\"user\",\"content\":\"thanks\"}],\"conversationModel\":\"gpt-3.5-turbo\",\"conversationTemperature\":0.5,\"embeddingModel\":\"text-embedding-3-small\",\"chunkSize\":1024,\"chunkOverlap\":200,\"retrievalSize\":3,\"sourceType\":\"text\",\"sourceFilePdf\":{},\"sourceFileTxt\":{},\"sourceUrl\":\"\",\"context\":\"tailwind.config.js\",\"useCaseKey\":\"custom-chatbot-main\"}","timestamp":"2024-04-03T11:27:21.584Z"}
+{"level":"info","message":"CustomChatbotService - Tracking token usage for key: custom-chatbot-main","timestamp":"2024-04-03T11:27:21.585Z"}
+{"level":"info","message":"CustomChatbotService - Retrieved Pinecone store for namespace: tailwind.config.js","timestamp":"2024-04-03T11:27:21.670Z"}
+{"level":"info","message":"CustomChatbotService - Generated streaming response for question: thanks","timestamp":"2024-04-03T11:27:21.670Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM input","timestamp":"2024-04-03T11:27:21.672Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM output","timestamp":"2024-04-03T11:27:22.558Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from embedding","timestamp":"2024-04-03T11:27:22.559Z"}
+{"level":"info","message":"CustomChatbotService - Calculating embedding tokens for model: text-embedding-3-small","timestamp":"2024-04-03T11:27:22.560Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM input","timestamp":"2024-04-03T11:27:23.482Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM output","timestamp":"2024-04-03T11:27:24.951Z"}
+{"level":"info","message":"POST /api/pinecone/save-context with data: {\"embeddingModel\":\"text-embedding-3-small\",\"sourceType\":\"text\",\"chunkSize\":\"1024\",\"chunkOverlap\":\"200\",\"fileName\":\"vite.config.js\",\"url\":null,\"file\":{},\"useCaseKey\":\"custom-chatbot-main\"}","timestamp":"2024-04-03T11:27:39.237Z"}
+{"level":"info","message":"PineconeIndexService - Connected to Pinecone index langchain-explorer","timestamp":"2024-04-03T11:27:39.266Z"}
+{"level":"info","message":"PineconeIndexService - Deleted all namespaces except The-Almanack-Of-Naval-Ravikant.pdf","timestamp":"2024-04-03T11:27:39.530Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from embedding","timestamp":"2024-04-03T11:27:39.531Z"}
+{"level":"info","message":"PineconeIndexService - Saved documents to vector store","timestamp":"2024-04-03T11:27:42.141Z"}
+{"level":"info","message":"POST /api/pinecone/save-context with data: {\"embeddingModel\":\"text-embedding-3-small\",\"sourceType\":\"text\",\"chunkSize\":\"1024\",\"chunkOverlap\":\"200\",\"fileName\":\"tailwind.config.js\",\"url\":null,\"file\":{},\"useCaseKey\":\"custom-chatbot-main\"}","timestamp":"2024-04-03T11:30:17.764Z"}
+{"level":"info","message":"PineconeClientConnectionSingleton - Creating Pinecone client instance","timestamp":"2024-04-03T11:30:17.764Z"}
+{"level":"info","message":"PineconeIndexService - Connected to Pinecone index langchain-explorer","timestamp":"2024-04-03T11:30:17.850Z"}
+{"level":"info","message":"PineconeIndexService - Deleted all namespaces except The-Almanack-Of-Naval-Ravikant.pdf","timestamp":"2024-04-03T11:30:18.987Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from embedding","timestamp":"2024-04-03T11:30:18.992Z"}
+{"level":"info","message":"PineconeIndexService - Saved documents to vector store","timestamp":"2024-04-03T11:30:22.293Z"}
+{"level":"info","message":"POST /api/pinecone/save-context with data: {\"embeddingModel\":\"text-embedding-3-small\",\"sourceType\":\"text\",\"chunkSize\":\"1024\",\"chunkOverlap\":\"200\",\"fileName\":\"vite.config.js\",\"url\":null,\"file\":{},\"useCaseKey\":\"custom-chatbot-main\"}","timestamp":"2024-04-03T11:31:01.723Z"}
+{"level":"info","message":"PineconeClientConnectionSingleton - Creating Pinecone client instance","timestamp":"2024-04-03T11:31:01.724Z"}
+{"level":"info","message":"PineconeIndexService - Connected to Pinecone index langchain-explorer","timestamp":"2024-04-03T11:31:01.826Z"}
+{"level":"info","message":"PineconeIndexService - Deleted all namespaces except The-Almanack-Of-Naval-Ravikant.pdf","timestamp":"2024-04-03T11:31:03.123Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from embedding","timestamp":"2024-04-03T11:31:03.125Z"}
+{"level":"info","message":"PineconeIndexService - Saved documents to vector store","timestamp":"2024-04-03T11:31:05.092Z"}
+{"level":"info","message":"POST /api/custom-chatbot/main with data: {\"messages\":[{\"role\":\"system\",\"content\":\"I will provide you code snippets from the book \\\"The Almanack of Naval Ravikant\\\" from the vector database to help you answer the user's questions. \\nAnswer me on the questions based on provided context. If you don't know the answer, just say \\\"I don't know\\\" and I will try to help you.\"},{\"role\":\"user\",\"content\":\"sdf\"}],\"conversationModel\":\"gpt-3.5-turbo\",\"conversationTemperature\":0.5,\"embeddingModel\":\"text-embedding-3-small\",\"chunkSize\":1024,\"chunkOverlap\":200,\"retrievalSize\":3,\"sourceType\":\"text\",\"sourceFilePdf\":{},\"sourceFileTxt\":{},\"sourceUrl\":\"\",\"context\":\"vite.config.js\",\"useCaseKey\":\"custom-chatbot-main\"}","timestamp":"2024-04-03T11:31:21.925Z"}
+{"level":"info","message":"CustomChatbotService - Tracking token usage for key: custom-chatbot-main","timestamp":"2024-04-03T11:31:21.925Z"}
+{"level":"info","message":"CustomChatbotService - Retrieved Pinecone store for namespace: vite.config.js","timestamp":"2024-04-03T11:31:22.025Z"}
+{"level":"info","message":"CustomChatbotService - Generated streaming response for question: sdf","timestamp":"2024-04-03T11:31:22.026Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM input","timestamp":"2024-04-03T11:31:22.029Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM output","timestamp":"2024-04-03T11:31:22.809Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from embedding","timestamp":"2024-04-03T11:31:22.814Z"}
+{"level":"info","message":"CustomChatbotService - Calculating embedding tokens for model: text-embedding-3-small","timestamp":"2024-04-03T11:31:22.814Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM input","timestamp":"2024-04-03T11:31:24.197Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM output","timestamp":"2024-04-03T11:31:25.452Z"}
+{"level":"info","message":"POST /api/pinecone/save-context with data: {\"embeddingModel\":\"text-embedding-3-small\",\"sourceType\":\"text\",\"chunkSize\":\"1024\",\"chunkOverlap\":\"200\",\"fileName\":\"vite.config.js\",\"url\":null,\"file\":{},\"useCaseKey\":\"custom-chatbot-main\"}","timestamp":"2024-04-03T11:32:16.761Z"}
+{"level":"info","message":"PineconeClientConnectionSingleton - Creating Pinecone client instance","timestamp":"2024-04-03T11:32:16.761Z"}
+{"level":"info","message":"PineconeIndexService - Connected to Pinecone index langchain-explorer","timestamp":"2024-04-03T11:32:16.848Z"}
+{"level":"info","message":"PineconeIndexService - Deleted all namespaces except The-Almanack-Of-Naval-Ravikant.pdf","timestamp":"2024-04-03T11:32:18.176Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from embedding","timestamp":"2024-04-03T11:32:18.181Z"}
+{"level":"info","message":"PineconeIndexService - Saved documents to vector store","timestamp":"2024-04-03T11:32:20.920Z"}
+{"level":"info","message":"POST /api/pinecone/save-context with data: {\"embeddingModel\":\"text-embedding-3-small\",\"sourceType\":\"text\",\"chunkSize\":\"1024\",\"chunkOverlap\":\"200\",\"fileName\":\"vite.config.js\",\"url\":null,\"file\":{},\"useCaseKey\":\"custom-chatbot-main\"}","timestamp":"2024-04-03T11:33:08.470Z"}
+{"level":"info","message":"PineconeClientConnectionSingleton - Creating Pinecone client instance","timestamp":"2024-04-03T11:33:08.470Z"}
+{"level":"info","message":"PineconeIndexService - Connected to Pinecone index langchain-explorer","timestamp":"2024-04-03T11:33:08.566Z"}
+{"level":"info","message":"PineconeIndexService - Deleted all namespaces except The-Almanack-Of-Naval-Ravikant.pdf","timestamp":"2024-04-03T11:33:09.273Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from embedding","timestamp":"2024-04-03T11:33:09.275Z"}
+{"level":"info","message":"PineconeIndexService - Saved documents to vector store","timestamp":"2024-04-03T11:33:10.155Z"}
+{"level":"info","message":"POST /api/custom-chatbot/main with data: {\"messages\":[{\"role\":\"system\",\"content\":\"I will provide you code snippets from the book \\\"The Almanack of Naval Ravikant\\\" from the vector database to help you answer the user's questions. \\nAnswer me on the questions based on provided context. If you don't know the answer, just say \\\"I don't know\\\" and I will try to help you.\"},{\"role\":\"user\",\"content\":\"sdf\"}],\"conversationModel\":\"gpt-3.5-turbo\",\"conversationTemperature\":0.5,\"embeddingModel\":\"text-embedding-3-small\",\"chunkSize\":1024,\"chunkOverlap\":200,\"retrievalSize\":3,\"sourceType\":\"text\",\"sourceFilePdf\":{},\"sourceFileTxt\":{},\"sourceUrl\":\"\",\"context\":\"vite.config.js\",\"useCaseKey\":\"custom-chatbot-main\"}","timestamp":"2024-04-03T11:33:13.483Z"}
+{"level":"info","message":"CustomChatbotService - Tracking token usage for key: custom-chatbot-main","timestamp":"2024-04-03T11:33:13.484Z"}
+{"level":"info","message":"CustomChatbotService - Retrieved Pinecone store for namespace: vite.config.js","timestamp":"2024-04-03T11:33:13.563Z"}
+{"level":"info","message":"CustomChatbotService - Generated streaming response for question: sdf","timestamp":"2024-04-03T11:33:13.565Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM input","timestamp":"2024-04-03T11:33:13.570Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM output","timestamp":"2024-04-03T11:33:15.554Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from embedding","timestamp":"2024-04-03T11:33:15.558Z"}
+{"level":"info","message":"CustomChatbotService - Calculating embedding tokens for model: text-embedding-3-small","timestamp":"2024-04-03T11:33:15.558Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM input","timestamp":"2024-04-03T11:33:18.974Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM output","timestamp":"2024-04-03T11:33:20.725Z"}
+{"level":"info","message":"POST /api/custom-chatbot/main with data: {\"messages\":[{\"role\":\"system\",\"content\":\"I will provide you code snippets from the book \\\"The Almanack of Naval Ravikant\\\" from the vector database to help you answer the user's questions. \\nAnswer me on the questions based on provided context. If you don't know the answer, just say \\\"I don't know\\\" and I will try to help you.\"},{\"role\":\"user\",\"content\":\"hey\"}],\"conversationModel\":\"gpt-3.5-turbo\",\"conversationTemperature\":0.5,\"embeddingModel\":\"text-embedding-3-small\",\"chunkSize\":1024,\"chunkOverlap\":200,\"retrievalSize\":3,\"sourceType\":\"pdf\",\"sourceFilePdf\":{},\"sourceFileTxt\":{},\"sourceUrl\":\"\",\"context\":\"The-Almanack-Of-Naval-Ravikant.pdf\",\"useCaseKey\":\"custom-chatbot-main\"}","timestamp":"2024-04-03T11:34:02.527Z"}
+{"level":"info","message":"CustomChatbotService - Tracking token usage for key: custom-chatbot-main","timestamp":"2024-04-03T11:34:02.529Z"}
+{"level":"info","message":"CustomChatbotService - Retrieved Pinecone store for namespace: The-Almanack-Of-Naval-Ravikant.pdf","timestamp":"2024-04-03T11:34:02.606Z"}
+{"level":"info","message":"CustomChatbotService - Generated streaming response for question: hey","timestamp":"2024-04-03T11:34:02.607Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM input","timestamp":"2024-04-03T11:34:02.611Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM output","timestamp":"2024-04-03T11:34:03.411Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from embedding","timestamp":"2024-04-03T11:34:03.415Z"}
+{"level":"info","message":"CustomChatbotService - Calculating embedding tokens for model: text-embedding-3-small","timestamp":"2024-04-03T11:34:03.415Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM input","timestamp":"2024-04-03T11:34:04.156Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM output","timestamp":"2024-04-03T11:34:05.573Z"}
+{"level":"info","message":"POST /api/pinecone/save-context with data: {\"embeddingModel\":\"text-embedding-3-small\",\"sourceType\":\"text\",\"chunkSize\":\"1024\",\"chunkOverlap\":\"200\",\"fileName\":\"tailwind.config.js\",\"url\":null,\"file\":{},\"useCaseKey\":\"custom-chatbot-main\"}","timestamp":"2024-04-03T11:34:18.250Z"}
+{"level":"info","message":"PineconeClientConnectionSingleton - Creating Pinecone client instance","timestamp":"2024-04-03T11:34:18.250Z"}
+{"level":"info","message":"PineconeIndexService - Connected to Pinecone index langchain-explorer","timestamp":"2024-04-03T11:34:18.300Z"}
+{"level":"info","message":"PineconeIndexService - Deleted all namespaces except The-Almanack-Of-Naval-Ravikant.pdf","timestamp":"2024-04-03T11:34:18.567Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from embedding","timestamp":"2024-04-03T11:34:18.571Z"}
+{"level":"info","message":"PineconeIndexService - Saved documents to vector store","timestamp":"2024-04-03T11:34:22.006Z"}
+{"level":"info","message":"POST /api/custom-chatbot/main with data: {\"messages\":[{\"role\":\"system\",\"content\":\"I will provide you code snippets from the book \\\"The Almanack of Naval Ravikant\\\" from the vector database to help you answer the user's questions. \\nAnswer me on the questions based on provided context. If you don't know the answer, just say \\\"I don't know\\\" and I will try to help you.\"},{\"role\":\"user\",\"content\":\"huihu\"}],\"conversationModel\":\"gpt-3.5-turbo\",\"conversationTemperature\":0.5,\"embeddingModel\":\"text-embedding-3-small\",\"chunkSize\":1024,\"chunkOverlap\":200,\"retrievalSize\":3,\"sourceType\":\"text\",\"sourceFilePdf\":{},\"sourceFileTxt\":{},\"sourceUrl\":\"\",\"context\":\"tailwind.config.js\",\"useCaseKey\":\"custom-chatbot-main\"}","timestamp":"2024-04-03T11:34:26.558Z"}
+{"level":"info","message":"CustomChatbotService - Tracking token usage for key: custom-chatbot-main","timestamp":"2024-04-03T11:34:26.558Z"}
+{"level":"info","message":"CustomChatbotService - Retrieved Pinecone store for namespace: tailwind.config.js","timestamp":"2024-04-03T11:34:26.609Z"}
+{"level":"info","message":"CustomChatbotService - Generated streaming response for question: huihu","timestamp":"2024-04-03T11:34:26.610Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM input","timestamp":"2024-04-03T11:34:26.612Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM output","timestamp":"2024-04-03T11:34:27.268Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from embedding","timestamp":"2024-04-03T11:34:27.271Z"}
+{"level":"info","message":"CustomChatbotService - Calculating embedding tokens for model: text-embedding-3-small","timestamp":"2024-04-03T11:34:27.271Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM input","timestamp":"2024-04-03T11:34:27.985Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM output","timestamp":"2024-04-03T11:34:29.168Z"}
+{"level":"info","message":"POST /api/custom-chatbot/main with data: {\"messages\":[{\"role\":\"system\",\"content\":\"I will provide you code snippets from the book \\\"The Almanack of Naval Ravikant\\\" from the vector database to help you answer the user's questions. \\nAnswer me on the questions based on provided context. If you don't know the answer, just say \\\"I don't know\\\" and I will try to help you.\"},{\"role\":\"user\",\"content\":\"huihu\"},{\"role\":\"assistant\",\"content\":\"I'm sorry, but I don't have any information about the word \\\"huihu.\\\"\"},{\"role\":\"user\",\"content\":\"okay\"}],\"conversationModel\":\"gpt-3.5-turbo\",\"conversationTemperature\":0.5,\"embeddingModel\":\"text-embedding-3-small\",\"chunkSize\":1024,\"chunkOverlap\":200,\"retrievalSize\":3,\"sourceType\":\"text\",\"sourceFilePdf\":{},\"sourceFileTxt\":{},\"sourceUrl\":\"\",\"context\":\"tailwind.config.js\",\"useCaseKey\":\"custom-chatbot-main\"}","timestamp":"2024-04-03T11:34:35.741Z"}
+{"level":"info","message":"CustomChatbotService - Tracking token usage for key: custom-chatbot-main","timestamp":"2024-04-03T11:34:35.741Z"}
+{"level":"info","message":"CustomChatbotService - Retrieved Pinecone store for namespace: tailwind.config.js","timestamp":"2024-04-03T11:34:35.788Z"}
+{"level":"info","message":"CustomChatbotService - Generated streaming response for question: okay","timestamp":"2024-04-03T11:34:35.789Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM input","timestamp":"2024-04-03T11:34:35.790Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM output","timestamp":"2024-04-03T11:34:36.842Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from embedding","timestamp":"2024-04-03T11:34:36.843Z"}
+{"level":"info","message":"CustomChatbotService - Calculating embedding tokens for model: text-embedding-3-small","timestamp":"2024-04-03T11:34:36.843Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM input","timestamp":"2024-04-03T11:34:37.698Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM output","timestamp":"2024-04-03T11:34:38.938Z"}
+{"level":"info","message":"POST /api/pinecone/save-context with data: {\"embeddingModel\":\"text-embedding-3-small\",\"sourceType\":\"text\",\"chunkSize\":\"1024\",\"chunkOverlap\":\"200\",\"fileName\":\"tailwind.config.js\",\"url\":null,\"file\":{},\"useCaseKey\":\"custom-chatbot-main\"}","timestamp":"2024-04-03T11:34:44.543Z"}
+{"level":"info","message":"PineconeIndexService - Connected to Pinecone index langchain-explorer","timestamp":"2024-04-03T11:34:44.567Z"}
+{"level":"info","message":"PineconeIndexService - Deleted all namespaces except The-Almanack-Of-Naval-Ravikant.pdf","timestamp":"2024-04-03T11:34:44.828Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from embedding","timestamp":"2024-04-03T11:34:44.831Z"}
+{"level":"info","message":"PineconeIndexService - Saved documents to vector store","timestamp":"2024-04-03T11:34:47.815Z"}
+{"level":"info","message":"POST /api/custom-chatbot/main with data: {\"messages\":[{\"role\":\"system\",\"content\":\"I will provide you code snippets from the book \\\"The Almanack of Naval Ravikant\\\" from the vector database to help you answer the user's questions. \\nAnswer me on the questions based on provided context. If you don't know the answer, just say \\\"I don't know\\\" and I will try to help you.\"},{\"role\":\"user\",\"content\":\"asdf\"}],\"conversationModel\":\"gpt-3.5-turbo\",\"conversationTemperature\":0.5,\"embeddingModel\":\"text-embedding-3-small\",\"chunkSize\":1024,\"chunkOverlap\":200,\"retrievalSize\":3,\"sourceType\":\"text\",\"sourceFilePdf\":{},\"sourceFileTxt\":{},\"sourceUrl\":\"\",\"context\":\"tailwind.config.js\",\"useCaseKey\":\"custom-chatbot-main\"}","timestamp":"2024-04-03T11:34:49.785Z"}
+{"level":"info","message":"CustomChatbotService - Tracking token usage for key: custom-chatbot-main","timestamp":"2024-04-03T11:34:49.786Z"}
+{"level":"info","message":"CustomChatbotService - Retrieved Pinecone store for namespace: tailwind.config.js","timestamp":"2024-04-03T11:34:49.848Z"}
+{"level":"info","message":"CustomChatbotService - Generated streaming response for question: asdf","timestamp":"2024-04-03T11:34:49.849Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM input","timestamp":"2024-04-03T11:34:49.850Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM output","timestamp":"2024-04-03T11:34:50.476Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from embedding","timestamp":"2024-04-03T11:34:50.478Z"}
+{"level":"info","message":"CustomChatbotService - Calculating embedding tokens for model: text-embedding-3-small","timestamp":"2024-04-03T11:34:50.478Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM input","timestamp":"2024-04-03T11:34:51.206Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM output","timestamp":"2024-04-03T11:34:52.433Z"}
+{"level":"info","message":"POST /api/custom-chatbot/main with data: {\"messages\":[{\"role\":\"system\",\"content\":\"I will provide you code snippets from the book \\\"The Almanack of Naval Ravikant\\\" from the vector database to help you answer the user's questions. \\nAnswer me on the questions based on provided context. If you don't know the answer, just say \\\"I don't know\\\" and I will try to help you.\"},{\"role\":\"user\",\"content\":\"hey\"}],\"conversationModel\":\"gpt-3.5-turbo\",\"conversationTemperature\":0.5,\"embeddingModel\":\"text-embedding-3-small\",\"chunkSize\":1024,\"chunkOverlap\":200,\"retrievalSize\":3,\"sourceType\":\"pdf\",\"sourceFilePdf\":{},\"sourceFileTxt\":{},\"sourceUrl\":\"\",\"context\":\"The-Almanack-Of-Naval-Ravikant.pdf\",\"useCaseKey\":\"custom-chatbot-main\"}","timestamp":"2024-04-03T11:35:05.757Z"}
+{"level":"info","message":"CustomChatbotService - Tracking token usage for key: custom-chatbot-main","timestamp":"2024-04-03T11:35:05.758Z"}
+{"level":"info","message":"CustomChatbotService - Retrieved Pinecone store for namespace: The-Almanack-Of-Naval-Ravikant.pdf","timestamp":"2024-04-03T11:35:05.809Z"}
+{"level":"info","message":"CustomChatbotService - Generated streaming response for question: hey","timestamp":"2024-04-03T11:35:05.810Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM input","timestamp":"2024-04-03T11:35:05.811Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM output","timestamp":"2024-04-03T11:35:06.291Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from embedding","timestamp":"2024-04-03T11:35:06.293Z"}
+{"level":"info","message":"CustomChatbotService - Calculating embedding tokens for model: text-embedding-3-small","timestamp":"2024-04-03T11:35:06.294Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM input","timestamp":"2024-04-03T11:35:07.076Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM output","timestamp":"2024-04-03T11:35:08.150Z"}
+{"level":"info","message":"POST /api/pinecone/save-context with data: {\"embeddingModel\":\"text-embedding-3-small\",\"sourceType\":\"text\",\"chunkSize\":\"1024\",\"chunkOverlap\":\"200\",\"fileName\":\"tailwind.config.js\",\"url\":null,\"file\":{},\"useCaseKey\":\"custom-chatbot-main\"}","timestamp":"2024-04-03T11:35:18.833Z"}
+{"level":"info","message":"PineconeIndexService - Connected to Pinecone index langchain-explorer","timestamp":"2024-04-03T11:35:18.856Z"}
+{"level":"info","message":"PineconeIndexService - Deleted all namespaces except The-Almanack-Of-Naval-Ravikant.pdf","timestamp":"2024-04-03T11:35:19.124Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from embedding","timestamp":"2024-04-03T11:35:19.127Z"}
+{"level":"info","message":"PineconeIndexService - Saved documents to vector store","timestamp":"2024-04-03T11:35:21.950Z"}
+{"level":"info","message":"POST /api/custom-chatbot/main with data: {\"messages\":[{\"role\":\"system\",\"content\":\"I will provide you code snippets from the book \\\"The Almanack of Naval Ravikant\\\" from the vector database to help you answer the user's questions. \\nAnswer me on the questions based on provided context. If you don't know the answer, just say \\\"I don't know\\\" and I will try to help you.\"},{\"role\":\"user\",\"content\":\"ok\"}],\"conversationModel\":\"gpt-3.5-turbo\",\"conversationTemperature\":0.5,\"embeddingModel\":\"text-embedding-3-small\",\"chunkSize\":1024,\"chunkOverlap\":200,\"retrievalSize\":3,\"sourceType\":\"text\",\"sourceFilePdf\":{},\"sourceFileTxt\":{},\"sourceUrl\":\"\",\"context\":\"tailwind.config.js\",\"useCaseKey\":\"custom-chatbot-main\"}","timestamp":"2024-04-03T11:35:24.522Z"}
+{"level":"info","message":"CustomChatbotService - Tracking token usage for key: custom-chatbot-main","timestamp":"2024-04-03T11:35:24.522Z"}
+{"level":"info","message":"CustomChatbotService - Retrieved Pinecone store for namespace: tailwind.config.js","timestamp":"2024-04-03T11:35:24.572Z"}
+{"level":"info","message":"CustomChatbotService - Generated streaming response for question: ok","timestamp":"2024-04-03T11:35:24.572Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM input","timestamp":"2024-04-03T11:35:24.573Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM output","timestamp":"2024-04-03T11:35:25.392Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from embedding","timestamp":"2024-04-03T11:35:25.394Z"}
+{"level":"info","message":"CustomChatbotService - Calculating embedding tokens for model: text-embedding-3-small","timestamp":"2024-04-03T11:35:25.394Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM input","timestamp":"2024-04-03T11:35:26.028Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM output","timestamp":"2024-04-03T11:35:26.964Z"}
+{"level":"info","message":"POST /api/pinecone/save-context with data: {\"embeddingModel\":\"text-embedding-3-small\",\"sourceType\":\"pdf\",\"chunkSize\":\"1024\",\"chunkOverlap\":\"200\",\"fileName\":\"The-Almanack-Of-Naval-Ravikant.pdf\",\"url\":null,\"file\":{},\"useCaseKey\":\"custom-chatbot-main\"}","timestamp":"2024-04-03T11:35:59.428Z"}
+{"level":"info","message":"PineconeIndexService - Connected to Pinecone index langchain-explorer","timestamp":"2024-04-03T11:35:59.458Z"}
+{"level":"info","message":"PineconeIndexService - Deleted all namespaces except The-Almanack-Of-Naval-Ravikant.pdf","timestamp":"2024-04-03T11:35:59.718Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from embedding","timestamp":"2024-04-03T11:36:00.533Z"}
+{"level":"info","message":"PineconeIndexService - Saved documents to vector store","timestamp":"2024-04-03T11:36:18.395Z"}
+{"level":"info","message":"POST /api/custom-chatbot/main with data: {\"messages\":[{\"role\":\"system\",\"content\":\"I will provide you code snippets from the book \\\"The Almanack of Naval Ravikant\\\" from the vector database to help you answer the user's questions. \\nAnswer me on the questions based on provided context. If you don't know the answer, just say \\\"I don't know\\\" and I will try to help you.\"},{\"role\":\"user\",\"content\":\"ok\"}],\"conversationModel\":\"gpt-3.5-turbo\",\"conversationTemperature\":0.5,\"embeddingModel\":\"text-embedding-3-small\",\"chunkSize\":1024,\"chunkOverlap\":200,\"retrievalSize\":3,\"sourceType\":\"pdf\",\"sourceFilePdf\":{},\"sourceFileTxt\":{},\"sourceUrl\":\"\",\"context\":\"The-Almanack-Of-Naval-Ravikant.pdf\",\"useCaseKey\":\"custom-chatbot-main\"}","timestamp":"2024-04-03T11:36:58.096Z"}
+{"level":"info","message":"CustomChatbotService - Tracking token usage for key: custom-chatbot-main","timestamp":"2024-04-03T11:36:58.096Z"}
+{"level":"info","message":"CustomChatbotService - Retrieved Pinecone store for namespace: The-Almanack-Of-Naval-Ravikant.pdf","timestamp":"2024-04-03T11:36:58.166Z"}
+{"level":"info","message":"CustomChatbotService - Generated streaming response for question: ok","timestamp":"2024-04-03T11:36:58.167Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM input","timestamp":"2024-04-03T11:36:58.169Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM output","timestamp":"2024-04-03T11:36:59.502Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from embedding","timestamp":"2024-04-03T11:36:59.503Z"}
+{"level":"info","message":"CustomChatbotService - Calculating embedding tokens for model: text-embedding-3-small","timestamp":"2024-04-03T11:36:59.504Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM input","timestamp":"2024-04-03T11:37:00.479Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM output","timestamp":"2024-04-03T11:37:01.457Z"}
+{"level":"info","message":"POST /api/custom-chatbot/main with data: {\"messages\":[{\"role\":\"system\",\"content\":\"I will provide you code snippets from the book \\\"The Almanack of Naval Ravikant\\\" from the vector database to help you answer the user's questions. \\nAnswer me on the questions based on provided context. If you don't know the answer, just say \\\"I don't know\\\" and I will try to help you.\"},{\"role\":\"user\",\"content\":\"hey\"}],\"conversationModel\":\"gpt-3.5-turbo\",\"conversationTemperature\":0.5,\"embeddingModel\":\"text-embedding-3-small\",\"chunkSize\":1024,\"chunkOverlap\":200,\"retrievalSize\":3,\"sourceType\":\"pdf\",\"sourceFilePdf\":{},\"sourceFileTxt\":{},\"sourceUrl\":\"\",\"context\":\"The-Almanack-Of-Naval-Ravikant.pdf\",\"useCaseKey\":\"custom-chatbot-main\"}","timestamp":"2024-04-03T11:40:23.226Z"}
+{"level":"info","message":"CustomChatbotService - Tracking token usage for key: custom-chatbot-main","timestamp":"2024-04-03T11:40:23.227Z"}
+{"level":"info","message":"CustomChatbotService - Retrieved Pinecone store for namespace: The-Almanack-Of-Naval-Ravikant.pdf","timestamp":"2024-04-03T11:40:23.357Z"}
+{"level":"info","message":"CustomChatbotService - Generated streaming response for question: hey","timestamp":"2024-04-03T11:40:23.359Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM input","timestamp":"2024-04-03T11:40:23.365Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM output","timestamp":"2024-04-03T11:40:24.101Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from embedding","timestamp":"2024-04-03T11:40:24.105Z"}
+{"level":"info","message":"CustomChatbotService - Calculating embedding tokens for model: text-embedding-3-small","timestamp":"2024-04-03T11:40:24.105Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM input","timestamp":"2024-04-03T11:40:25.554Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM output","timestamp":"2024-04-03T11:40:26.503Z"}
+{"level":"info","message":"POST /api/pinecone/save-context with data: {\"embeddingModel\":\"text-embedding-3-small\",\"sourceType\":\"text\",\"chunkSize\":\"1024\",\"chunkOverlap\":\"200\",\"fileName\":\"vite.config.js\",\"url\":null,\"file\":{},\"useCaseKey\":\"custom-chatbot-main\"}","timestamp":"2024-04-03T11:42:35.672Z"}
+{"level":"info","message":"PineconeClientConnectionSingleton - Creating Pinecone client instance","timestamp":"2024-04-03T11:42:35.672Z"}
+{"level":"info","message":"PineconeIndexService - Connected to Pinecone index langchain-explorer","timestamp":"2024-04-03T11:42:35.791Z"}
+{"level":"info","message":"PineconeIndexService - Deleted all namespaces except The-Almanack-Of-Naval-Ravikant.pdf","timestamp":"2024-04-03T11:42:36.518Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from embedding","timestamp":"2024-04-03T11:42:36.527Z"}
+{"level":"info","message":"PineconeIndexService - Saved documents to vector store","timestamp":"2024-04-03T11:42:39.439Z"}
+{"level":"info","message":"POST /api/pinecone/save-context with data: {\"embeddingModel\":\"text-embedding-3-small\",\"sourceType\":\"pdf\",\"chunkSize\":\"1024\",\"chunkOverlap\":\"200\",\"fileName\":\"The-Almanack-Of-Naval-Ravikant.pdf\",\"url\":null,\"file\":{},\"useCaseKey\":\"custom-chatbot-main\"}","timestamp":"2024-04-03T11:45:04.927Z"}
+{"level":"info","message":"PineconeClientConnectionSingleton - Creating Pinecone client instance","timestamp":"2024-04-03T11:45:04.928Z"}
+{"level":"info","message":"PineconeIndexService - Connected to Pinecone index langchain-explorer","timestamp":"2024-04-03T11:45:05.012Z"}
+{"level":"info","message":"PineconeIndexService - Deleted all namespaces except The-Almanack-Of-Naval-Ravikant.pdf","timestamp":"2024-04-03T11:45:06.146Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from embedding","timestamp":"2024-04-03T11:45:07.200Z"}
+{"level":"info","message":"PineconeIndexService - Saved documents to vector store","timestamp":"2024-04-03T11:45:23.894Z"}
+{"level":"info","message":"POST /api/pinecone/save-context with data: {\"embeddingModel\":\"text-embedding-3-small\",\"sourceType\":\"pdf\",\"chunkSize\":\"1024\",\"chunkOverlap\":\"200\",\"fileName\":\"The-Almanack-Of-Naval-Ravikant.pdf\",\"url\":null,\"file\":{},\"useCaseKey\":\"custom-chatbot-main\"}","timestamp":"2024-04-03T11:46:02.898Z"}
+{"level":"info","message":"PineconeIndexService - Connected to Pinecone index langchain-explorer","timestamp":"2024-04-03T11:46:02.940Z"}
+{"level":"info","message":"PineconeIndexService - Deleted all namespaces except The-Almanack-Of-Naval-Ravikant.pdf","timestamp":"2024-04-03T11:46:03.167Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from embedding","timestamp":"2024-04-03T11:46:03.898Z"}
+{"level":"info","message":"PineconeIndexService - Saved documents to vector store","timestamp":"2024-04-03T11:46:20.719Z"}
+{"level":"info","message":"POST /api/pinecone/save-context with data: {\"embeddingModel\":\"text-embedding-3-small\",\"sourceType\":\"pdf\",\"chunkSize\":\"1024\",\"chunkOverlap\":\"200\",\"fileName\":\"The-Almanack-Of-Naval-Ravikant.pdf\",\"url\":null,\"file\":{},\"useCaseKey\":\"custom-chatbot-main\"}","timestamp":"2024-04-03T11:46:44.425Z"}
+{"level":"info","message":"PineconeIndexService - Connected to Pinecone index langchain-explorer","timestamp":"2024-04-03T11:46:44.455Z"}
+{"level":"info","message":"PineconeIndexService - Deleted all namespaces except The-Almanack-Of-Naval-Ravikant.pdf","timestamp":"2024-04-03T11:46:44.671Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from embedding","timestamp":"2024-04-03T11:46:45.386Z"}
+{"level":"info","message":"PineconeIndexService - Saved documents to vector store","timestamp":"2024-04-03T11:47:02.211Z"}
+{"level":"info","message":"POST /api/pinecone/save-context with data: {\"embeddingModel\":\"text-embedding-3-small\",\"sourceType\":\"pdf\",\"chunkSize\":\"1024\",\"chunkOverlap\":\"200\",\"fileName\":\"The-Almanack-Of-Naval-Ravikant.pdf\",\"url\":null,\"file\":{},\"useCaseKey\":\"custom-chatbot-main\"}","timestamp":"2024-04-03T11:58:35.672Z"}
+{"level":"info","message":"PineconeClientConnectionSingleton - Creating Pinecone client instance","timestamp":"2024-04-03T11:58:35.673Z"}
+{"level":"info","message":"PineconeIndexService - Connected to Pinecone index langchain-explorer","timestamp":"2024-04-03T11:58:35.894Z"}
+{"level":"info","message":"PineconeIndexService - Deleted all namespaces except The-Almanack-Of-Naval-Ravikant.pdf","timestamp":"2024-04-03T11:58:37.311Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from embedding","timestamp":"2024-04-03T11:58:38.310Z"}
+{"level":"info","message":"PineconeIndexService - Saved documents to vector store","timestamp":"2024-04-03T11:58:55.415Z"}
+{"level":"info","message":"POST /api/pinecone/save-context with data: {\"embeddingModel\":\"text-embedding-3-small\",\"sourceType\":\"pdf\",\"chunkSize\":\"1024\",\"chunkOverlap\":\"200\",\"fileName\":\"The-Almanack-Of-Naval-Ravikant.pdf\",\"url\":null,\"file\":{},\"useCaseKey\":\"custom-chatbot-main\"}","timestamp":"2024-04-03T11:59:13.791Z"}
+{"level":"info","message":"PineconeClientConnectionSingleton - Creating Pinecone client instance","timestamp":"2024-04-03T11:59:13.792Z"}
+{"level":"info","message":"PineconeIndexService - Connected to Pinecone index langchain-explorer","timestamp":"2024-04-03T11:59:13.886Z"}
+{"level":"info","message":"PineconeIndexService - Deleted all namespaces except The-Almanack-Of-Naval-Ravikant.pdf","timestamp":"2024-04-03T11:59:14.952Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from embedding","timestamp":"2024-04-03T11:59:15.927Z"}
+{"level":"info","message":"PineconeIndexService - Saved documents to vector store","timestamp":"2024-04-03T11:59:33.511Z"}
+{"level":"info","message":"POST /api/custom-chatbot/main with data: {\"messages\":[{\"role\":\"system\",\"content\":\"I will provide you code snippets from the book \\\"The Almanack of Naval Ravikant\\\" from the vector database to help you answer the user's questions. \\nAnswer me on the questions based on provided context. If you don't know the answer, just say \\\"I don't know\\\" and I will try to help you.\"},{\"role\":\"user\",\"content\":\"HELLO\"}],\"conversationModel\":\"gpt-3.5-turbo\",\"conversationTemperature\":0.5,\"embeddingModel\":\"text-embedding-3-small\",\"chunkSize\":1024,\"chunkOverlap\":200,\"retrievalSize\":3,\"sourceType\":\"pdf\",\"sourceFilePdf\":{},\"sourceFileTxt\":{},\"sourceUrl\":\"\",\"context\":\"The-Almanack-Of-Naval-Ravikant.pdf\",\"useCaseKey\":\"custom-chatbot-main\"}","timestamp":"2024-04-03T11:59:52.836Z"}
+{"level":"info","message":"CustomChatbotService - Tracking token usage for key: custom-chatbot-main","timestamp":"2024-04-03T11:59:52.837Z"}
+{"level":"info","message":"CustomChatbotService - Retrieved Pinecone store for namespace: The-Almanack-Of-Naval-Ravikant.pdf","timestamp":"2024-04-03T11:59:52.958Z"}
+{"level":"info","message":"CustomChatbotService - Generated streaming response for question: HELLO","timestamp":"2024-04-03T11:59:52.961Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM input","timestamp":"2024-04-03T11:59:52.967Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM output","timestamp":"2024-04-03T11:59:53.508Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from embedding","timestamp":"2024-04-03T11:59:53.509Z"}
+{"level":"info","message":"CustomChatbotService - Calculating embedding tokens for model: text-embedding-3-small","timestamp":"2024-04-03T11:59:53.509Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM input","timestamp":"2024-04-03T11:59:54.959Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM output","timestamp":"2024-04-03T11:59:56.544Z"}
+{"level":"info","message":"POST /api/pinecone/save-context with data: {\"embeddingModel\":\"text-embedding-3-small\",\"sourceType\":\"text\",\"chunkSize\":\"1024\",\"chunkOverlap\":\"200\",\"fileName\":\"tailwind.config.js\",\"url\":null,\"file\":{},\"useCaseKey\":\"custom-chatbot-main\"}","timestamp":"2024-04-03T12:00:15.643Z"}
+{"level":"info","message":"PineconeClientConnectionSingleton - Creating Pinecone client instance","timestamp":"2024-04-03T12:00:15.643Z"}
+{"level":"info","message":"PineconeIndexService - Connected to Pinecone index langchain-explorer","timestamp":"2024-04-03T12:00:15.716Z"}
+{"level":"info","message":"PineconeIndexService - Deleted all namespaces except The-Almanack-Of-Naval-Ravikant.pdf","timestamp":"2024-04-03T12:00:15.926Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from embedding","timestamp":"2024-04-03T12:00:15.939Z"}
+{"level":"info","message":"PineconeIndexService - Saved documents to vector store","timestamp":"2024-04-03T12:00:17.882Z"}
+{"level":"info","message":"POST /api/custom-chatbot/main with data: {\"messages\":[{\"role\":\"system\",\"content\":\"I will provide you code snippets from the book \\\"The Almanack of Naval Ravikant\\\" from the vector database to help you answer the user's questions. \\nAnswer me on the questions based on provided context. If you don't know the answer, just say \\\"I don't know\\\" and I will try to help you.\"},{\"role\":\"user\",\"content\":\"E\"}],\"conversationModel\":\"gpt-3.5-turbo\",\"conversationTemperature\":0.5,\"embeddingModel\":\"text-embedding-3-small\",\"chunkSize\":1024,\"chunkOverlap\":200,\"retrievalSize\":3,\"sourceType\":\"text\",\"sourceFilePdf\":{},\"sourceFileTxt\":{},\"sourceUrl\":\"\",\"context\":\"tailwind.config.js\",\"useCaseKey\":\"custom-chatbot-main\"}","timestamp":"2024-04-03T12:00:19.785Z"}
+{"level":"info","message":"CustomChatbotService - Tracking token usage for key: custom-chatbot-main","timestamp":"2024-04-03T12:00:19.786Z"}
+{"level":"info","message":"CustomChatbotService - Retrieved Pinecone store for namespace: tailwind.config.js","timestamp":"2024-04-03T12:00:19.836Z"}
+{"level":"info","message":"CustomChatbotService - Generated streaming response for question: E","timestamp":"2024-04-03T12:00:19.836Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM input","timestamp":"2024-04-03T12:00:19.839Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM output","timestamp":"2024-04-03T12:00:20.553Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from embedding","timestamp":"2024-04-03T12:00:20.557Z"}
+{"level":"info","message":"CustomChatbotService - Calculating embedding tokens for model: text-embedding-3-small","timestamp":"2024-04-03T12:00:20.557Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM input","timestamp":"2024-04-03T12:00:21.233Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM output","timestamp":"2024-04-03T12:00:22.185Z"}
+{"level":"info","message":"POST /api/custom-chatbot/main with data: {\"messages\":[{\"role\":\"system\",\"content\":\"I will provide you code snippets from the book \\\"The Almanack of Naval Ravikant\\\" from the vector database to help you answer the user's questions. \\nAnswer me on the questions based on provided context. If you don't know the answer, just say \\\"I don't know\\\" and I will try to help you.\"},{\"role\":\"user\",\"content\":\"thanks\"}],\"conversationModel\":\"gpt-3.5-turbo\",\"conversationTemperature\":0.5,\"embeddingModel\":\"text-embedding-3-small\",\"chunkSize\":1024,\"chunkOverlap\":200,\"retrievalSize\":3,\"sourceType\":\"pdf\",\"sourceFilePdf\":{},\"sourceFileTxt\":{},\"sourceUrl\":\"\",\"context\":\"The-Almanack-Of-Naval-Ravikant.pdf\",\"useCaseKey\":\"custom-chatbot-main\"}","timestamp":"2024-04-03T12:00:44.347Z"}
+{"level":"info","message":"CustomChatbotService - Tracking token usage for key: custom-chatbot-main","timestamp":"2024-04-03T12:00:44.348Z"}
+{"level":"info","message":"CustomChatbotService - Retrieved Pinecone store for namespace: The-Almanack-Of-Naval-Ravikant.pdf","timestamp":"2024-04-03T12:00:44.402Z"}
+{"level":"info","message":"CustomChatbotService - Generated streaming response for question: thanks","timestamp":"2024-04-03T12:00:44.403Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM input","timestamp":"2024-04-03T12:00:44.406Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM output","timestamp":"2024-04-03T12:00:44.936Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from embedding","timestamp":"2024-04-03T12:00:44.939Z"}
+{"level":"info","message":"CustomChatbotService - Calculating embedding tokens for model: text-embedding-3-small","timestamp":"2024-04-03T12:00:44.939Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM input","timestamp":"2024-04-03T12:00:45.719Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM output","timestamp":"2024-04-03T12:00:46.488Z"}
+{"level":"info","message":"POST /api/custom-chatbot/sample with data: {\"messages\":[{\"role\":\"system\",\"content\":\"I will provide you code snippets from the book \\\"The Almanack of Naval Ravikant\\\" from the vector database to help you answer the user's questions. \\nAnswer me on the questions based on provided context. If you don't know the answer, just say \\\"I don't know\\\" and I will try to help you.\"},{\"role\":\"user\",\"content\":\"hello\"}],\"context\":\"The-Almanack-Of-Naval-Ravikant.pdf\",\"useCaseKey\":\"custom-chatbot-sample\"}","timestamp":"2024-04-03T12:02:24.965Z"}
+{"level":"info","message":"CustomChatbotService - Tracking token usage for key: custom-chatbot-sample","timestamp":"2024-04-03T12:02:24.967Z"}
+{"level":"info","message":"CustomChatbotService - Retrieved Pinecone store for namespace: The-Almanack-Of-Naval-Ravikant.pdf","timestamp":"2024-04-03T12:02:25.173Z"}
+{"level":"info","message":"CustomChatbotService - Generated streaming response for question: hello","timestamp":"2024-04-03T12:02:25.174Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM input","timestamp":"2024-04-03T12:02:25.179Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM output","timestamp":"2024-04-03T12:02:25.646Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from embedding","timestamp":"2024-04-03T12:02:25.647Z"}
+{"level":"info","message":"CustomChatbotService - Calculating embedding tokens for model: text-embedding-3-small","timestamp":"2024-04-03T12:02:25.647Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM input","timestamp":"2024-04-03T12:02:26.793Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM output","timestamp":"2024-04-03T12:02:28.560Z"}
+{"level":"info","message":"POST /api/custom-chatbot/sample with data: {\"messages\":[{\"role\":\"system\",\"content\":\"I will provide you code snippets from the book \\\"The Almanack of Naval Ravikant\\\" from the vector database to help you answer the user's questions. \\nAnswer me on the questions based on provided context. If you don't know the answer, just say \\\"I don't know\\\" and I will try to help you.\"},{\"role\":\"user\",\"content\":\"hey\"}],\"context\":\"The-Almanack-Of-Naval-Ravikant.pdf\",\"useCaseKey\":\"custom-chatbot-sample\"}","timestamp":"2024-04-03T12:02:57.400Z"}
+{"level":"info","message":"CustomChatbotService - Tracking token usage for key: custom-chatbot-sample","timestamp":"2024-04-03T12:02:57.401Z"}
+{"level":"info","message":"CustomChatbotService - Retrieved Pinecone store for namespace: The-Almanack-Of-Naval-Ravikant.pdf","timestamp":"2024-04-03T12:02:57.537Z"}
+{"level":"info","message":"CustomChatbotService - Generated streaming response for question: hey","timestamp":"2024-04-03T12:02:57.538Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM input","timestamp":"2024-04-03T12:02:57.543Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM output","timestamp":"2024-04-03T12:02:58.036Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from embedding","timestamp":"2024-04-03T12:02:58.037Z"}
+{"level":"info","message":"CustomChatbotService - Calculating embedding tokens for model: text-embedding-3-small","timestamp":"2024-04-03T12:02:58.037Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM input","timestamp":"2024-04-03T12:02:59.291Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM output","timestamp":"2024-04-03T12:03:00.686Z"}
+{"level":"info","message":"POST /api/custom-chatbot/main with data: {\"messages\":[{\"role\":\"system\",\"content\":\"I will provide you code snippets from the book \\\"The Almanack of Naval Ravikant\\\" from the vector database to help you answer the user's questions. \\nAnswer me on the questions based on provided context. If you don't know the answer, just say \\\"I don't know\\\" and I will try to help you.\"},{\"role\":\"user\",\"content\":\"hello\"}],\"conversationModel\":\"gpt-3.5-turbo\",\"conversationTemperature\":0.5,\"embeddingModel\":\"text-embedding-3-small\",\"chunkSize\":1024,\"chunkOverlap\":200,\"retrievalSize\":3,\"sourceType\":\"pdf\",\"sourceFilePdf\":{},\"sourceFileTxt\":{},\"sourceUrl\":\"\",\"context\":\"The-Almanack-Of-Naval-Ravikant.pdf\",\"useCaseKey\":\"custom-chatbot-main\"}","timestamp":"2024-04-03T12:03:36.638Z"}
+{"level":"info","message":"CustomChatbotService - Tracking token usage for key: custom-chatbot-main","timestamp":"2024-04-03T12:03:36.641Z"}
+{"level":"info","message":"CustomChatbotService - Retrieved Pinecone store for namespace: The-Almanack-Of-Naval-Ravikant.pdf","timestamp":"2024-04-03T12:03:36.803Z"}
+{"level":"info","message":"CustomChatbotService - Generated streaming response for question: hello","timestamp":"2024-04-03T12:03:36.804Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM input","timestamp":"2024-04-03T12:03:36.808Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM output","timestamp":"2024-04-03T12:03:37.630Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from embedding","timestamp":"2024-04-03T12:03:37.633Z"}
+{"level":"info","message":"CustomChatbotService - Calculating embedding tokens for model: text-embedding-3-small","timestamp":"2024-04-03T12:03:37.633Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM input","timestamp":"2024-04-03T12:03:38.782Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM output","timestamp":"2024-04-03T12:03:40.154Z"}
+{"level":"info","message":"POST /api/pinecone/save-context with data: {\"embeddingModel\":\"text-embedding-3-small\",\"sourceType\":\"text\",\"chunkSize\":\"1024\",\"chunkOverlap\":\"200\",\"fileName\":\"tailwind.config.js\",\"url\":null,\"file\":{},\"useCaseKey\":\"custom-chatbot-main\"}","timestamp":"2024-04-03T12:03:57.824Z"}
+{"level":"info","message":"PineconeClientConnectionSingleton - Creating Pinecone client instance","timestamp":"2024-04-03T12:03:57.824Z"}
+{"level":"info","message":"PineconeIndexService - Connected to Pinecone index langchain-explorer","timestamp":"2024-04-03T12:03:58.006Z"}
+{"level":"info","message":"PineconeIndexService - Deleted all namespaces except The-Almanack-Of-Naval-Ravikant.pdf","timestamp":"2024-04-03T12:03:58.768Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from embedding","timestamp":"2024-04-03T12:03:58.772Z"}
+{"level":"info","message":"PineconeIndexService - Saved documents to vector store","timestamp":"2024-04-03T12:03:59.989Z"}
+{"level":"info","message":"POST /api/custom-chatbot/main with data: {\"messages\":[{\"role\":\"system\",\"content\":\"I will provide you code snippets from the book \\\"The Almanack of Naval Ravikant\\\" from the vector database to help you answer the user's questions. \\nAnswer me on the questions based on provided context. If you don't know the answer, just say \\\"I don't know\\\" and I will try to help you.\"},{\"role\":\"user\",\"content\":\"ok\"}],\"conversationModel\":\"gpt-3.5-turbo\",\"conversationTemperature\":0.5,\"embeddingModel\":\"text-embedding-3-small\",\"chunkSize\":1024,\"chunkOverlap\":200,\"retrievalSize\":3,\"sourceType\":\"text\",\"sourceFilePdf\":{},\"sourceFileTxt\":{},\"sourceUrl\":\"\",\"context\":\"tailwind.config.js\",\"useCaseKey\":\"custom-chatbot-main\"}","timestamp":"2024-04-03T12:04:02.544Z"}
+{"level":"info","message":"CustomChatbotService - Tracking token usage for key: custom-chatbot-main","timestamp":"2024-04-03T12:04:02.544Z"}
+{"level":"info","message":"CustomChatbotService - Retrieved Pinecone store for namespace: tailwind.config.js","timestamp":"2024-04-03T12:04:02.615Z"}
+{"level":"info","message":"CustomChatbotService - Generated streaming response for question: ok","timestamp":"2024-04-03T12:04:02.616Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM input","timestamp":"2024-04-03T12:04:02.617Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM output","timestamp":"2024-04-03T12:04:03.310Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from embedding","timestamp":"2024-04-03T12:04:03.312Z"}
+{"level":"info","message":"CustomChatbotService - Calculating embedding tokens for model: text-embedding-3-small","timestamp":"2024-04-03T12:04:03.312Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM input","timestamp":"2024-04-03T12:04:03.951Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM output","timestamp":"2024-04-03T12:04:05.332Z"}
+{"level":"info","message":"POST /api/custom-chatbot/sample with data: {\"messages\":[{\"role\":\"system\",\"content\":\"I will provide you code snippets from the book \\\"The Almanack of Naval Ravikant\\\" from the vector database to help you answer the user's questions. \\nAnswer me on the questions based on provided context. If you don't know the answer, just say \\\"I don't know\\\" and I will try to help you.\"},{\"role\":\"user\",\"content\":\"ok\"}],\"context\":\"The-Almanack-Of-Naval-Ravikant.pdf\",\"useCaseKey\":\"custom-chatbot-sample\"}","timestamp":"2024-04-03T12:04:14.401Z"}
+{"level":"info","message":"CustomChatbotService - Tracking token usage for key: custom-chatbot-sample","timestamp":"2024-04-03T12:04:14.402Z"}
+{"level":"info","message":"CustomChatbotService - Retrieved Pinecone store for namespace: The-Almanack-Of-Naval-Ravikant.pdf","timestamp":"2024-04-03T12:04:14.475Z"}
+{"level":"info","message":"CustomChatbotService - Generated streaming response for question: ok","timestamp":"2024-04-03T12:04:14.476Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM input","timestamp":"2024-04-03T12:04:14.477Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM output","timestamp":"2024-04-03T12:04:15.177Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from embedding","timestamp":"2024-04-03T12:04:15.179Z"}
+{"level":"info","message":"CustomChatbotService - Calculating embedding tokens for model: text-embedding-3-small","timestamp":"2024-04-03T12:04:15.179Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM input","timestamp":"2024-04-03T12:04:15.934Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM output","timestamp":"2024-04-03T12:04:16.970Z"}
+{"level":"info","message":"POST /api/custom-chatbot/sample with data: {\"messages\":[{\"role\":\"system\",\"content\":\"I will provide you code snippets from the book \\\"The Almanack of Naval Ravikant\\\" from the vector database to help you answer the user's questions. \\nAnswer me on the questions based on provided context. If you don't know the answer, just say \\\"I don't know\\\" and I will try to help you.\"},{\"role\":\"user\",\"content\":\"hello\"}],\"context\":\"The-Almanack-Of-Naval-Ravikant.pdf\",\"useCaseKey\":\"custom-chatbot-sample\"}","timestamp":"2024-04-03T12:05:03.750Z"}
+{"level":"info","message":"CustomChatbotService - Tracking token usage for key: custom-chatbot-sample","timestamp":"2024-04-03T12:05:03.752Z"}
+{"level":"info","message":"CustomChatbotService - Retrieved Pinecone store for namespace: The-Almanack-Of-Naval-Ravikant.pdf","timestamp":"2024-04-03T12:05:03.850Z"}
+{"level":"info","message":"CustomChatbotService - Generated streaming response for question: hello","timestamp":"2024-04-03T12:05:03.850Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM input","timestamp":"2024-04-03T12:05:03.854Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM output","timestamp":"2024-04-03T12:05:04.531Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from embedding","timestamp":"2024-04-03T12:05:04.534Z"}
+{"level":"info","message":"CustomChatbotService - Calculating embedding tokens for model: text-embedding-3-small","timestamp":"2024-04-03T12:05:04.534Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM input","timestamp":"2024-04-03T12:05:05.351Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM output","timestamp":"2024-04-03T12:05:06.156Z"}
+{"level":"info","message":"POST /api/custom-chatbot/sample with data: {\"messages\":[{\"role\":\"system\",\"content\":\"I will provide you code snippets from the book \\\"The Almanack of Naval Ravikant\\\" from the vector database to help you answer the user's questions. \\nAnswer me on the questions based on provided context. If you don't know the answer, just say \\\"I don't know\\\" and I will try to help you.\"},{\"role\":\"user\",\"content\":\"sdf\"}],\"context\":\"The-Almanack-Of-Naval-Ravikant.pdf\",\"useCaseKey\":\"custom-chatbot-sample\"}","timestamp":"2024-04-03T12:05:33.686Z"}
+{"level":"info","message":"CustomChatbotService - Tracking token usage for key: custom-chatbot-sample","timestamp":"2024-04-03T12:05:33.688Z"}
+{"level":"info","message":"CustomChatbotService - Retrieved Pinecone store for namespace: The-Almanack-Of-Naval-Ravikant.pdf","timestamp":"2024-04-03T12:05:33.777Z"}
+{"level":"info","message":"CustomChatbotService - Generated streaming response for question: sdf","timestamp":"2024-04-03T12:05:33.778Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM input","timestamp":"2024-04-03T12:05:33.781Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM output","timestamp":"2024-04-03T12:05:34.669Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from embedding","timestamp":"2024-04-03T12:05:34.671Z"}
+{"level":"info","message":"CustomChatbotService - Calculating embedding tokens for model: text-embedding-3-small","timestamp":"2024-04-03T12:05:34.672Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM input","timestamp":"2024-04-03T12:05:35.881Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM output","timestamp":"2024-04-03T12:05:37.324Z"}
+{"level":"info","message":"POST /api/custom-chatbot/main with data: {\"messages\":[{\"role\":\"system\",\"content\":\"I will provide you code snippets from the book \\\"The Almanack of Naval Ravikant\\\" from the vector database to help you answer the user's questions. \\nAnswer me on the questions based on provided context. If you don't know the answer, just say \\\"I don't know\\\" and I will try to help you.\"},{\"role\":\"user\",\"content\":\"thanks\"}],\"conversationModel\":\"gpt-3.5-turbo\",\"conversationTemperature\":0.5,\"embeddingModel\":\"text-embedding-3-small\",\"chunkSize\":1024,\"chunkOverlap\":200,\"retrievalSize\":3,\"sourceType\":\"pdf\",\"sourceFilePdf\":{},\"sourceFileTxt\":{},\"sourceUrl\":\"\",\"context\":\"The-Almanack-Of-Naval-Ravikant.pdf\",\"useCaseKey\":\"custom-chatbot-main\"}","timestamp":"2024-04-03T12:06:15.789Z"}
+{"level":"info","message":"CustomChatbotService - Tracking token usage for key: custom-chatbot-main","timestamp":"2024-04-03T12:06:15.790Z"}
+{"level":"info","message":"CustomChatbotService - Retrieved Pinecone store for namespace: The-Almanack-Of-Naval-Ravikant.pdf","timestamp":"2024-04-03T12:06:15.881Z"}
+{"level":"info","message":"CustomChatbotService - Generated streaming response for question: thanks","timestamp":"2024-04-03T12:06:15.882Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM input","timestamp":"2024-04-03T12:06:15.884Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM output","timestamp":"2024-04-03T12:06:16.584Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from embedding","timestamp":"2024-04-03T12:06:16.584Z"}
+{"level":"info","message":"CustomChatbotService - Calculating embedding tokens for model: text-embedding-3-small","timestamp":"2024-04-03T12:06:16.584Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM input","timestamp":"2024-04-03T12:06:17.775Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM output","timestamp":"2024-04-03T12:06:19.201Z"}
+{"level":"info","message":"POST /api/custom-chatbot/sample with data: {\"messages\":[{\"role\":\"system\",\"content\":\"I will provide you code snippets from the book \\\"The Almanack of Naval Ravikant\\\" from the vector database to help you answer the user's questions. \\nAnswer me on the questions based on provided context. If you don't know the answer, just say \\\"I don't know\\\" and I will try to help you.\"},{\"role\":\"user\",\"content\":\"hello\"}],\"context\":\"The-Almanack-Of-Naval-Ravikant.pdf\",\"useCaseKey\":\"custom-chatbot-sample\"}","timestamp":"2024-04-03T12:11:01.373Z"}
+{"level":"info","message":"CustomChatbotService - Tracking token usage for key: custom-chatbot-sample","timestamp":"2024-04-03T12:11:01.374Z"}
+{"level":"info","message":"CustomChatbotService - Retrieved Pinecone store for namespace: The-Almanack-Of-Naval-Ravikant.pdf","timestamp":"2024-04-03T12:11:01.467Z"}
+{"level":"info","message":"CustomChatbotService - Generated streaming response for question: hello","timestamp":"2024-04-03T12:11:01.468Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM input","timestamp":"2024-04-03T12:11:01.473Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM output","timestamp":"2024-04-03T12:11:02.049Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from embedding","timestamp":"2024-04-03T12:11:02.050Z"}
+{"level":"info","message":"CustomChatbotService - Calculating embedding tokens for model: text-embedding-3-small","timestamp":"2024-04-03T12:11:02.050Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM input","timestamp":"2024-04-03T12:11:03.908Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM output","timestamp":"2024-04-03T12:11:05.085Z"}
+{"level":"info","message":"POST /api/custom-chatbot/sample with data: {\"messages\":[{\"role\":\"system\",\"content\":\"I will provide you code snippets from the book \\\"The Almanack of Naval Ravikant\\\" from the vector database to help you answer the user's questions. \\nAnswer me on the questions based on provided context. If you don't know the answer, just say \\\"I don't know\\\" and I will try to help you.\"},{\"role\":\"user\",\"content\":\"hello\"}],\"context\":\"The-Almanack-Of-Naval-Ravikant.pdf\",\"useCaseKey\":\"custom-chatbot-sample\"}","timestamp":"2024-04-03T12:13:47.367Z"}
+{"level":"info","message":"CustomChatbotService - Tracking token usage for key: custom-chatbot-sample","timestamp":"2024-04-03T12:13:47.369Z"}
+{"level":"info","message":"CustomChatbotService - Retrieved Pinecone store for namespace: The-Almanack-Of-Naval-Ravikant.pdf","timestamp":"2024-04-03T12:13:47.505Z"}
+{"level":"info","message":"CustomChatbotService - Generated streaming response for question: hello","timestamp":"2024-04-03T12:13:47.506Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM input","timestamp":"2024-04-03T12:13:47.513Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM output","timestamp":"2024-04-03T12:13:48.209Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from embedding","timestamp":"2024-04-03T12:13:48.213Z"}
+{"level":"info","message":"CustomChatbotService - Calculating embedding tokens for model: text-embedding-3-small","timestamp":"2024-04-03T12:13:48.213Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM input","timestamp":"2024-04-03T12:13:49.680Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM output","timestamp":"2024-04-03T12:13:50.940Z"}
+{"level":"info","message":"POST /api/custom-chatbot/main with data: {\"messages\":[{\"role\":\"system\",\"content\":\"I will provide you code snippets from the book \\\"The Almanack of Naval Ravikant\\\" from the vector database to help you answer the user's questions. \\nAnswer me on the questions based on provided context. If you don't know the answer, just say \\\"I don't know\\\" and I will try to help you.\"},{\"role\":\"user\",\"content\":\"hello\"}],\"conversationModel\":\"gpt-3.5-turbo\",\"conversationTemperature\":0.5,\"embeddingModel\":\"text-embedding-3-small\",\"chunkSize\":1024,\"chunkOverlap\":200,\"retrievalSize\":3,\"sourceType\":\"pdf\",\"sourceFilePdf\":{},\"sourceFileTxt\":{},\"sourceUrl\":\"\",\"context\":\"The-Almanack-Of-Naval-Ravikant.pdf\",\"useCaseKey\":\"custom-chatbot-main\"}","timestamp":"2024-04-03T12:16:39.808Z"}
+{"level":"info","message":"CustomChatbotService - Tracking token usage for key: custom-chatbot-main","timestamp":"2024-04-03T12:16:39.810Z"}
+{"level":"info","message":"CustomChatbotService - Retrieved Pinecone store for namespace: The-Almanack-Of-Naval-Ravikant.pdf","timestamp":"2024-04-03T12:16:39.945Z"}
+{"level":"info","message":"CustomChatbotService - Generated streaming response for question: hello","timestamp":"2024-04-03T12:16:39.946Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM input","timestamp":"2024-04-03T12:16:39.951Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM output","timestamp":"2024-04-03T12:16:41.088Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from embedding","timestamp":"2024-04-03T12:16:41.093Z"}
+{"level":"info","message":"CustomChatbotService - Calculating embedding tokens for model: text-embedding-3-small","timestamp":"2024-04-03T12:16:41.093Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM input","timestamp":"2024-04-03T12:16:42.318Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM output","timestamp":"2024-04-03T12:16:43.856Z"}
+{"level":"info","message":"POST /api/custom-chatbot/main with data: {\"messages\":[{\"role\":\"system\",\"content\":\"I will provide you code snippets from the book \\\"The Almanack of Naval Ravikant\\\" from the vector database to help you answer the user's questions. \\nAnswer me on the questions based on provided context. If you don't know the answer, just say \\\"I don't know\\\" and I will try to help you.\"},{\"role\":\"user\",\"content\":\"hello\"},{\"role\":\"assistant\",\"content\":\"I can assist you with any questions or tasks you have related to finding the positive in situations, learning from past experiences, or improving your overall happiness. Just let me know how I can help!\"},{\"role\":\"user\",\"content\":\"hello\"}],\"conversationModel\":\"gpt-3.5-turbo\",\"conversationTemperature\":0.5,\"embeddingModel\":\"text-embedding-3-small\",\"chunkSize\":1024,\"chunkOverlap\":200,\"retrievalSize\":3,\"sourceType\":\"pdf\",\"sourceFilePdf\":{},\"sourceFileTxt\":{},\"sourceUrl\":\"\",\"context\":\"The-Almanack-Of-Naval-Ravikant.pdf\",\"useCaseKey\":\"custom-chatbot-main\"}","timestamp":"2024-04-03T12:16:48.025Z"}
+{"level":"info","message":"CustomChatbotService - Tracking token usage for key: custom-chatbot-main","timestamp":"2024-04-03T12:16:48.026Z"}
+{"level":"info","message":"CustomChatbotService - Retrieved Pinecone store for namespace: The-Almanack-Of-Naval-Ravikant.pdf","timestamp":"2024-04-03T12:16:48.083Z"}
+{"level":"info","message":"CustomChatbotService - Generated streaming response for question: hello","timestamp":"2024-04-03T12:16:48.084Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM input","timestamp":"2024-04-03T12:16:48.085Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM output","timestamp":"2024-04-03T12:16:48.884Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from embedding","timestamp":"2024-04-03T12:16:48.887Z"}
+{"level":"info","message":"CustomChatbotService - Calculating embedding tokens for model: text-embedding-3-small","timestamp":"2024-04-03T12:16:48.888Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM input","timestamp":"2024-04-03T12:16:51.083Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM output","timestamp":"2024-04-03T12:16:52.383Z"}
+{"level":"info","message":"POST /api/custom-chatbot/main with data: {\"messages\":[{\"role\":\"system\",\"content\":\"I will provide you code snippets from the book \\\"The Almanack of Naval Ravikant\\\" from the vector database to help you answer the user's questions. \\nAnswer me on the questions based on provided context. If you don't know the answer, just say \\\"I don't know\\\" and I will try to help you.\"},{\"role\":\"user\",\"content\":\"thanks\"}],\"conversationModel\":\"gpt-3.5-turbo\",\"conversationTemperature\":0.5,\"embeddingModel\":\"text-embedding-3-small\",\"chunkSize\":1024,\"chunkOverlap\":200,\"retrievalSize\":3,\"sourceType\":\"pdf\",\"sourceFilePdf\":{},\"sourceFileTxt\":{},\"sourceUrl\":\"\",\"context\":\"The-Almanack-Of-Naval-Ravikant.pdf\",\"useCaseKey\":\"custom-chatbot-main\"}","timestamp":"2024-04-03T12:19:01.337Z"}
+{"level":"info","message":"CustomChatbotService - Tracking token usage for key: custom-chatbot-main","timestamp":"2024-04-03T12:19:01.338Z"}
+{"level":"info","message":"CustomChatbotService - Retrieved Pinecone store for namespace: The-Almanack-Of-Naval-Ravikant.pdf","timestamp":"2024-04-03T12:19:01.514Z"}
+{"level":"info","message":"CustomChatbotService - Generated streaming response for question: thanks","timestamp":"2024-04-03T12:19:01.515Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM input","timestamp":"2024-04-03T12:19:01.521Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM output","timestamp":"2024-04-03T12:19:02.225Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from embedding","timestamp":"2024-04-03T12:19:02.226Z"}
+{"level":"info","message":"CustomChatbotService - Calculating embedding tokens for model: text-embedding-3-small","timestamp":"2024-04-03T12:19:02.226Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM input","timestamp":"2024-04-03T12:19:04.106Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM output","timestamp":"2024-04-03T12:19:06.386Z"}
+{"level":"info","message":"POST /api/pinecone/save-context with data: {\"embeddingModel\":\"text-embedding-3-small\",\"sourceType\":\"text\",\"chunkSize\":\"1024\",\"chunkOverlap\":\"200\",\"fileName\":\"tailwind.config.js\",\"url\":null,\"file\":{},\"useCaseKey\":\"custom-chatbot-main\"}","timestamp":"2024-04-03T12:19:15.021Z"}
+{"level":"info","message":"PineconeClientConnectionSingleton - Creating Pinecone client instance","timestamp":"2024-04-03T12:19:15.021Z"}
+{"level":"info","message":"PineconeIndexService - Connected to Pinecone index langchain-explorer","timestamp":"2024-04-03T12:19:15.092Z"}
+{"level":"info","message":"PineconeIndexService - Deleted all namespaces except The-Almanack-Of-Naval-Ravikant.pdf","timestamp":"2024-04-03T12:19:16.481Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from embedding","timestamp":"2024-04-03T12:19:16.485Z"}
+{"level":"info","message":"PineconeIndexService - Saved documents to vector store","timestamp":"2024-04-03T12:19:19.991Z"}
+{"level":"info","message":"POST /api/custom-chatbot/main with data: {\"messages\":[{\"role\":\"system\",\"content\":\"I will provide you code snippets from the book \\\"The Almanack of Naval Ravikant\\\" from the vector database to help you answer the user's questions. \\nAnswer me on the questions based on provided context. If you don't know the answer, just say \\\"I don't know\\\" and I will try to help you.\"},{\"role\":\"user\",\"content\":\"op \"}],\"conversationModel\":\"gpt-3.5-turbo\",\"conversationTemperature\":0.5,\"embeddingModel\":\"text-embedding-3-small\",\"chunkSize\":1024,\"chunkOverlap\":200,\"retrievalSize\":3,\"sourceType\":\"text\",\"sourceFilePdf\":{},\"sourceFileTxt\":{},\"sourceUrl\":\"\",\"context\":\"tailwind.config.js\",\"useCaseKey\":\"custom-chatbot-main\"}","timestamp":"2024-04-03T12:19:23.733Z"}
+{"level":"info","message":"CustomChatbotService - Tracking token usage for key: custom-chatbot-main","timestamp":"2024-04-03T12:19:23.734Z"}
+{"level":"info","message":"CustomChatbotService - Retrieved Pinecone store for namespace: tailwind.config.js","timestamp":"2024-04-03T12:19:23.780Z"}
+{"level":"info","message":"CustomChatbotService - Generated streaming response for question: op ","timestamp":"2024-04-03T12:19:23.781Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM input","timestamp":"2024-04-03T12:19:23.784Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM output","timestamp":"2024-04-03T12:19:24.267Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from embedding","timestamp":"2024-04-03T12:19:24.270Z"}
+{"level":"info","message":"CustomChatbotService - Calculating embedding tokens for model: text-embedding-3-small","timestamp":"2024-04-03T12:19:24.270Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM input","timestamp":"2024-04-03T12:19:25.099Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM output","timestamp":"2024-04-03T12:19:26.276Z"}
+{"level":"info","message":"POST /api/custom-chatbot/sample with data: {\"messages\":[{\"role\":\"system\",\"content\":\"I will provide you code snippets from the book \\\"The Almanack of Naval Ravikant\\\" from the vector database to help you answer the user's questions. \\nAnswer me on the questions based on provided context. If you don't know the answer, just say \\\"I don't know\\\" and I will try to help you.\"},{\"role\":\"user\",\"content\":\"thanks\"}],\"context\":\"The-Almanack-Of-Naval-Ravikant.pdf\",\"useCaseKey\":\"custom-chatbot-sample\"}","timestamp":"2024-04-03T12:19:35.603Z"}
+{"level":"info","message":"CustomChatbotService - Tracking token usage for key: custom-chatbot-sample","timestamp":"2024-04-03T12:19:35.604Z"}
+{"level":"info","message":"CustomChatbotService - Retrieved Pinecone store for namespace: The-Almanack-Of-Naval-Ravikant.pdf","timestamp":"2024-04-03T12:19:35.679Z"}
+{"level":"info","message":"CustomChatbotService - Generated streaming response for question: thanks","timestamp":"2024-04-03T12:19:35.680Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM input","timestamp":"2024-04-03T12:19:35.682Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM output","timestamp":"2024-04-03T12:19:36.798Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from embedding","timestamp":"2024-04-03T12:19:36.801Z"}
+{"level":"info","message":"CustomChatbotService - Calculating embedding tokens for model: text-embedding-3-small","timestamp":"2024-04-03T12:19:36.801Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM input","timestamp":"2024-04-03T12:19:37.969Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM output","timestamp":"2024-04-03T12:19:39.543Z"}
+{"level":"info","message":"POST /api/custom-chatbot/main with data: {\"messages\":[{\"role\":\"system\",\"content\":\"I will provide you code snippets from the book \\\"The Almanack of Naval Ravikant\\\" from the vector database to help you answer the user's questions. \\nAnswer me on the questions based on provided context. If you don't know the answer, just say \\\"I don't know\\\" and I will try to help you.\"},{\"role\":\"user\",\"content\":\"thanks\"}],\"conversationModel\":\"gpt-3.5-turbo\",\"conversationTemperature\":0.5,\"embeddingModel\":\"text-embedding-3-small\",\"chunkSize\":1024,\"chunkOverlap\":200,\"retrievalSize\":3,\"sourceType\":\"pdf\",\"sourceFilePdf\":{},\"sourceFileTxt\":{},\"sourceUrl\":\"\",\"context\":\"The-Almanack-Of-Naval-Ravikant.pdf\",\"useCaseKey\":\"custom-chatbot-main\"}","timestamp":"2024-04-03T12:19:48.582Z"}
+{"level":"info","message":"CustomChatbotService - Tracking token usage for key: custom-chatbot-main","timestamp":"2024-04-03T12:19:48.583Z"}
+{"level":"info","message":"CustomChatbotService - Retrieved Pinecone store for namespace: The-Almanack-Of-Naval-Ravikant.pdf","timestamp":"2024-04-03T12:19:48.648Z"}
+{"level":"info","message":"CustomChatbotService - Generated streaming response for question: thanks","timestamp":"2024-04-03T12:19:48.648Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM input","timestamp":"2024-04-03T12:19:48.650Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM output","timestamp":"2024-04-03T12:19:49.194Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from embedding","timestamp":"2024-04-03T12:19:49.196Z"}
+{"level":"info","message":"CustomChatbotService - Calculating embedding tokens for model: text-embedding-3-small","timestamp":"2024-04-03T12:19:49.196Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM input","timestamp":"2024-04-03T12:19:49.932Z"}
+{"level":"info","message":"TokenUsageTracker - Counted tokens from LLM output","timestamp":"2024-04-03T12:19:50.755Z"}

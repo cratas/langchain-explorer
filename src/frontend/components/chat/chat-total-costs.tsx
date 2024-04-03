@@ -5,33 +5,35 @@ import React from 'react';
 
 type Props = {
   withMarginTop?: boolean;
-  currentTokenUsage: TokenUsage | null;
+  currentTokenUsage: TokenUsage;
   modelName: ConversationModelOptions;
   embeddingModelName?: EmbeddingModelOptions;
   isLoading?: boolean;
+  defaultEmbeddingTokens?: number;
 };
 
 const DECIMAL_PLACES = 8;
 
 export const ChatTotalCosts = ({
+  defaultEmbeddingTokens,
   currentTokenUsage,
   modelName,
   embeddingModelName,
   withMarginTop,
   isLoading,
 }: Props) => {
-  const { totalPromptTokens, totalCompletionTokens, embeddingTokens } = currentTokenUsage ?? {
-    totalPromptTokens: 0,
-    totalCompletionTokens: 0,
-    embeddingTokens: 0,
-  };
+  const { totalPromptTokens, totalCompletionTokens, embeddingTokens } = currentTokenUsage;
 
   const inputCosts = calcModelCostByTokens(totalPromptTokens, modelName, 'input');
 
   const outputCosts = calcModelCostByTokens(totalCompletionTokens, modelName, 'output');
 
   const embeddingCosts = embeddingModelName
-    ? calcModelCostByTokens(embeddingTokens, embeddingModelName, 'input')
+    ? calcModelCostByTokens(
+        embeddingTokens + (defaultEmbeddingTokens ?? 0),
+        embeddingModelName,
+        'input'
+      )
     : 0;
 
   const overallCosts = inputCosts + outputCosts + embeddingCosts;
@@ -63,7 +65,7 @@ export const ChatTotalCosts = ({
         {embeddingModelName &&
           renderItem(
             'Embedding costs',
-            embeddingTokens,
+            embeddingTokens + (defaultEmbeddingTokens ?? 0),
             embeddingCosts.toFixed(DECIMAL_PLACES),
             isLoading
           )}

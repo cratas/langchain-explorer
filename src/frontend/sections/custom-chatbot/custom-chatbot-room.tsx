@@ -24,6 +24,8 @@ import { EXAMPLE_CONTEXT, QA_TEMPLATE } from '@/constants/custom-chatbot';
 import { STANDALONE_QUESTION_TEMPLATE } from '@/backend/constants/prompt-templates';
 import { CUSTOM_CHATBOT_SAMPLE_UC_KEY } from '@/shared/constants/use-case-keys';
 
+const DEFAULT_NAVAL_EMBEDDING_TOKENS = 142394;
+
 type Props = {
   fileName: string;
   systemMessage: string;
@@ -72,7 +74,13 @@ export const CustomChatBotRoom = ({ fileName, systemMessage }: Props) => {
   const { messagesEndRef } = useMessagesScroll([messages, newGptMessageSignal]);
 
   useEffect(() => {
-    initTokenUsage();
+    const initTokenUsageAndRefetch = async () => {
+      await initTokenUsage();
+
+      await getTokenUsage();
+    };
+
+    initTokenUsageAndRefetch();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -99,6 +107,7 @@ export const CustomChatBotRoom = ({ fileName, systemMessage }: Props) => {
         <RoomHeader onClear={() => setMessages([])} title={fileName} />
 
         <ChatTotalCosts
+          defaultEmbeddingTokens={DEFAULT_NAVAL_EMBEDDING_TOKENS}
           embeddingModelName="text-embedding-3-small"
           isLoading={isLoadingUsage}
           withMarginTop

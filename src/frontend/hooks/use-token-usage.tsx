@@ -9,10 +9,17 @@ export type TokenUsage = {
   embeddingTokens: number;
 };
 
+const defualtTokenUsage: TokenUsage = {
+  totalPromptTokens: 0,
+  totalCompletionTokens: 0,
+  totalTokens: 0,
+  embeddingTokens: 0,
+};
+
 export const useTokenUsage = (useCaseKey: string) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
-  const [currentTokenUsage, setCurrentTokenUsage] = useState<TokenUsage | null>(null);
+  const [currentTokenUsage, setCurrentTokenUsage] = useState<TokenUsage>(defualtTokenUsage);
 
   const initTokenUsage = useCallback(async () => {
     try {

@@ -17,26 +17,32 @@ import { generateRandomId } from '@/shared/utils/generate-random-id';
 import { CustomChatbotPageSettingsType } from '@/frontend/types/custom-chatbot';
 import { toast } from 'react-toastify';
 import { ChatTotalCosts } from '@/frontend/components/chat/chat-total-costs';
-import { useTokenUsage } from '@/frontend/hooks/use-token-usage';
 import { formatChatHistory } from '@/backend/utils/format-chat-history';
 import { STANDALONE_QUESTION_TEMPLATE } from '@/backend/constants/prompt-templates';
 import { EXAMPLE_CONTEXT, QA_TEMPLATE } from '@/constants/custom-chatbot';
 import { getTokensCountByLLMProvider } from '@/shared/utils/get-tokens-count-by-llm';
 import { getProviderByModelName } from '@/backend/utils/get-provider-by-model';
 import { CUSTOM_CHATBOT_MAIN_UC_KEY } from '@/shared/constants/use-case-keys';
+import { TokenUsage } from '@/frontend/hooks/use-token-usage';
 
 type Props = CustomChatbotPageSettingsType & {
   sourceName: string;
+  getTokenUsage: () => Promise<void>;
+  currentTokenUsage: TokenUsage;
+  isLoadingUsage: boolean;
+  defaultEmbeddingTokens?: number;
 };
 
-export const CustomChatbotPageRoom = ({ sourceName, systemMessage, ...otherSettings }: Props) => {
+export const CustomChatbotPageRoom = ({
+  sourceName,
+  systemMessage,
+  getTokenUsage,
+  currentTokenUsage,
+  isLoadingUsage,
+  defaultEmbeddingTokens,
+  ...otherSettings
+}: Props) => {
   const [isStreaming, setIsStreaming] = useState(false);
-
-  const {
-    getTokenUsage,
-    currentTokenUsage,
-    isLoading: isLoadingUsage,
-  } = useTokenUsage(CUSTOM_CHATBOT_MAIN_UC_KEY);
 
   const handleError = () => {
     setIsStreaming(false);
@@ -61,7 +67,7 @@ export const CustomChatbotPageRoom = ({ sourceName, systemMessage, ...otherSetti
     onResponse: () => setIsStreaming(true),
     onFinish: handleFinish,
     onError: handleError,
-    body: { context: sourceName, useCaseKey: CUSTOM_CHATBOT_MAIN_UC_KEY, ...otherSettings },
+    body: { ...otherSettings, context: sourceName, useCaseKey: CUSTOM_CHATBOT_MAIN_UC_KEY },
     api: endpoints.customChatbot.main,
   });
 
@@ -93,6 +99,7 @@ export const CustomChatbotPageRoom = ({ sourceName, systemMessage, ...otherSetti
         isLoading={isLoadingUsage}
         currentTokenUsage={currentTokenUsage}
         modelName={otherSettings.conversationModel}
+        defaultEmbeddingTokens={defaultEmbeddingTokens}
       />
 
       <div
