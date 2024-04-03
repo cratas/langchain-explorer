@@ -66,10 +66,10 @@ export const CONVERSATION_MODEL_OPTIONS: OptionType<ConversationModelOptions>[] 
 ];
 
 export const EMBEDDING_MODEL_OPTIONS: OptionType<EmbeddingModelOptions>[] = [
-  {
-    label: 'mistral-embed (Mistral AI)',
-    value: 'mistral-embed',
-  },
+  // {
+  //   label: 'mistral-embed (Mistral AI)',
+  //   value: 'mistral-embed',
+  // },
   {
     label: 'text-embedding-ada-002 (OpenAI)',
     value: 'text-embedding-ada-002',
@@ -78,10 +78,10 @@ export const EMBEDDING_MODEL_OPTIONS: OptionType<EmbeddingModelOptions>[] = [
     label: 'text-embedding-3-small (OpenAI)',
     value: 'text-embedding-3-small',
   },
-  {
-    label: 'text-embedding-3-large (OpenAI)',
-    value: 'text-embedding-3-large',
-  },
+  // {
+  //   label: 'text-embedding-3-large (OpenAI)',
+  //   value: 'text-embedding-3-large',
+  // },
 ];
 
 export const CustomChatbotSettingsSchema = Yup.object().shape({

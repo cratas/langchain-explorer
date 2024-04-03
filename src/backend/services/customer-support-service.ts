@@ -124,9 +124,9 @@ export class CustomerSupportService {
     try {
       const response = await this._functionCallChatService.getLLMResponse(messages);
 
-      TokenUsageTrackerRegistry.getTokenUsageTracker(
-        this._tokensUsageTrackerKey
-      )?.countTokensFromFunctionCallingResponse(response);
+      TokenUsageTrackerRegistry.getInstance()
+        .getTokenUsageTracker(this._tokensUsageTrackerKey)
+        ?.countTokensFromFunctionCallingResponse(response);
 
       let finalInput;
 

@@ -21,10 +21,10 @@ export const POST = async (request: Request) => {
 
     const customChatbotService = new CustomChatbotService({
       conversationModelName: conversationModel,
-      conversationModelTemperature: conversationTemperature,
+      conversationModelTemperature: Number(conversationTemperature),
       embeddingModel,
       pineconeNamespaceName: context,
-      retrievalSize,
+      retrievalSize: Number(retrievalSize),
       tokensUsageTrackerKey: useCaseKey,
     });
 

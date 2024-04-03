@@ -12,15 +12,6 @@ export class PineconeClientConnectionSingleton {
   private static instance: Pinecone;
 
   /**
-   * Private constructor to prevent direct instantiation.
-   * Throws an error if called directly. Use PineconeClientConnectionSingleton.getInstance() instead.
-   * @throws {Error} Always thrown to enforce singleton pattern.
-   */
-  private constructor() {
-    throw new Error('Use PineconeClientConnectionSingleton.getInstance()');
-  }
-
-  /**
    * Provides the singleton instance of the Pinecone client.
    * If the instance does not exist, it creates one using the Pinecone API key from global configuration.
    * Otherwise, it returns the existing instance.
