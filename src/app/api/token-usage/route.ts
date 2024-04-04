@@ -11,8 +11,9 @@ export const GET = async (request: Request) => {
       return NextResponse.json({ message: 'useCaseKey is required' }, { status: 400 });
     }
 
-    const tokenUsage =
-      TokenUsageTrackerRegistry.getTokenUsageTracker(useCaseKey)?.getCurrentTokenUsage();
+    const tokenUsage = TokenUsageTrackerRegistry.getInstance()
+      .getTokenUsageTracker(useCaseKey)
+      ?.getCurrentTokenUsage();
 
     return NextResponse.json({ tokenUsage }, { status: 200 });
   } catch (error) {
@@ -25,9 +26,11 @@ export const POST = async (request: Request) => {
     const body = await request.json();
     const { useCaseKey } = body;
 
-    TokenUsageTrackerRegistry.deleteTokenUsageTracker(useCaseKey);
+    const tokenUsageTracker = TokenUsageTrackerRegistry.getInstance();
 
-    TokenUsageTrackerRegistry.addTockenUsageTracker(useCaseKey);
+    tokenUsageTracker.deleteTokenUsageTracker(useCaseKey);
+
+    tokenUsageTracker.addTockenUsageTracker(useCaseKey);
 
     return NextResponse.json({ message: 'Token usage saved' }, { status: 200 });
   } catch (error) {

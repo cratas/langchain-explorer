@@ -15,15 +15,6 @@ export class PrismaClientConnectionSingleton {
   private static instance: PrismaClient;
 
   /**
-   * Private constructor to prevent direct instantiation of the class.
-   * Throws an error if attempted to be instantiated directly. Use PrismaClientConnectionSingleton.getInstance() for accessing the instance.
-   * @throws {Error} Always thrown to enforce the singleton pattern.
-   */
-  private constructor() {
-    throw new Error('Use PrismaClientConnectionSingleton.getInstance()');
-  }
-
-  /**
    * Provides the singleton instance of the Prisma client.
    * In a production environment, it maintains a single instance within the class.
    * In other environments, it attaches the instance to the global object to ensure a single instance across the application.

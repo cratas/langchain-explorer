@@ -26,7 +26,7 @@ export const POST = async (request: Request) => {
       .filter(([, value]) => value)
       .map(([category]) => category);
 
-    const moderationService = new ModerationService({ minScore });
+    const moderationService = new ModerationService({ minScore: Number(minScore) });
 
     const isInputFlaggedAsHarmful = await moderationService.checkInputAndSaveFlaggedCategories(
       input,
@@ -41,7 +41,7 @@ export const POST = async (request: Request) => {
 
     const chatService = new ChatService({
       modelName: conversationModel,
-      modelTemperature: conversationTemperature,
+      modelTemperature: Number(conversationTemperature),
       promptTemplate: COMMON_TEMPLATE_WITH_CHAT_HISTORY,
       tokensUsageTrackerKey: useCaseKey,
     });

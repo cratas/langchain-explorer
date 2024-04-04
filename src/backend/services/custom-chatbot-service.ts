@@ -111,7 +111,10 @@ export class CustomChatbotService {
 
       supportedLLMModels.push(this._nonStreamingModel);
 
-      TokenUsageTrackerRegistry.trackTockenUsage(tokensUsageTrackerKey, supportedLLMModels);
+      TokenUsageTrackerRegistry.getInstance().trackTockenUsage(
+        tokensUsageTrackerKey,
+        supportedLLMModels
+      );
 
       logger.info(`CustomChatbotService - Tracking token usage for key: ${tokensUsageTrackerKey}`);
     }
@@ -200,12 +203,12 @@ export class CustomChatbotService {
             {
               ...handlers,
               handleRetrieverStart: (_, query) => {
-                TokenUsageTrackerRegistry.getTokenUsageTracker(
-                  this._tokensUsageTrackerKey
-                )?.countTokensFromEmbedding(
-                  query,
-                  this._embeddingModel instanceof OpenAIEmbeddings ? 'openai' : 'mistral'
-                );
+                TokenUsageTrackerRegistry.getInstance()
+                  .getTokenUsageTracker(this._tokensUsageTrackerKey)
+                  ?.countTokensFromEmbedding(
+                    query,
+                    this._embeddingModel instanceof OpenAIEmbeddings ? 'openai' : 'mistral'
+                  );
 
                 logger.info(
                   `CustomChatbotService - Calculating embedding tokens for model: ${this._embeddingModel.modelName}`

@@ -85,12 +85,16 @@ export class PineconeIndexService {
     useCaseKey: string
   ): Promise<void> {
     try {
-      TokenUsageTrackerRegistry.addTockenUsageTracker(useCaseKey);
+      const tokenUsageTracker = TokenUsageTrackerRegistry.getInstance();
 
-      TokenUsageTrackerRegistry.getTokenUsageTracker(useCaseKey)?.countTokensFromEmbedding(
-        JSON.stringify(documents),
-        getProviderByModelName(embeddingModel) as 'openai' | 'mistral'
-      );
+      tokenUsageTracker.addTockenUsageTracker(useCaseKey);
+
+      tokenUsageTracker
+        .getTokenUsageTracker(useCaseKey)
+        ?.countTokensFromEmbedding(
+          JSON.stringify(documents),
+          getProviderByModelName(embeddingModel) as 'openai' | 'mistral'
+        );
 
       const embedder = EmbeddingLLMFactory.createObject(
         getProviderByModelName(embeddingModel) as EmbeddingLLMProvider,
