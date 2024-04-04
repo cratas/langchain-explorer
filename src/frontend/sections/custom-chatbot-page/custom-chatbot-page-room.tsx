@@ -75,6 +75,7 @@ export const CustomChatbotPageRoom = ({
 
   const { messagesEndRef } = useMessagesScroll([messages, newGptMessageSignal]);
 
+  // TODO: fix performance issues with anthropic
   const inputTokensCountIncludingPrompTemplate = useMemo(() => {
     const standaloneQuestionPromptTemplate = STANDALONE_QUESTION_TEMPLATE.replace(
       '{chat_history}',

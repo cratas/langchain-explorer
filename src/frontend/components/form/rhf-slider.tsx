@@ -1,25 +1,40 @@
 import { Slider, Typography } from '@/frontend/components/tailwind-components';
 import { SliderProps } from '@material-tailwind/react';
-import React, { useState } from 'react';
-import { Controller, useFormContext } from 'react-hook-form';
+import React, { useEffect, useState } from 'react';
+import { Controller, useFormContext, useWatch } from 'react-hook-form';
 
 type Props = SliderProps & {
   name: string;
   label: string;
+  doubled?: boolean;
 };
 
-export const RHFSlider = ({ name, label }: Props) => {
-  const { control, setValue: setFormValue, getValues } = useFormContext();
+const normalizeValue = (value: number, doubled: boolean) => {
+  const normalizedValue = (value / 100).toFixed(4);
 
-  const [value, setValue] = useState<number>(getValues(name) * 100);
+  return doubled ? Number(normalizedValue) * 2 : Number(normalizedValue);
+};
+
+export const RHFSlider = ({ name, label, doubled = false }: Props) => {
+  const { control, setValue: setFormValue } = useFormContext();
+
+  const currentValue = useWatch({ control })[name];
+
+  const [value, setValue] = useState<number>(currentValue * 100);
 
   const handleChangeValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(Number(e.target.value));
 
-    const normalizedValue = (Number(e.target.value) / 100).toFixed(4);
+    const finalValue = normalizeValue(Number(e.target.value), doubled);
 
-    setFormValue(name, normalizedValue);
+    setFormValue(name, finalValue);
   };
+
+  useEffect(() => {
+    const finalValue = normalizeValue(Number(value), doubled);
+
+    setFormValue(name, finalValue);
+  }, [doubled]);
 
   return (
     <Controller
