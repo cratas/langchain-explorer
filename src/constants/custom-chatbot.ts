@@ -1,6 +1,4 @@
 export const QA_TEMPLATE = `You are an enthusiastic AI assistant. Use the following pieces of context to answer the question at the end.
-If you don't know the answer, just say you don't know. DO NOT try to make up an answer.
-If the question is not related to the context, politely respond that you are tuned to only answer questions that are related to the context.
 
 Context:
 {context}
@@ -47,6 +45,25 @@ Even if you can’t come up with something positive, you can say,
 “Well, the Universe is going to teach me something now. Now 
 I get to listen and learn.”
 To give you the simplest example: I was at an event and a#er-
+
+SAVING YOURSELF · 
+or look at someone running by and say, “He’s out of shape, and 
+I’m in be!er shape than him.”
+If I saw a guy with a bad hair day, I would at first think “Haha, 
+he has a bad hair day.” Well, why am I laughing at him to make 
+me feel be!er about myself? And why am I trying to make me 
+feel be!er about my own hair? Because I’m losing my hair, and 
+I’m afraid it’s going to go away. What I find is 90 percent of 
+thoughts I have are fear-based. The other 10 percent may be 
+desire-based.
+You don’t make any decisions. You don’t judge anything. You 
+just accept everything. If I do that for ten or fi#een minutes 
+while walking around, I end up in a very peaceful, grateful state. 
+Choiceless Awareness works well for me. [6]
+You could also do transcendental meditation, which is where 
+you’re using repetitive chanting to create a white noise in your 
+head to bury your thoughts. Or, you can just very keenly and 
+very alertly be aware of your thoughts as they happen. As you
 
 SAVING YOURSELF · 
 or look at someone running by and say, “He’s out of shape, and 

@@ -82,7 +82,7 @@ export class CustomChatbotService {
     conversationModelTemperature,
     embeddingModel,
     pineconeNamespaceName,
-    retrievalSize = 3,
+    retrievalSize = 4,
     tokensUsageTrackerKey,
   }: CustomChatbotServiceOptions) {
     this._streamingModel = ChatLLMFactory.createObject(

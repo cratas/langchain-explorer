@@ -56,7 +56,7 @@ export const CustomChatBotViewHeader = () => (
       },
       {
         label: 'Retrievals count',
-        value: '3',
+        value: '4',
         tooltipContent: 'Count of retrieved chunks from vector databse sent to LLM.',
       },
     ]}

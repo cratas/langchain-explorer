@@ -134,7 +134,7 @@ export const defaultValuesWithoutDefaultFile: CustomChatbotPageSettingsType = {
   embeddingModel: 'text-embedding-3-small' as EmbeddingModelOptions,
   chunkSize: 1024,
   chunkOverlap: 200,
-  retrievalSize: 3,
+  retrievalSize: 4,
   sourceType: 'pdf' as SourceOptions,
   systemMessage: DEFAULT_SYSTEM_MESSAGE,
   sourceFilePdf: {

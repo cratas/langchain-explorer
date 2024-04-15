@@ -16,7 +16,7 @@ export const POST = async (request: Request) => {
       conversationModelTemperature: 0.2,
       embeddingModel: 'text-embedding-3-small',
       pineconeNamespaceName: context,
-      retrievalSize: 3,
+      retrievalSize: 4,
       tokensUsageTrackerKey: useCaseKey,
     });
 
