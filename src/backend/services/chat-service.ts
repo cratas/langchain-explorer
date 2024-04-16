@@ -68,9 +68,7 @@ export class ChatService {
     }
 
     if (tokensUsageTrackerKey) {
-      TokenUsageTrackerRegistry.getInstance().trackTockenUsage(tokensUsageTrackerKey, [
-        this._model,
-      ]);
+      TokenUsageTrackerRegistry.getInstance().trackTokenUsage(tokensUsageTrackerKey, [this._model]);
 
       logger.info(`ChatService - Tracking token usage for key: ${tokensUsageTrackerKey}`);
     }

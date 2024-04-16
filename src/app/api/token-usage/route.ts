@@ -30,7 +30,7 @@ export const POST = async (request: Request) => {
 
     tokenUsageTracker.deleteTokenUsageTracker(useCaseKey);
 
-    tokenUsageTracker.addTockenUsageTracker(useCaseKey);
+    tokenUsageTracker.addTokenUsageTracker(useCaseKey);
 
     return NextResponse.json({ message: 'Token usage saved' }, { status: 200 });
   } catch (error) {

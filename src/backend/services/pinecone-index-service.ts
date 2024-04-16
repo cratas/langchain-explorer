@@ -87,7 +87,7 @@ export class PineconeIndexService {
     try {
       const tokenUsageTracker = TokenUsageTrackerRegistry.getInstance();
 
-      tokenUsageTracker.addTockenUsageTracker(useCaseKey);
+      tokenUsageTracker.addTokenUsageTracker(useCaseKey);
 
       tokenUsageTracker
         .getTokenUsageTracker(useCaseKey)

@@ -111,7 +111,7 @@ export class CustomChatbotService {
 
       supportedLLMModels.push(this._nonStreamingModel);
 
-      TokenUsageTrackerRegistry.getInstance().trackTockenUsage(
+      TokenUsageTrackerRegistry.getInstance().trackTokenUsage(
         tokensUsageTrackerKey,
         supportedLLMModels
       );

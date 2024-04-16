@@ -11,30 +11,13 @@ export class TokenUsageTrackerRegistry {
   private static instance: TokenUsageTrackerRegistry;
 
   public static getInstance(): TokenUsageTrackerRegistry {
-    if (process.env.NODE_ENV === 'production') {
-      if (!TokenUsageTrackerRegistry.instance) {
-        logger.info(
-          'TokenUsageTrackerRegistry - Creating TokenUsageTrackerRegistry client instance'
-        );
+    if (!TokenUsageTrackerRegistry.instance) {
+      logger.info('TokenUsageTrackerRegistry - Creating TokenUsageTrackerRegistry client instance');
 
-        TokenUsageTrackerRegistry.instance = new TokenUsageTrackerRegistry();
-      }
-
-      return TokenUsageTrackerRegistry.instance;
+      TokenUsageTrackerRegistry.instance = new TokenUsageTrackerRegistry();
     }
 
-    // In non-production environments (development), use a global variable to ensure singleton behavior across hot-reloads.
-    const globalWithPrisma = global as typeof globalThis & {
-      tockenUsageTracker: TokenUsageTrackerRegistry;
-    };
-
-    if (!globalWithPrisma.tockenUsageTracker) {
-      logger.info('PrismaClientConnectionSingleton - Creating Prisma client instance');
-
-      globalWithPrisma.tockenUsageTracker = new TokenUsageTrackerRegistry();
-    }
-
-    return globalWithPrisma.tockenUsageTracker;
+    return TokenUsageTrackerRegistry.instance;
   }
 
   /**
@@ -53,7 +36,7 @@ export class TokenUsageTrackerRegistry {
    * @param {string} key - The unique identifier for the token usage tracker.
    * @param {ModelOptions[]} llmModels - The array of LLM model options for the tracker.
    */
-  public trackTockenUsage(key: string, llmModels: ModelOptions[]) {
+  public trackTokenUsage(key: string, llmModels: ModelOptions[]) {
     const existingTracker = this.tokenUsageTrackers.get(key);
 
     if (existingTracker) {
@@ -63,7 +46,7 @@ export class TokenUsageTrackerRegistry {
     }
   }
 
-  public addTockenUsageTracker(key: string) {
+  public addTokenUsageTracker(key: string) {
     if (!this.tokenUsageTrackers.has(key)) {
       this.tokenUsageTrackers.set(key, new TokenUsageTracker());
     }
