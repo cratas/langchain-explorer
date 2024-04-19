@@ -35,7 +35,7 @@ export const ModerationViewHeader = () => (
         tooltipContent: 'Temperature of conversation LLM.',
       },
       {
-        label: 'Min score',
+        label: 'Min. classification score',
         value: '0.1',
         tooltipContent:
           'The minimum score of classification value for inclusion in the relevant category.',

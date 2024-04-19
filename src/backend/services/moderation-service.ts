@@ -106,6 +106,8 @@ export class ModerationService {
 
       const categoriesWithScores: { [key: string]: number } = results[0].category_scores;
 
+      const flaggedByOpenAI = results[0]?.flagged;
+
       const selectedCategoriesWithScores = selectedCategories.length
         ? this.filterBySelectedCategories(categoriesWithScores, selectedCategories)
         : this.filterByMinScore(categoriesWithScores);
@@ -119,12 +121,13 @@ export class ModerationService {
           `ModerationService - Flagged categories in input text: ${JSON.stringify(this.flaggedCategories)}`
         );
 
-        return true;
+        // return true;
       }
 
       logger.info('ModerationService - No categories flagged in input text.');
 
-      return false;
+      return !!flaggedByOpenAI;
+      // return false;
     } catch (error) {
       logger.error(`ModerationService - Error checking input for flagged categories: ${error}`);
 

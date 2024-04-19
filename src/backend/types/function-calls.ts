@@ -57,7 +57,7 @@ export const functionCallsDefinition: Partial<ChatOpenAICallOptions> = {
       type: 'function' as const,
       function: {
         name: FunctionCallsNames.findOrder,
-        description: 'Find the specific order by id, username, order status, date range,.',
+        description: 'Find the specific order by id, username, order status or date range.',
         parameters: zodToJsonSchema(findOrderSchema),
       },
     },
