@@ -20,7 +20,7 @@ export const CustomerSupportViewHeader = () => (
       },
       {
         label: 'LLM Temperature',
-        value: '0',
+        value: '0.1',
         tooltipContent: 'Temperature of LLM Model.',
       },
       {

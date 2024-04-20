@@ -52,7 +52,7 @@ export class CustomerSupportService {
   constructor({ tokensUsageTrackerKey }: CustomerSupportServiceOptions) {
     this._functionCallChatService = new ChatService({
       modelName: 'gpt-3.5-turbo',
-      modelTemperature: 0,
+      modelTemperature: 0.1,
       promptTemplate: COMMON_TEMPLATE_WITH_CHAT_HISTORY,
       functionCallsDefinition,
       tokensUsageTrackerKey,
