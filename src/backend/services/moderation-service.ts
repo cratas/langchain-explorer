@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-dupe-class-members */
 import { OpenAIModerationChain } from 'langchain/chains';
+import { FlaggingOptions } from '@/shared/types/common';
 import { logger } from '../../../logger';
 
 type CategoryWithScore = {
@@ -10,6 +11,7 @@ type CategoryWithScore = {
 interface ModerationServiceOptions {
   minScore?: number;
   selectedCategories?: string[];
+  flagBy?: FlaggingOptions;
 }
 
 /**
@@ -21,14 +23,18 @@ export class ModerationService {
 
   private readonly _minScore: number;
 
+  private readonly _flagBy: FlaggingOptions;
+
   private _flaggedCategories: CategoryWithScore[] = [];
 
   /**
    * Constructs an instance of the ModerationService.
    * @param {ModerationServiceOptions} options - Configuration options for the moderation service.
    */
-  constructor({ minScore = 0.1 }: ModerationServiceOptions) {
+  constructor({ minScore = 0.1, flagBy = 'openai' }: ModerationServiceOptions) {
     this._moderation = new OpenAIModerationChain({});
+
+    this._flagBy = flagBy;
 
     this._minScore = minScore;
   }
@@ -106,7 +112,7 @@ export class ModerationService {
 
       const categoriesWithScores: { [key: string]: number } = results[0].category_scores;
 
-      // const flaggedByOpenAI = results[0]?.flagged;
+      const flaggedByOpenAI = results[0]?.flagged;
 
       const selectedCategoriesWithScores = selectedCategories.length
         ? this.filterBySelectedCategories(categoriesWithScores, selectedCategories)
@@ -121,13 +127,12 @@ export class ModerationService {
           `ModerationService - Flagged categories in input text: ${JSON.stringify(this.flaggedCategories)}`
         );
 
-        return true;
+        if (this._flagBy === 'classification') {
+          return true;
+        }
       }
 
-      logger.info('ModerationService - No categories flagged in input text.');
-
-      return false;
-      // return !!flaggedByOpenAI;
+      return this._flagBy === 'openai' ? !!flaggedByOpenAI : false;
     } catch (error) {
       logger.error(`ModerationService - Error checking input for flagged categories: ${error}`);
 

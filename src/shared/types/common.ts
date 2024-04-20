@@ -12,6 +12,8 @@ export type ConversationModelOptions =
   | 'claude-3-sonnet-20240229'
   | 'claude-3-haiku-20240307';
 
+export type FlaggingOptions = 'openai' | 'classification';
+
 export type EmbeddingModelOptions =
   | 'mistral-embed'
   | 'text-embedding-ada-002'

@@ -1,4 +1,4 @@
-import { ConversationModelOptions } from '@/shared/types/common';
+import { ConversationModelOptions, FlaggingOptions } from '@/shared/types/common';
 
 export type ModerationUseCase = {
   label: string;
@@ -10,6 +10,7 @@ export type ModerationUseCase = {
 export type ModerationPageSettingsType = {
   conversationModel: ConversationModelOptions;
   conversationTemperature: number;
+  flagBy: FlaggingOptions;
   minScore: number;
   systemMessage: string;
   categories: {

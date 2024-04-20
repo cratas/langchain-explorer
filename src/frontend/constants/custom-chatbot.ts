@@ -1,6 +1,7 @@
 import {
   ConversationModelOptions,
   EmbeddingModelOptions,
+  FlaggingOptions,
   OptionType,
   SourceOptions,
 } from '@/shared/types/common';
@@ -27,6 +28,17 @@ export const SOURCE_OPTIONS: OptionType<SourceOptions>[] = [
   {
     label: 'Cheerio Web Scraping',
     value: 'cheerio-web-scraping',
+  },
+];
+
+export const FLAG_OPTIONS: OptionType<FlaggingOptions>[] = [
+  {
+    label: 'Classification score',
+    value: 'classification',
+  },
+  {
+    label: 'OpenAI Policies',
+    value: 'openai',
   },
 ];
 
