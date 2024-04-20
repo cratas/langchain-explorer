@@ -35,10 +35,10 @@ export const ModerationViewHeader = () => (
         tooltipContent: 'Temperature of conversation LLM.',
       },
       {
-        label: 'Min. classification score',
-        value: '0.1',
+        label: 'Flagging by',
+        value: 'OpenAI policies',
         tooltipContent:
-          'The minimum score of classification value for inclusion in the relevant category.',
+          'The method used to flag inappropriate content. This can be based on a set of pre-defined categories, a minimum score threshold, or a combination of both.',
       },
 
       {

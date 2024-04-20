@@ -1,7 +1,7 @@
-import { ConversationModelOptions } from '@/shared/types/common';
+import { ConversationModelOptions, FlaggingOptions } from '@/shared/types/common';
 import * as Yup from 'yup';
 import { ModerationPageSettingsType, ModerationUseCase } from '@/frontend/types/moderation';
-import { CONVERSATION_MODEL_OPTIONS } from './custom-chatbot';
+import { CONVERSATION_MODEL_OPTIONS, FLAG_OPTIONS } from './custom-chatbot';
 
 export const SYSTEM_MESSAGE_NO_COMPETITION =
   'You are an Apple assistant. You are here to help people choose Apple products. If you see any messages that are related to competiors or are not related to Apple products, you will flag them.';
@@ -42,6 +42,9 @@ export const ModerationSettingsSchema = Yup.object().shape({
     .required('Conversation model is required'),
   conversationTemperature: Yup.number().required('Temperature is required'),
   minScore: Yup.number().required('Min score is required'),
+  flagBy: Yup.mixed<FlaggingOptions>()
+    .oneOf(FLAG_OPTIONS.map((o) => o.value))
+    .required('Flag by is required'),
   systemMessage: Yup.string().required('System message is required'),
   categories: Yup.object().shape({
     sexual: Yup.boolean().required(),
@@ -61,6 +64,7 @@ export const ModerationSettingsSchema = Yup.object().shape({
 export const defaultValues: ModerationPageSettingsType = {
   conversationModel: 'gpt-3.5-turbo',
   conversationTemperature: 0.2,
+  flagBy: 'classification',
   minScore: 0.5,
   systemMessage: SYSTEM_MESSAGE_NO_COMPETITION,
   categories: {

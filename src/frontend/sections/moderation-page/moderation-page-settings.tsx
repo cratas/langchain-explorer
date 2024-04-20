@@ -6,7 +6,7 @@ import { RHFCheckbox, RHFSelect, RHFSlider, RHFTextarea } from '@/frontend/compo
 import { UseCaseSettingsCard } from '@/frontend/components/common';
 import { ModerationPageSettingsType } from '@/frontend/types/moderation';
 import { ModerationSettingsSchema } from '@/frontend/constants/moderation';
-import { CONVERSATION_MODEL_OPTIONS } from '@/frontend/constants/custom-chatbot';
+import { CONVERSATION_MODEL_OPTIONS, FLAG_OPTIONS } from '@/frontend/constants/custom-chatbot';
 import { getProviderByModelName } from '@/backend/utils/get-provider-by-model';
 
 type Props = {
@@ -79,6 +79,10 @@ export const ModerationPageSettings = ({ formRef, defaultSettings, changeSetting
 
         <UseCaseSettingsCard title="Min. classification score">
           <RHFSlider name="minScore" defaultValue={50} label="Min. score" />
+        </UseCaseSettingsCard>
+
+        <UseCaseSettingsCard title="Filtering input">
+          <RHFSelect name="flagBy" label="Flag by" options={FLAG_OPTIONS} />
         </UseCaseSettingsCard>
 
         <UseCaseSettingsCard title="System message">

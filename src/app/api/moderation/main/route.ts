@@ -16,6 +16,7 @@ export const POST = async (request: Request) => {
       conversationTemperature,
       categories,
       useCaseKey,
+      flagBy,
     } = body;
     const input = messages[messages.length - 1].content;
 
@@ -26,7 +27,7 @@ export const POST = async (request: Request) => {
       .filter(([, value]) => value)
       .map(([category]) => category);
 
-    const moderationService = new ModerationService({ minScore: Number(minScore) });
+    const moderationService = new ModerationService({ minScore: Number(minScore), flagBy });
 
     const isInputFlaggedAsHarmful = await moderationService.checkInputAndSaveFlaggedCategories(
       input,
