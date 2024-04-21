@@ -9,6 +9,7 @@ export const validateRequestAndGetFormData = (formData: FormData) => {
   const url = formData.get('url');
   const file = formData.get('file') as Blob;
   const useCaseKey = formData.get('useCaseKey') as string;
+  const branch = formData.get('branch') as string;
 
   if (!useCaseKey) {
     throw new Error('Missing Use Case Key');
@@ -39,5 +40,6 @@ export const validateRequestAndGetFormData = (formData: FormData) => {
     url,
     file,
     useCaseKey,
+    branch,
   };
 };

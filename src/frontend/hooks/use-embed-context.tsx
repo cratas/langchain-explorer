@@ -17,7 +17,8 @@ export const useEmbedContext = () => {
     chunkOverlap: number,
     chunkSize: number,
     model: EmbeddingModelOptions,
-    useCaseKey: UseCaseKey
+    useCaseKey: UseCaseKey,
+    branch: string
   ): Promise<boolean> => {
     setIsLoading(true);
 
@@ -28,6 +29,7 @@ export const useEmbedContext = () => {
     formData.append('chunkOverlap', String(chunkOverlap));
     formData.append('embeddingModel', model);
     formData.append('useCaseKey', useCaseKey);
+    formData.append('branch', branch);
 
     if (sourceType === 'pdf' || sourceType === 'text') {
       formData.append('file', context);

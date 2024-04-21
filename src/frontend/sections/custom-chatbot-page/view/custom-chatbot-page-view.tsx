@@ -84,7 +84,8 @@ export const CustomChatbotPageView = () => {
       data.chunkOverlap,
       data.chunkSize,
       data.embeddingModel,
-      CUSTOM_CHATBOT_MAIN_UC_KEY
+      CUSTOM_CHATBOT_MAIN_UC_KEY,
+      data.branch
     );
 
     if (saved) {

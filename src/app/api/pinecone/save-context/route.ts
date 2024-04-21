@@ -13,8 +13,17 @@ export const POST = async (request: Request) => {
   try {
     const formData = await request.formData();
 
-    const { chunkOverlap, chunkSize, sourceType, file, url, embeddingModel, fileName, useCaseKey } =
-      validateRequestAndGetFormData(formData);
+    const {
+      chunkOverlap,
+      branch,
+      chunkSize,
+      sourceType,
+      file,
+      url,
+      embeddingModel,
+      fileName,
+      useCaseKey,
+    } = validateRequestAndGetFormData(formData);
 
     logger.info(
       `POST ${endpoints.pinecone.saveContext} with data: ${JSON.stringify(validateRequestAndGetFormData(formData))}`
@@ -26,7 +35,7 @@ export const POST = async (request: Request) => {
       CUSTOM_CHATBOT_DEFAULT_FILE_NAME
     );
 
-    const loader = DocumentsLoaderFactory.createLoader(sourceType, file || url);
+    const loader = DocumentsLoaderFactory.createLoader(sourceType, file || url, branch);
 
     const documents = await loader.load();
 

@@ -127,6 +127,7 @@ export const CustomChatbotSettingsSchema = Yup.object().shape({
     is: 'pdf',
     then: (schema) => schema.required('PDF file is required'),
   }),
+  branch: Yup.string().required('Branch name is required'),
   sourceFileTxt: Yup.mixed<File>().when('sourceType', {
     is: 'text',
     then: (schema) =>
@@ -147,6 +148,7 @@ export const defaultValuesWithoutDefaultFile: CustomChatbotPageSettingsType = {
   chunkSize: 1024,
   chunkOverlap: 200,
   retrievalSize: 4,
+  branch: 'master',
   sourceType: 'pdf' as SourceOptions,
   systemMessage: DEFAULT_SYSTEM_MESSAGE,
   sourceFilePdf: {

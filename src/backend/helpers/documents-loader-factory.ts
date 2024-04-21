@@ -15,7 +15,7 @@ import { SourceOptions } from '@/shared/types/common';
  * @throws {Error} Throws an error if an invalid source type is provided.
  */
 export class DocumentsLoaderFactory {
-  static createLoader(sourceType: SourceOptions, source: Blob | string) {
+  static createLoader(sourceType: SourceOptions, source: Blob | string, branch = 'master') {
     switch (sourceType) {
       case 'pdf':
         return new PDFLoader(source, {
@@ -27,7 +27,7 @@ export class DocumentsLoaderFactory {
         return new CheerioWebBaseLoader(source as string);
       case 'github-repository':
         return new GithubRepoLoader(source as string, {
-          branch: 'main',
+          branch,
           recursive: false,
           unknown: 'warn',
           maxConcurrency: 5,

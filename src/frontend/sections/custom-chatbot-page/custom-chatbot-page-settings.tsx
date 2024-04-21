@@ -29,7 +29,7 @@ export const CustomChatbotPageSettings = ({ formRef, defaultSettings, changeSett
     resolver: yupResolver(CustomChatbotSettingsSchema),
   });
 
-  const { handleSubmit, getValues, trigger, reset } = methods;
+  const { handleSubmit, getValues, trigger } = methods;
 
   const watchAllFields = useWatch({ control: methods.control });
 
@@ -97,6 +97,10 @@ export const CustomChatbotPageSettings = ({ formRef, defaultSettings, changeSett
 
             {sourceType === 'github-repository' && (
               <RHFInput type="url" name="sourceUrl" label="GibHub repo URL" />
+            )}
+
+            {sourceType === 'github-repository' && (
+              <RHFInput type="text" name="branch" label="Branch" />
             )}
           </>
         </UseCaseSettingsCard>
