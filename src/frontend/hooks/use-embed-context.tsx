@@ -36,6 +36,7 @@ export const useEmbedContext = () => {
       formData.append('fileName', (context as File).name);
     } else {
       formData.append('url', context);
+      formData.append('fileName', context);
     }
 
     const response = await fetch(endpoints.pinecone.saveContext, {
