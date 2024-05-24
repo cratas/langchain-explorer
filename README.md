@@ -6,7 +6,7 @@ Next.js (TypeScript) project that shows the possibilities of using LangChain tec
 
 - `yarn` installing all dependencies from package.json and run husky prepare
 
-## Install dependencies
+## Set environment variables
 
 - You must first set the environment variables before running app
 - .env.example displays a list of variables that need to be set
